@@ -1,0 +1,22 @@
+.newFolder {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    height: 45px;
+    width: 45px;
+    margin: auto;
+    border-radius: 25%;
+    background-color: transparent;
+    transition: all .3s ease-in-out;
+  }
+
+  .newFolder img {
+    height: 35px;
+    margin: auto;
+    background-color: #F4B248;
+    border-radius: 25%;
+  }
+
+.newFolder:hover {
+    transform: scale(1.1);
+  }

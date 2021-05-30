@@ -1,0 +1,29 @@
+.new-folder-modal{
+    padding-bottom: "100%"
+}
+
+.modal-content{
+    padding-bottom: 3%;
+}
+
+.line-up{
+    background-color: #F4B248;
+    height: 7px;
+    width: 100%;
+}
+
+.modal-header{
+    padding: 0;
+    display: block;
+}
+
+.modal-title{
+    align-items: center;
+}
+
+.close-btn{
+    background-color: transparent;
+    border: none;
+    margin: 10px auto auto 90%;
+    width: fit-content;
+}

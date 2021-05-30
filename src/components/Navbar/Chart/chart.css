@@ -1,0 +1,8 @@
+.chart > div{
+    position: relative;
+}
+
+.chart svg{
+    position: absolute;
+    top: -18px;
+}

@@ -1,0 +1,8 @@
+.empty-trash-btn{
+    background-color: "#707070";
+    border-radius: "4px";
+    height: "38px"
+}
+.empty-trash-btn:hover{
+    background-color: "#F4B248"
+}
