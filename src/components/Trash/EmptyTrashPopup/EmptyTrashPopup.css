@@ -1,0 +1,52 @@
+.line-up{
+    background-color: #F4B248;
+    height: 7px;
+    width: 100%;
+}
+
+.empty-trash-modal .modal-title{
+    padding: 5%;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.empty-trash-modal > .modal-content{
+    padding-top: 0;
+}
+
+.buttons-container{
+    width: fit-content;
+    margin: auto;
+}
+
+.empty-trash-modal .modal-body{
+    padding-top: 0;
+    padding-bottom: 30px;
+}
+
+.empty-trash-modal .modal-content{
+    width: 530px;
+}
+
+.buttons-container .cancel-btn {
+    background-color: white;
+    border-color: #F4B248;
+    color: black;
+    padding: 0;
+    width: 78.22px;
+    height: 38px;
+    text-align: center;
+    transition: all .2s ease-in-out;
+}
+
+.buttons-container .cancel-btn:hover {
+    font-size: 1.1rem;
+    transform: scale(1);
+}
+
+.buttons-container .create-btn{
+    background-color: #F4B248;
+    border-color: #F4B248;
+    width: 78.22px;
+    height: 38px;
+}

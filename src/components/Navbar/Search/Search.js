@@ -12,7 +12,7 @@ const Search = ({ filteredFiles }) => {
             style={{
                 border: "0.5px solid #BDBDC9",
                 borderRadius: "4px",
-                width: "100%",
+                width: "250px",
                 height: "40px",
                 margin: "0",
             }}

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from "react-redux";
 
-// import actions from "../../actions";
-
 import Search from "./Search/Search";
-import DisplayButtons from "./DisplayButtons/DisplayButtons";
-import UploadBtn from "./Upload/UploadBtn";
 import FilterButtons from "./FilterButtons/FilterButtons";
-import NewFolderBtn from "./NewFolderBtn/NewFolderBtn";
 import Chart from "./Chart/Chart";
+
+import "./navbar.css"
+
+import { Container, Row, Col } from 'react-bootstrap';
 
 const Navbar = ({ files, filteredFilesByType, changeView, changeProps, showGrid, setShowGrid }) => {
 
@@ -83,13 +82,22 @@ const Navbar = ({ files, filteredFilesByType, changeView, changeProps, showGrid,
       }
 
     return (
-        <div>
-          <Search filteredFiles={ filteredFiles }/>
-          <DisplayButtons showGrid={ showGrid } setShowGrid={ setShowGrid }/>
-          <UploadBtn changeView={ changeView }/>
-          <FilterButtons filteredFiles={ filteredFiles }/>
-          <NewFolderBtn changeView={ changeView }/>
-          <Chart/>
+        <div className="navbar" style={{display: "flex", alignItems: "center"}}>
+          <div className="left-div">
+            <Container fluid>
+              <Row>
+                <Col>
+                  <Search filteredFiles={ filteredFiles }/>
+                </Col>
+                <Col >
+                  <Chart/>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+          <div className="filter-buttons">
+            <FilterButtons filteredFiles={ filteredFiles }/>
+          </div>
         </div>
     )
 }

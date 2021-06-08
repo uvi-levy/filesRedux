@@ -1,1 +1,38 @@
+#all{
+    color: #F5A421;
+}
 
+#folder{
+    color: #FF6B16;
+}
+
+#file{
+    color: #FF0303;
+}
+
+#img{
+    color: #2A3C98;
+}
+
+#audio{
+    color: #4BA2EF;
+}
+
+#video{
+    color: #87B52A;
+}
+
+#trash{
+    color: #AF3737;
+}
+
+.filter-btn{
+    font-size: 70% !important;
+    min-width: 94px !important;
+    width: fit-content !important;
+    margin: 3px !important;
+    height: 30px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    /* border: none !important; */
+}

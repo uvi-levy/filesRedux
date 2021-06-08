@@ -5,8 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-import Close from "../../../../assets/close-gray.png";
-import Folder from "../../../../assets/orange-folder.png";
+import Close from "../../../assets/close-gray.png";
 
 import "./emptyTrashPopup.css"
 
@@ -18,42 +17,30 @@ const EmptyTrashPopup = ({ isOpen, setIsOpen }) => {
 
     return (  
      <>
-      <Modal show={isOpen} onHide={hideModal} dialogClassName={"new-folder-modal"}>
+      <Modal show={isOpen} onHide={hideModal} dialogClassName={"empty-trash-modal"}>
           <Container>
-            <Row>
+          <Row>
               <div className="line-up">
               </div>
             </Row>
             <Row>
-              <button className="close-btn" onClick={hideModal}>
-                <img src={Close}></img>
-              </button>
-            </Row>
-            <Row>
-              <Col sm={2} style={{ paddingLeft: "12%", paddingTop: "0.7%" }}>
-                <img src={Folder}></img>
-              </Col>
-              <Col sm={10}>
-                <Modal.Title>New Folder</Modal.Title>
+              <Col>
+                <Modal.Title>Are You Sure You Want To Empty The Trash?</Modal.Title>
               </Col>
             </Row>
           </Container>
         <Modal.Body>
-          <Row>
-            <Col sm={6} style={{ marginLeft: "8.5%" }}>
-              <div className="input">
-                <input type="text" className="form-control" placeholder="Folder name" 
-                style={{ backgroundColor: "#F6F6FA", border: "none", height: "38px", color: "#8181A5" }} />
-              </div>
-            </Col>
-            <Col sm={2} style={{ padding: "0" }}>
-              <Button style={{backgroundColor: "white", borderColor: "#F4B248", color: "black"}}>
-                cancel
+          <Row className="buttons-container">
+            <Col style={{ padding: "0" }}>
+              <Button className="cancel-btn" 
+              onClick={() => setIsOpen(false)}
+              >
+                Cancel
               </Button>
             </Col>
-            <Col sm={2} style={{ padding: "0" }}>
-              <Button style={{backgroundColor: "#F4B248", borderColor: "#F4B248"}}>
-                create
+            <Col style={{ padding: "0", marginLeft: "5px" }}>
+              <Button className="create-btn">
+                Delete
               </Button>
             </Col>
           </Row>

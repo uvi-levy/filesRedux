@@ -1,0 +1,23 @@
+.folder{
+    background-color: #FBFBFD;
+    color: #707070;
+    border: 1px solid #707070;
+    width: 170px;
+    margin: 0 10px 10px 0;
+}
+
+.folder:hover{
+    background-color: #FBFBFD !important;
+    color: #707070;
+    border: 1px solid #707070;
+}
+
+.folders{
+    border-bottom: 1px solid #00000029;
+    padding-bottom: 10px;
+}
+
+.folders p{
+    color: #929292;
+    margin-top: 10px;
+}

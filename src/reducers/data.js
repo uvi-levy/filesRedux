@@ -5,7 +5,9 @@ const initialState = {
   data: [],
   files: [],
   filteredFilesByType: [],
-  folders: []
+  folders: [],
+  isLoadFiles: true,
+  isLoadFolders: true
 };
 
 const data = {
@@ -14,6 +16,7 @@ const data = {
   },
   setFiles(state, action) {
     state.files = action.payload;
+    state.isLoadFiles = false;
   },
   filteredFilesByType(state, action) {
     console.log("filteredFilesByType NavBar " + JSON.stringify(state.files));
@@ -38,47 +41,51 @@ const data = {
     console.log("loadFolders");
     let myFolder = [];
     let data = state.data;
-    if (typeof data === "object") {
-      data.forEach((file) => {
-        if (file.tags != "" && file.tags != "null" && file.tags) {
-          const folder = file.tags.split("/");
-          folder.forEach((folder) => myFolder.push(folder));
+    if(data){
+        if (typeof data === "object") {
+          data.forEach((file) => {
+            if (file.tags != "" && file.tags != "null" && file.tags) {
+              const folder = file.tags.split("/");
+              folder.forEach((folder) => myFolder.push(folder));
+            }
+          });
+    
+          let stringArray = myFolder.map(JSON.stringify);
+          let uniqueStringArray = new Set(stringArray);
+    
+          let foldersArr = [];
+          let folders = [{}];
+    
+          uniqueStringArray.forEach((str) => {
+            foldersArr.push(str);
+          });
+          foldersArr.forEach((folder) => {
+            if (folder && !folder.includes("\\") && folder != '"undefined"') {
+         let clean;
+              if(folder) {clean = folder.replace(/["']/g, "")}
+              const filteredFiles = data.filter(
+                (file) =>
+                  file.tags != null && file.tags && file.tags.includes(clean)
+              );
+              let date = filteredFiles.reduce((r, o) =>
+                o.datecreated < r.datecreated ? o : r
+              );
+              let size = 0;
+              for (let index = 0; index < filteredFiles.length; index++) {
+                size += filteredFiles[index].size * 1024;
+              }
+              let Folder = { name: clean, size: size, date: date.dateCreated };
+    
+              folders.push(Folder);
+            }
+          });
+    
+          state.folders = folders;
+          state.isLoadFolders = false;
+          console.log("folders===", state.folders);
         }
-      });
-
-      let stringArray = myFolder.map(JSON.stringify);
-      let uniqueStringArray = new Set(stringArray);
-
-      let foldersArr = [];
-      let folders = [{}];
-
-      uniqueStringArray.forEach((str) => {
-        foldersArr.push(str);
-      });
-      foldersArr.forEach((folder) => {
-        if (folder && !folder.includes("\\") && folder != '"undefined"') {
-          const clean = folder.replace(/["']/g, "");
-          const filteredFiles = data.filter(
-            (file) =>
-              file.tags != null && file.tags && file.tags.includes(clean)
-          );
-          let date = filteredFiles.reduce((r, o) =>
-            o.datecreated < r.datecreated ? o : r
-          );
-          let size = 0;
-          for (let index = 0; index < filteredFiles.length; index++) {
-            size += filteredFiles[index].size * 1024;
-          }
-          let folder = { name: clean, size: size, date: date.dateCreated };
-
-          folders.push(folder);
-        }
-      });
-
-      state.folders = folders;
-      console.log("folders===", state.folders);
-    }
-  }
+      }
+  },
 };
 
 const reducer = produce((state, action) => {

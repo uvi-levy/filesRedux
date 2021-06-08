@@ -1,0 +1,20 @@
+.empty-trash h4{
+    font-size: 27px;
+    color: #F4B248;
+    text-align: center;
+}
+
+.empty-trash h5{
+    font-size: 22px;
+    color: #3A405E;
+    text-align: center;
+}
+
+.empty-trash .img-container{
+    margin: 5% auto;
+    width: fit-content;
+}
+
+.empty-trash .img-container img{
+    height: 40vh;
+}

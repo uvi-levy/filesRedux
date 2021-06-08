@@ -1,0 +1,17 @@
+.bread-crumbs{
+    display: flex;
+    align-items: flex-start;
+}
+
+.bread-crumbs h5{
+    color: #F4B248;
+    margin-bottom: 0;
+}
+
+.bread-crumbs p{
+    color: #929292;
+}
+
+.bread-crumbs .icon{
+    margin-right: 15px;
+}

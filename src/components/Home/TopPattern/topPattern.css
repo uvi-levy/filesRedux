@@ -1,0 +1,27 @@
+.home-top-pattern{
+    border-bottom: 1px solid #00000029;
+    display: flex;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.vertical-line{
+    background-color: #00000029;
+    width: 2px;
+    height: 30px;
+    margin-right: 15px;
+    margin-left: 5px;
+}
+
+.home-top-pattern .left-div{
+    width: calc(100% - 268px) !important;
+}
+
+.home-top-pattern .left-div-trash{
+    width: calc(100% - 236px) !important;
+}
+
+.home-top-pattern .right-div{
+    display: flex;
+    align-items: center;
+}

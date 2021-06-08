@@ -1,0 +1,18 @@
+.no-files{
+    padding: 1% 0;
+    min-height: 70vh;
+}
+.no-files .img-container{
+    margin: 1% auto;
+    width: fit-content;
+}
+
+.no-files .img-container img{
+    width: 32vw;
+    max-width: 300px;
+}
+
+.no-files h4{
+    text-align: center;
+    margin-bottom: 15px;
+}

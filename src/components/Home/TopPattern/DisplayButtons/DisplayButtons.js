@@ -9,18 +9,19 @@ import {
   Container,
 } from "react-bootstrap";
 
-import Grid from "../../../assets/th-large-solid.png";
-import GridBlack from "../../../assets/grid-black.png";
-import List from "../../../assets/list-solid.png";
-import ListBlack from "../../../assets/list-black.png";
+import Grid from "../../../../assets/th-large-solid.png";
+import GridBlack from "../../../../assets/grid-black.png";
+import List from "../../../../assets/list-solid.png";
+import ListBlack from "../../../../assets/list-black.png";
+
+import "./displayButtons.css"
 
 const DisplayButtons = ({ showGrid, setShowGrid }) => {
 
     return (
-      <Container>
+      <Container className="display-buttons">
         <Row>
-        {" "}
-        <Col>
+        <Col className="no-padding">
           <OverlayTrigger
             placement="bottom"
             delay={{ show: 250, hide: 400 }}
@@ -32,7 +33,8 @@ const DisplayButtons = ({ showGrid, setShowGrid }) => {
           >
             <Button
               variant="outline-light"
-              className="showFiles"
+              className="dispaly-btn"
+              // style={{ paddingRight: "0" }}
               onClick={() => setShowGrid(!showGrid)}
             >
               {
@@ -42,7 +44,7 @@ const DisplayButtons = ({ showGrid, setShowGrid }) => {
             </Button>
           </OverlayTrigger>
         </Col>
-        <Col>
+        <Col className="no-padding">
           <OverlayTrigger
             placement="bottom"
             delay={{ show: 250, hide: 400 }}
@@ -54,7 +56,7 @@ const DisplayButtons = ({ showGrid, setShowGrid }) => {
           >
             <Button
               variant="outline-light"
-              className=" showFiles"
+              className="dispaly-btn"
               onClick={() => setShowGrid(!showGrid)}
             >
               {

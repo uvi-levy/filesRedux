@@ -1,0 +1,17 @@
+.page-numbers button{
+    color: #F4B248;
+    border-color: #F4B248;
+}
+
+.page-numbers button:hover{
+    color: white;
+    background-color: #F4B248;
+    border-color: #F4B248;
+}
+
+.btn-active{
+    color: white !important;
+    background-color: #F4B248 !important;
+    border-color: #F4B248 !important;
+}
+

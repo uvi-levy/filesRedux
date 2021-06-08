@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { connect } from "react-redux";
 import $ from "jquery";
@@ -7,9 +8,14 @@ import $ from "jquery";
 import actions from "../../actions";
 
 import Navbar from "../Navbar/Navbar";
+import TopPattern from "./TopPattern/TopPattern";
+import Folders from "./Folders/Folders";
+import Files from './Files/Files';
+
+import "./home.css"
 import Trash from '../Trash/Trash';
 
-const Home = ({ setData, setFiles, files, filteredFilesByType, loadFolders }) => {
+const Home = ({ data, setData, setFiles, files, filteredFilesByType, loadFolders }) => {
 
     const history = useHistory();
 
@@ -17,11 +23,10 @@ const Home = ({ setData, setFiles, files, filteredFilesByType, loadFolders }) =>
     let userName = url.pathname.split("/")[1];
   
     const [jwtFromCookie, setJwtFromCookie] = useState("");
-    const [filterdFiles, setFilterdFiles] = useState([{}]);
     const [next, setNext] = useState(false);
-    const [noFiles, setNoFiles] = useState(false);
     const [showGrid, setShowGrid] = useState(true);
     const [visibleNewFolder, setVisibleNewFolder] = useState(false);
+    const [showBreadcrumb, setShowBreadcrumb] = useState(false)
   
     useEffect(()=>{
       let tmpJwtFromCookie;
@@ -47,20 +52,22 @@ const Home = ({ setData, setFiles, files, filteredFilesByType, loadFolders }) =>
         filteredFilesByType()
       }
     }, [files, history])
-
+    
     useEffect(() => {
-      loadFolders()
-    }, [filteredFilesByType])
-  
+      if(data) loadFolders()
+    }, [data])
+
     useEffect(() => {
       if (jwtFromCookie) loadFiles()
     }, [jwtFromCookie])
-  
+
     const loadFiles = () => {
+      let url = window.location;
+      let userName = url.pathname.split("/")[1];
       console.log("load");
       $.ajax({
         type: "GET",
-        url: "https://files.codes/api/uvi", //+ localStorage.getItem("userName"),
+        url: "https://files.codes/api/" + userName, 
         headers: { authorization: jwtFromCookie },
         error: (err) => {
           if (err.status == 401) {
@@ -120,16 +127,35 @@ const Home = ({ setData, setFiles, files, filteredFilesByType, loadFolders }) =>
     };
 
     return (
-        <div>
+      <div>
+        <Router>
           <Navbar changeView={ changeView } showGrid={ showGrid } setShowGrid={ setShowGrid } />
-          <Trash/>
-        </div>
+          <div className="home-container">
+            <TopPattern jwtFromCookie={ jwtFromCookie } changeView={ changeView } showGrid={ showGrid } setShowGrid={ setShowGrid } setVisibleNewFolder={ setVisibleNewFolder } loadFiles={ loadFiles } />
+            <Switch>
+              <Route exact path="/:userName">
+                  <Folders/>
+                  <Files jwtFromCookie={ jwtFromCookie } setShowBreadcrumb={ setShowBreadcrumb } showGrid={ showGrid }/>
+              </Route>
+              <Route exact path="/:userName/upload">
+
+              </Route>
+              <Route exact path="/:userName/trash">
+                <Trash/>
+              </Route>
+              {/* add protected route for admin */}
+              {/* <Route/> add err page */}
+            </Switch>
+          </div>
+        </Router>
+      </div>
     );
   }
   
   const mapStateToProps = (state) => {
     return {
-      files: state.data.files
+      files: state.data.files,
+      data: state.data.data
     }
   }
   

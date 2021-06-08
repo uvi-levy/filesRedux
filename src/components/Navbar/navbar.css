@@ -1,0 +1,14 @@
+.navbar{
+    background-color: #FFFFFF;
+    padding: 15px;
+    box-shadow: 0px 3px 6px #00000029;
+}
+
+.navbar .filter-buttons{
+    width: fit-content;
+    margin-right: 2vw;
+}
+
+.navbar .left-div{
+    width: 350px;
+}

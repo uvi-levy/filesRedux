@@ -2,7 +2,7 @@
     padding-bottom: "100%"
 }
 
-.modal-content{
+.new-folder-modal > .modal-content{
     padding-bottom: 3%;
 }
 
@@ -12,18 +12,19 @@
     width: 100%;
 }
 
-.modal-header{
+.new-folder-modal .modal-header{
     padding: 0;
     display: block;
 }
 
-.modal-title{
+.new-folder-modal .modal-title{
     align-items: center;
 }
 
-.close-btn{
+.new-folder-modal .close-btn{
     background-color: transparent;
     border: none;
     margin: 10px auto auto 90%;
     width: fit-content;
 }
+

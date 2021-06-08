@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
-import EmptyTrashBtn from './EmptyTrashBtn/EmptyTrashBtn';
+import React from 'react'
+import EmptyTrash from './EmptyTrash/EmptyTrash';
 
 const Trash = () => {
 
-  const [isOpen, setIsOpen] = useState(false);
+    if(true){
+        return <EmptyTrash/>
+    }
 
     return (
         <div>
-            <EmptyTrashBtn isOpen={ isOpen } setIsOpen={ setIsOpen } />
+           
         </div>
     )
 }

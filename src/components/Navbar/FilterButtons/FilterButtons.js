@@ -2,12 +2,14 @@ import React from 'react'
 import { Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 
-import FileG from "../../../assets/file.png";
-import ImgG from "../../../assets/img.png";
-import AdiuoG from "../../../assets/audio.png";
-import VideoG from "../../../assets/video.png";
-import FolderG from "../../../assets/folder.png";
+import FileG from "../../../assets/files-new.png";
+import ImgG from "../../../assets/image-new.png";
+import AdiuoG from "../../../assets/audio-new.png";
+import VideoG from "../../../assets/video-new.png";
+import FolderG from "../../../assets/folders-new.png";
 import Trash from "../../../assets/trash.png";
+
+import "./filterButtons.css";
 
 const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {
 
@@ -19,6 +21,12 @@ const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {
     audio = filteredFilesByType[1].audio.length;
     all = doc + img + video + audio;
   }
+
+
+  // useEffect(() => {
+  //   if (folders) foldersLength = folders.length;
+  // }, [folders])
+
 
   if (folders) foldersLength = folders.length;
 
@@ -32,7 +40,7 @@ const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {
       num: foldersLength,
     },
     {
-      text: "Document",
+      text: "Files",
       value: "file",
       icon: FileG,
       num: doc, 
@@ -62,25 +70,22 @@ const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {
     },
   ];
   buttons.forEach((Button) => {
+    console.log(Button);
+    if(Button.num) Button.num=Button.num.toString()
     const button = (
-      <Col style={{ padding: "0", margin: "0.5%" }}>
         <button
-          className="btn btn-outline-secondary"
+          className="btn btn-outline-secondary filter-btn"
           id={Button.value}
           style={{
-            fontSize: "70%",
-            width: "100%",
-            margin: "0",
-            height: "30px",
+           
           }}
           onClick={() => {
             filteredFiles(Button.value);
           }}
         >
-          <img style={{ marginRight: "5%" }} src={Button.icon} />
+          <img style={{ marginRight: "5%", marginBottom: "4%" }} src={Button.icon} />
           {Button.text} {Button.num}
         </button>
-      </Col>
     );
     buttonsViews.push(button);
   });
@@ -89,8 +94,6 @@ const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {
         <div>
             <Col>
               <Row className="justify-content-md-flex-end">
-                {" "}
-                {/* <Chart /> */}
                 {buttonsViews}
               </Row>
             </Col>
