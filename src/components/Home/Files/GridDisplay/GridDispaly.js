@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { CardDeck, Col, Row } from 'react-bootstrap';
+import React from 'react'
+import { CardDeck } from 'react-bootstrap';
 
 const GridDispaly = ({ grid, showGrid, currentPage, cardsPerPage }) => {
     console.log("grid", grid);

@@ -7,7 +7,9 @@ const initialState = {
   filteredFilesByType: [],
   folders: [],
   isLoadFiles: true,
-  isLoadFolders: true
+  isLoadFolders: true,
+  trashFiles: [],
+  filteredFiles: []
 };
 
 const data = {
@@ -17,6 +19,14 @@ const data = {
   setFiles(state, action) {
     state.files = action.payload;
     state.isLoadFiles = false;
+    state.filteredFiles = action.payload;
+  },
+  setFilteredFiles(state, action){
+    state.filteredFiles = action.payload;
+  },
+  setTrashFiles(state, action){
+    state.trashFiles = action.payload;
+    state.filteredFiles = action.payload;
   },
   filteredFilesByType(state, action) {
     console.log("filteredFilesByType NavBar " + JSON.stringify(state.files));

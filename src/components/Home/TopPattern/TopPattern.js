@@ -31,7 +31,7 @@ const TopPattern = ({ showGrid, setShowGrid, changeView, jwtFromCookie, setVisib
                         <NewFolderBtn jwtFromCookie={ jwtFromCookie } changeView={ changeView } setVisibleNewFolder={ setVisibleNewFolder } loadFiles={ loadFiles }/>
                     </>
                     :
-                    <EmptyTrashBtn/>
+                    <EmptyTrashBtn loadFiles={ loadFiles } jwtFromCookie={ jwtFromCookie } />
                 }
             </div>
         </div>

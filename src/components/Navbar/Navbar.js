@@ -8,27 +8,34 @@ import Chart from "./Chart/Chart";
 import "./navbar.css"
 
 import { Container, Row, Col } from 'react-bootstrap';
+import actions from '../../actions';
 
-const Navbar = ({ files, filteredFilesByType, changeView, changeProps, showGrid, setShowGrid }) => {
+const Navbar = ({ files, filteredFilesByType, changeView, changeProps, jwtFromCookie, filteredFilesByTypeFunc }) => {
 
     let url = window.location;
     let userName = url.pathname.split("/")[1];
-    
+
     useEffect(() => {
-        console.log(filteredFilesByType);
+      filteredFilesByTypeFunc();
+    }, [])
+
+    useEffect(() => {
+      console.log(filteredFilesByType);
     }, [filteredFilesByType])
 
-    const filteredFiles = (type, searchVal) => {
-        const tmpFiles = files;
+    const filteredFilesFunc = (type, searchVal) => {
+        let tmpFiles = [];
+        tmpFiles = files;
         console.log("in filterFiles");
+
         let filtaredFiles=[];
-        changeView(userName); 
+        // changeView(userName); 
 
         console.log(tmpFiles);
 
         if (tmpFiles && tmpFiles.length) {
           if (type == "folder") {
-            changeProps([], true); //add
+            changeProps([], true); 
           }
           if (type == "search") {
             console.log("in searchInFiles");
@@ -40,7 +47,7 @@ const Navbar = ({ files, filteredFilesByType, changeView, changeProps, showGrid,
                 result.push(file);
               }
             });
-            // changeProps(result, false);
+            changeProps(result, false);
           }
           if (type == "img") {
             filtaredFiles =  filteredFilesByType[0].img;
@@ -79,7 +86,7 @@ const Navbar = ({ files, filteredFilesByType, changeView, changeProps, showGrid,
             console.log("trash");
             changeView("trash");
         }
-      }
+    }
 
     return (
         <div className="navbar" style={{display: "flex", alignItems: "center"}}>
@@ -87,16 +94,16 @@ const Navbar = ({ files, filteredFilesByType, changeView, changeProps, showGrid,
             <Container fluid>
               <Row>
                 <Col>
-                  <Search filteredFiles={ filteredFiles }/>
+                  <Search filteredFiles={ filteredFilesFunc }/>
                 </Col>
                 <Col >
-                  <Chart/>
+                  <Chart jwtFromCookie={ jwtFromCookie }/>
                 </Col>
               </Row>
             </Container>
           </div>
           <div className="filter-buttons">
-            <FilterButtons filteredFiles={ filteredFiles }/>
+            <FilterButtons filteredFiles={ filteredFilesFunc }/>
           </div>
         </div>
     )
@@ -104,9 +111,14 @@ const Navbar = ({ files, filteredFilesByType, changeView, changeProps, showGrid,
 
 const mapStateToProps = (state) => {
     return {
-         files: state.data.files,
-         filteredFilesByType: state.data.filteredFilesByType
+         filteredFilesByType: state.data.filteredFilesByType,
     }
 }
 
-export default connect(mapStateToProps)(Navbar)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    filteredFilesByTypeFunc: () => dispatch(actions.filteredFilesByType())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

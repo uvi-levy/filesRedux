@@ -3,6 +3,7 @@
     width: 96%;
     height: 84vh;
     overflow-y: auto;
+    scroll-behavior: auto;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;

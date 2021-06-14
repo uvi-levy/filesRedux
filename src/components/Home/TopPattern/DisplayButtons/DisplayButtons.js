@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import {
   Row,
@@ -17,6 +17,14 @@ import ListBlack from "../../../../assets/list-black.png";
 import "./displayButtons.css"
 
 const DisplayButtons = ({ showGrid, setShowGrid }) => {
+
+    useEffect(() => {
+      let url = window.location;
+      console.log("is trash", url.pathname.includes("trash"));
+      console.log("showGrid", showGrid);
+      if(url.pathname.includes("trash")) setShowGrid(false);
+      else setShowGrid(true);
+    }, [])
 
     return (
       <Container className="display-buttons">

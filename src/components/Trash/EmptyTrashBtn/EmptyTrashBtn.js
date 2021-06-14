@@ -4,7 +4,7 @@ import EmptyTrashPopup from '../EmptyTrashPopup/EmptyTrashPopup';
 
 import "./emptyTrashBtn.css"
 
-const EmptyTrashBtn = () => {
+const EmptyTrashBtn = ({ loadFiles, jwtFromCookie }) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -13,7 +13,7 @@ const EmptyTrashBtn = () => {
             <Button className="empty-trash-btn" onClick={() => setIsOpen(true)} >
                 Empty trash
             </Button>
-            <EmptyTrashPopup isOpen={ isOpen } setIsOpen={ setIsOpen } />
+            <EmptyTrashPopup isOpen={ isOpen } setIsOpen={ setIsOpen } loadFiles={ loadFiles } jwtFromCookie={ jwtFromCookie } />
         </div>
     )
 }

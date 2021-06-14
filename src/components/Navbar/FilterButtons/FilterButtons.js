@@ -1,6 +1,7 @@
 import React from 'react'
 import { Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import FileG from "../../../assets/files-new.png";
 import ImgG from "../../../assets/image-new.png";
@@ -22,6 +23,8 @@ const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {
     all = doc + img + video + audio;
   }
 
+  let url = window.location;
+  let userName = url.pathname.split("/")[1];
 
   // useEffect(() => {
   //   if (folders) foldersLength = folders.length;
@@ -33,12 +36,12 @@ const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {
   const buttonsViews = [];
   const buttons = [
     { text: "All", value: "all", num: all },
-    {
-      text: "Folder",
-      value: "folder",
-      icon: FolderG,
-      num: foldersLength,
-    },
+    // {
+    //   text: "Folder",
+    //   value: "folder",
+    //   icon: FolderG,
+    //   num: foldersLength,
+    // },
     {
       text: "Files",
       value: "file",
@@ -73,19 +76,34 @@ const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {
     console.log(Button);
     if(Button.num) Button.num=Button.num.toString()
     const button = (
-        <button
-          className="btn btn-outline-secondary filter-btn"
-          id={Button.value}
-          style={{
-           
-          }}
-          onClick={() => {
-            filteredFiles(Button.value);
-          }}
-        >
-          <img style={{ marginRight: "5%", marginBottom: "4%" }} src={Button.icon} />
-          {Button.text} {Button.num}
-        </button>
+      <>
+        {
+          Button.value == "trash" ? <Link to={ `/${userName}/trash`} style={{ width: "fit-content",
+            padding: "0" }}>
+            <button
+              className="btn btn-outline-secondary filter-btn"
+              id={Button.value}
+              onClick={() => {
+                filteredFiles(Button.value)
+              }}
+            >
+              <img style={{ marginRight: "5%", marginBottom: "4%" }} src={Button.icon} />
+              {Button.text} {Button.num}
+            </button>
+          </Link> :
+
+          <button
+            className="btn btn-outline-secondary filter-btn"
+            id={Button.value}
+            onClick={() => {
+              filteredFiles(Button.value)
+            }}
+          >
+            <img style={{ marginRight: "5%", marginBottom: "4%" }} src={Button.icon} />
+            {Button.text} {Button.num}
+          </button>
+        }
+      </>
     );
     buttonsViews.push(button);
   });
