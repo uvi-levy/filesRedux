@@ -28,7 +28,7 @@ import User from "../../assets/user-solid.png";
 import FileCard from "../../assets/Group.png";
 import Folder from "../../assets/folder-solid.png";
 
-const Trash = ({ changeView, jwtFromCookie, files, setFiles, homeLoadFiles, showGrid, setFilteredFiles, filteredFiles }) => {
+const Trash = ({ changeView, jwtFromCookie, files, setFiles, homeLoadFiles, showGrid, setFilteredFiles, filteredFiles, setLocation }) => {
     
     const [loadBar, setLoadBar] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -51,6 +51,10 @@ const Trash = ({ changeView, jwtFromCookie, files, setFiles, homeLoadFiles, show
     let userName = url.pathname.split("/")[1];
 
     let history = useHistory();
+
+    useEffect(() => {
+      setLocation("trash");
+    }, []);
 
     useEffect(() => {
       if(jwtFromCookie) loadFiles();
@@ -368,7 +372,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setFiles: (data) => dispatch(actions.setTrashFiles(data)),
-    setFilteredFiles: (files) => dispatch(actions.setFilteredFiles(files))
+    setFilteredFiles: (files) => dispatch(actions.setFilteredFiles(files)),
+    setLocation: (location) => dispatch(actions.setLocation(location))
   }
 }
 

@@ -31,6 +31,7 @@ import FileIcon from "../../assets/file-icon.png";
 
 import "./home.css"
 import Trash from '../Trash/Trash';
+import Upload from '../Upload/Upload';
 
 const Home = ({ data, setData, setFiles, files, trashFiles, filteredFilesByType, loadFolders, setFilteredFiles, filteredFiles }) => {
 
@@ -44,6 +45,7 @@ const Home = ({ data, setData, setFiles, files, trashFiles, filteredFilesByType,
     const [showGrid, setShowGrid] = useState(true);
     const [visibleNewFolder, setVisibleNewFolder] = useState(false);
     const [showBreadcrumb, setShowBreadcrumb] = useState(false);
+    const [breadCrumbs, setBreadCrumbs] = useState(""); 
     const [inFolder, setInFolder] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [grid, setGrid] = useState([]);
@@ -100,7 +102,7 @@ const Home = ({ data, setData, setFiles, files, trashFiles, filteredFilesByType,
         headers: { authorization: jwtFromCookie },
         error: (err) => {
           if (err.status == 401) {
-            // window.location = "https://dev.accounts.codes/files/login";
+            window.location = "https://dev.accounts.codes/files/login";
           }
         },
         success: (data) => {
@@ -222,7 +224,6 @@ const Home = ({ data, setData, setFiles, files, trashFiles, filteredFilesByType,
                     style={{
                       display: "block",
                       maxWidth: "100%",
-                      height: "100%",
                       margin: "auto",
                     }}
                     src={file.url}
@@ -486,32 +487,24 @@ const Home = ({ data, setData, setFiles, files, trashFiles, filteredFilesByType,
     return (
       <div>
           <div>
-            <Switch>
-              <Route exact path="/:userName">
-                <>
-                <Navbar changeView={ changeView } showGrid={ showGrid } setShowGrid={ setShowGrid } jwtFromCookie={ jwtFromCookie } changeProps={ changeProps } files={ files } />
-                <div className="home-container">
-                  <TopPattern jwtFromCookie={ jwtFromCookie } changeView={ changeView } showGrid={ showGrid } setShowGrid={ setShowGrid } setVisibleNewFolder={ setVisibleNewFolder } loadFiles={ loadFiles } />
-                  <Folders/>
+            <Navbar changeView={ changeView } showGrid={ showGrid } setShowGrid={ setShowGrid } jwtFromCookie={ jwtFromCookie } changeProps={ changeProps } files={ files } trashFiles={ trashFiles } />
+            <div className="home-container">
+              <TopPattern jwtFromCookie={ jwtFromCookie } changeView={ changeView } showGrid={ showGrid } setShowGrid={ setShowGrid } setVisibleNewFolder={ setVisibleNewFolder } loadFiles={ loadFiles } breadCrumbs={ breadCrumbs } showBreadcrumb={ showBreadcrumb }/>
+              <Switch>
+                <Route exact path="/:userName">
+                  <Folders changeProps={ changeProps } setBreadCrumbs={ setBreadCrumbs } setShowBreadcrumb={ setShowBreadcrumb }/>
                   <Files setInFolder={ setInFolder } jwtFromCookie={ jwtFromCookie } setShowBreadcrumb={ setShowBreadcrumb } showGrid={ showGrid } currentPage={ currentPage } setCurrentPage={ setCurrentPage } showFiles={ showFiles } grid={ grid } view={ view } filter={ filter } findByTag={ findByTag } findFile={ findFile }/>
-                </div>
-                </>
-              </Route>
-              <Route exact path="/:userName/upload">
-                <TopPattern jwtFromCookie={ jwtFromCookie } changeView={ changeView } showGrid={ showGrid } setShowGrid={ setShowGrid } setVisibleNewFolder={ setVisibleNewFolder } loadFiles={ loadFiles } />
-              </Route>
-              <Route exact path="/:userName/trash">
-              <>
-                <Navbar changeView={ changeView } showGrid={ showGrid } setShowGrid={ setShowGrid } jwtFromCookie={ jwtFromCookie } changeProps={ changeProps } files={ trashFiles }/>
-                <div className="home-container">
-                  <TopPattern jwtFromCookie={ jwtFromCookie } changeView={ changeView } showGrid={ showGrid } setShowGrid={ setShowGrid } setVisibleNewFolder={ setVisibleNewFolder } loadFiles={ loadFiles } />
-                  <Trash changeView={ changeView } homeLoadFiles={ loadFiles } jwtFromCookie={ jwtFromCookie } showGrid={ showGrid }/>
-                </div>
-                </>
-              </Route>
-              {/* add protected route for admin */}
-              {/* <Route/> add err page */}
-            </Switch>
+                </Route>
+                <Route exact path="/:userName/upload">
+                    <Upload setShowBreadcrumb={ setShowBreadcrumb } changeView={ changeView } loadFiles={ loadFiles } jwtFromCookie={ jwtFromCookie } />
+                </Route>
+                <Route exact path="/:userName/trash">
+                    <Trash changeView={ changeView } homeLoadFiles={ loadFiles } jwtFromCookie={ jwtFromCookie } showGrid={ showGrid }/>
+                </Route>
+                {/* add protected route for admin */}
+                {/* <Route/> add err page */}
+              </Switch>
+              </div>
           </div>
       </div>
     );

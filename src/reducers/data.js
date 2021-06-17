@@ -9,7 +9,8 @@ const initialState = {
   isLoadFiles: true,
   isLoadFolders: true,
   trashFiles: [],
-  filteredFiles: []
+  filteredFiles: [],
+  location: "home"
 };
 
 const data = {
@@ -28,20 +29,26 @@ const data = {
     state.trashFiles = action.payload;
     state.filteredFiles = action.payload;
   },
+  setLocation(state, action){
+    state.location = action.payload;
+  },
   filteredFilesByType(state, action) {
     console.log("filteredFilesByType NavBar " + JSON.stringify(state.files));
+    let filesToFilter = [];
+    if(state.location == "trash") filesToFilter = state.trashFiles;
+    else filesToFilter = state.files;
     if (state.files) {
       const img = {
-        img: state.files.filter((file) => file.type && file.type.includes("image")),
+        img: filesToFilter.filter((file) => file.type && file.type.includes("image")),
       };
       const audio = {
-        audio: state.files.filter((file) => file.type && file.type.includes("audio")),
+        audio: filesToFilter.filter((file) => file.type && file.type.includes("audio")),
       };
       const video = {
-        video: state.files.filter((file) => file.type && file.type.includes("video")),
+        video: filesToFilter.filter((file) => file.type && file.type.includes("video")),
       };
       const others = {
-        others: state.files.filter((file) => file.type && file.type.includes("pdf")),
+        others: filesToFilter.filter((file) => file.type && file.type.includes("pdf")),
       };
       let tmpFilteredFilesByType = [img, audio, video, others];
       state.filteredFilesByType = tmpFilteredFilesByType;

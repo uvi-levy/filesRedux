@@ -1,0 +1,18 @@
+.folders-dropdown button{
+    background-color: #F4B248;
+    border: none;
+    color: white;
+    min-width: 137px;
+}
+
+.folders-dropdown button:hover{
+    background-color: #F4B248;
+    border: none;
+    color: white;
+}
+
+.folders-dropdown #dropdown-menu-align-right:active{
+    background-color: #F4B248;
+    border: none;
+    color: white;
+}

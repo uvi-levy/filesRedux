@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from "react-redux";
 
 import DisplayButtons from "./DisplayButtons/DisplayButtons";
 import NewFolderBtn from "./NewFolderBtn/NewFolderBtn";
@@ -11,14 +12,12 @@ import "./topPattern.css"
 import File from "../../../assets/orange-file.png";
 import Trash from "../../../assets/trash-orange.png";
 
-const TopPattern = ({ showGrid, setShowGrid, changeView, jwtFromCookie, setVisibleNewFolder, loadFiles }) => {
-    let url = window.location;
-    let location = url.pathname.split("/")[2];
-    console.log(location);
+const TopPattern = ({ showGrid, setShowGrid, changeView, jwtFromCookie, setVisibleNewFolder, loadFiles, breadCrumbs, showBreadcrumb, location }) => {
+    
     return (
         <div className="home-top-pattern">
            <div className={location !== "trash" ? "left-div" : "left-div-trash" }>
-                <BreadCrumbs icon={ location !== "trash" ? File : Trash } header={location !== "trash" ? "My Files" : "Trash"} crumbs={location !== "trash" && null} />
+                <BreadCrumbs icon={ location !== "trash" ? File : Trash } header={location !== "trash" ? "My Files" : "Trash"} crumbs={location !== "trash" && breadCrumbs} showBreadcrumb={ showBreadcrumb } />
            </div>
                       
             <div className="right-div">
@@ -27,7 +26,7 @@ const TopPattern = ({ showGrid, setShowGrid, changeView, jwtFromCookie, setVisib
                 {
                     location !== "trash" ? 
                     <>
-                        <UploadBtn/>
+                        <UploadBtn changeView={ changeView }/>
                         <NewFolderBtn jwtFromCookie={ jwtFromCookie } changeView={ changeView } setVisibleNewFolder={ setVisibleNewFolder } loadFiles={ loadFiles }/>
                     </>
                     :
@@ -38,4 +37,9 @@ const TopPattern = ({ showGrid, setShowGrid, changeView, jwtFromCookie, setVisib
     )
 }
 
-export default TopPattern
+const mapStateToProps = (state) => {
+    return{
+        location: state.data.location
+    }
+}
+export default connect(mapStateToProps)(TopPattern)

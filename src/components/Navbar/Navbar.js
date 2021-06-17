@@ -10,14 +10,14 @@ import "./navbar.css"
 import { Container, Row, Col } from 'react-bootstrap';
 import actions from '../../actions';
 
-const Navbar = ({ files, filteredFilesByType, changeView, changeProps, jwtFromCookie, filteredFilesByTypeFunc }) => {
+const Navbar = ({ files, filteredFilesByType, changeView, changeProps, jwtFromCookie, filteredFilesByTypeFunc, trashFiles, location }) => {
 
     let url = window.location;
     let userName = url.pathname.split("/")[1];
 
     useEffect(() => {
       filteredFilesByTypeFunc();
-    }, [])
+    }, [location])
 
     useEffect(() => {
       console.log(filteredFilesByType);
@@ -25,13 +25,13 @@ const Navbar = ({ files, filteredFilesByType, changeView, changeProps, jwtFromCo
 
     const filteredFilesFunc = (type, searchVal) => {
         let tmpFiles = [];
-        tmpFiles = files;
+        if(location == "trash") tmpFiles = trashFiles;
+        else tmpFiles = files;
         console.log("in filterFiles");
 
         let filtaredFiles=[];
-        // changeView(userName); 
 
-        console.log(tmpFiles);
+        console.log("tmpFiles", tmpFiles);
 
         if (tmpFiles && tmpFiles.length) {
           if (type == "folder") {
@@ -75,7 +75,6 @@ const Navbar = ({ files, filteredFilesByType, changeView, changeProps, jwtFromCo
           }
           if (type == "all") {
             changeProps(tmpFiles, true);
-            changeView(userName);
           }
         }
         if(filtaredFiles.length < 1) {
@@ -112,6 +111,7 @@ const Navbar = ({ files, filteredFilesByType, changeView, changeProps, jwtFromCo
 const mapStateToProps = (state) => {
     return {
          filteredFilesByType: state.data.filteredFilesByType,
+         location: state.data.location
     }
 }
 

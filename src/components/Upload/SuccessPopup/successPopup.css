@@ -1,0 +1,13 @@
+.success-upload-modal .modal-body{
+    padding: 0;
+}
+
+.success-upload-modal .modal-content{
+    width: 0;
+    height: 0;
+    margin-top: 30%;
+}
+
+.success-upload-modal .success-img{
+    width: 500px;
+}

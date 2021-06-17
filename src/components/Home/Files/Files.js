@@ -28,7 +28,7 @@ import GridDispaly from './GridDisplay/GridDispaly';
 import ListDispaly from './ListDispaly/ListDispaly';
 import PageNumbers from './PageNumbers/PageNumbers';
 
-const Files = ({ files, isLoadFiles, jwtFromCookie, setShowBreadcrumb, showGrid, folders, loadFolders,filteredFiles, setFilteredFiles, setInFolder, currentPage, setCurrentPage, showFiles, grid, view, filter, findByTag, findFile }) => {
+const Files = ({ files, isLoadFiles, jwtFromCookie, setShowBreadcrumb, showGrid, folders, loadFolders,filteredFiles, setFilteredFiles, setInFolder, currentPage, setCurrentPage, showFiles, grid, view, filter, findByTag, findFile, setLocation }) => {
 
     const [visibleDel, setVisibleDel] = useState(false);
 
@@ -40,6 +40,7 @@ const Files = ({ files, isLoadFiles, jwtFromCookie, setShowBreadcrumb, showGrid,
         loadFolders();
         showFiles();
         setFilteredFiles(files);
+        setLocation("home")
     }, [])
 
     useEffect(() => {
@@ -494,7 +495,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         loadFolders: () => dispatch(actions.loadFolders()),
-        setFilteredFiles: (files) => dispatch(actions.setFilteredFiles(files))
+        setFilteredFiles: (files) => dispatch(actions.setFilteredFiles(files)),
+        setLocation: (location) => dispatch(actions.setLocation(location))
     }
 }
 

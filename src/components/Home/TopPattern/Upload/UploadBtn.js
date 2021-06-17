@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 
 import Arrow from "../../../../assets/fileUp.png";
 
+import "./uploadBtn.css"
+
 const UploadBtn = ({ changeView }) => {
 
+    let url = window.location;
+    let userName = url.pathname.split("/")[1];
+
     return (
-        <div> 
-            <button
+        <div className="upload-btn"> 
+            <Link to={`/${userName}/upload`}>
+              <button
                 className="btn theme-color font-weight-bold upload-btn"
                 onClick={() => {
                   changeView("upload");
@@ -23,6 +30,7 @@ const UploadBtn = ({ changeView }) => {
                 <p style={{ display: "inline", marginRight: "8%" }}>Upload</p>{" "}
                 <img src={Arrow} style={{ display: "inline", marginLeft: "8%", marginTop: "8%" }}/>{" "}
               </button>
+            </Link>
         </div>
     )
 }
