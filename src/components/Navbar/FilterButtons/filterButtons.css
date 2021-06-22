@@ -1,29 +1,37 @@
 #all{
     color: #F5A421;
+    border: 1px solid #f5a421;
+    background-color: rgba(245, 164, 33, 0.1);
 }
 
 #folder{
-    color: #FF6B16;
+    color: #ff6b16;
+    background-color: rgba(255, 107, 22, 0.1);
 }
 
 #file{
-    color: #FF0303;
+    color: #ff0303;
+    background-color: rgba(255, 3, 3, 0.1);
 }
 
 #img{
-    color: #2A3C98;
+    color: #2a3c98;
+    background-color: rgba(42, 60, 152, 0.1);
 }
 
 #audio{
-    color: #4BA2EF;
+    color: #4ba2ef;
+    background-color: rgba(75, 162, 239, 0.1);
 }
 
 #video{
-    color: #87B52A;
+    color: #87b52a;
+    background-color: rgba(135, 181, 42, 0.1);
 }
 
 #trash{
-    color: #AF3737;
+    color: #af3737;
+    background-color: rgba(175, 55, 55, 0.1);
 }
 
 .filter-btn{

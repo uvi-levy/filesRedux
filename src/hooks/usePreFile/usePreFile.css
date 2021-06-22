@@ -1,0 +1,17 @@
+.on-list-display {
+  display: inline-block;
+  width: 23vw;
+  float: right;
+  margin: 20px 20px auto auto;
+}
+
+.on-grid-display {
+  display: block;
+  width: 35vw;
+}
+
+.pre-file {
+  color: #8181a5;
+  overflow-y: scroll;
+  background-color: white;
+}

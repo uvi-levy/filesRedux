@@ -2,21 +2,19 @@ import React, { useEffect, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
 import $ from "jquery";
 
-import "./chart.css"
+import { BASE_URL, USER_NAME, GET_COUNT } from "../../../utility/constants";
+
+import "./chart.css";
 
 const Chart = ({ jwtFromCookie }) => {
+  const [count, setCount] = useState(0);
+  const [size, setSize] = useState("M");
 
-    let url = window.location;
-    let userName = url.pathname.split("/")[1];
-
-    const [count, setCount] = useState(0);
-    const [size, setSize] = useState("M");
-
-    useEffect(() => {
-      if(jwtFromCookie){
+  useEffect(() => {
+    if (jwtFromCookie) {
       $.ajax({
         type: "GET",
-        url: "https://files.codes/api/" + userName + "/getCount",
+        url: BASE_URL + USER_NAME + GET_COUNT,
         headers: { authorization: jwtFromCookie },
         error: (err) => {
           console.log(err);
@@ -26,20 +24,23 @@ const Chart = ({ jwtFromCookie }) => {
         },
       });
     }
-    }, [jwtFromCookie])
+  }, [jwtFromCookie]);
 
-    return (
-        <div
-            className="chart"
-            style={{
-            height: "35px",
-            textAlign: "center"
-            }}
-        >
-            <p style={{ fontSize:'10px'}}>{count.toFixed(2)}{size}/2G</p>
-            <ProgressBar style={{ height: "6px",}} striped now={count} />
-      </div>
-    );
-}
+  return (
+    <div
+      className="chart"
+      style={{
+        height: "35px",
+        textAlign: "center",
+      }}
+    >
+      <p style={{ fontSize: "10px" }}>
+        {count.toFixed(2)}
+        {size}/2G
+      </p>
+      <ProgressBar style={{ height: "6px" }} striped now={count} />
+    </div>
+  );
+};
 
-export default Chart
+export default Chart;

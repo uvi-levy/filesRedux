@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,13 +7,12 @@ import FileG from "../../../assets/files-new.png";
 import ImgG from "../../../assets/image-new.png";
 import AdiuoG from "../../../assets/audio-new.png";
 import VideoG from "../../../assets/video-new.png";
-import FolderG from "../../../assets/folders-new.png";
 import Trash from "../../../assets/trash.png";
 
+import { USER_NAME } from "../../../utility/constants";
 import "./filterButtons.css";
 
 const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {
-
   let { foldersLength, all, doc, img, video, audio } = 0;
   if (filteredFilesByType.length) {
     doc = filteredFilesByType[3].others.length;
@@ -22,14 +21,6 @@ const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {
     audio = filteredFilesByType[1].audio.length;
     all = doc + img + video + audio;
   }
-
-  let url = window.location;
-  let userName = url.pathname.split("/")[1];
-
-  // useEffect(() => {
-  //   if (folders) foldersLength = folders.length;
-  // }, [folders])
-
 
   if (folders) foldersLength = folders.length;
 
@@ -46,7 +37,7 @@ const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {
       text: "Files",
       value: "file",
       icon: FileG,
-      num: doc, 
+      num: doc,
     },
     {
       text: "Image",
@@ -72,58 +63,65 @@ const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {
       icon: Trash,
     },
   ];
+
   buttons.forEach((Button) => {
     console.log(Button);
-    if(Button.num) Button.num=Button.num.toString()
+    if (Button.num) Button.num = Button.num.toString();
     const button = (
       <>
-        {
-          Button.value == "trash" ? <Link to={ `/${userName}/trash`} style={{ width: "fit-content",
-            padding: "0" }}>
+        {Button.value == "trash" ? (
+          <Link
+            to={`/${USER_NAME}/trash`}
+            style={{ width: "fit-content", padding: "0" }}
+          >
             <button
-              className="btn btn-outline-secondary filter-btn"
+              className="btn filter-btn"
               id={Button.value}
               onClick={() => {
-                filteredFiles(Button.value)
+                filteredFiles(Button.value);
               }}
             >
-              <img style={{ marginRight: "5%", marginBottom: "4%" }} src={Button.icon} />
+              <img
+                style={{ marginRight: "5%", marginBottom: "4%" }}
+                src={Button.icon}
+              />
               {Button.text} {Button.num}
             </button>
-          </Link> :
-
+          </Link>
+        ) : (
           <button
-            className="btn btn-outline-secondary filter-btn"
+            className="btn filter-btn"
             id={Button.value}
             onClick={() => {
-              filteredFiles(Button.value)
+              filteredFiles(Button.value);
             }}
           >
-            <img style={{ marginRight: "5%", marginBottom: "4%" }} src={Button.icon} />
+            <img
+              style={{ marginRight: "5%", marginBottom: "4%" }}
+              src={Button.icon}
+            />
             {Button.text} {Button.num}
           </button>
-        }
+        )}
       </>
     );
     buttonsViews.push(button);
   });
 
-    return (
-        <div>
-            <Col>
-              <Row className="justify-content-md-flex-end">
-                {buttonsViews}
-              </Row>
-            </Col>
-        </div>
-    )
-}
+  return (
+    <div>
+      <Col>
+        <Row className="justify-content-md-flex-end">{buttonsViews}</Row>
+      </Col>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
     filteredFilesByType: state.data.filteredFilesByType,
-    folders: state.data.folders
-  }
-}
+    folders: state.data.folders,
+  };
+};
 
-export default connect(mapStateToProps)(FilterButtons)
+export default connect(mapStateToProps)(FilterButtons);
