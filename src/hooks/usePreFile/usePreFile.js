@@ -18,7 +18,7 @@ import Download from "../../assets/download.png";
 import Copy from "../../assets/copy.png";
 import Delete from "../../assets/delete.png";
 import Move from "../../assets/moveTo.png";
-import Folder from "../../assets/folder-solid.png";
+import Folder from "../../assets/orange-folder.png";
 import Note from "../../assets/edit.svg";
 import LinkW from "../../assets/linkWhite.png";
 
@@ -38,9 +38,11 @@ const usePreFile = (
   loadFiles,
   setShowBreadcrumb,
   findByTag,
-  showGrid
+  showGrid,
+  toggleDeleteDialog,
+  toggleGetLink
 ) => {
-  const [visibleDel, setVisibleDel] = useState(false);
+  // const [visibleDel, setVisibleDel] = useState(false);
   let file = null;
 
   const imgRef = useRef();
@@ -52,9 +54,9 @@ const usePreFile = (
     console.log(showGrid);
   }, [showGrid]);
 
-  const toggleDeleteDialog = () => {
-    setVisibleDel(!visibleDel);
-  };
+  // const toggleDeleteDialog = () => {
+  //   setVisibleDel(!visibleDel);
+  // };
 
   const saveNotes = (e) => {
     console.log("in saveNote");
@@ -143,7 +145,8 @@ const usePreFile = (
 
   const printFile = () => {
     console.log("in print");
-    let printWindow = window.open(
+    // const file = this.props.file; //send file
+    var printWindow = window.open(
       file.url,
       "Print",
       "left=200",
@@ -161,7 +164,6 @@ const usePreFile = (
       true
     );
   };
-
   const copyEmbed = () => {
     console.log("in copyEmbed");
     const embed = (
@@ -172,20 +174,6 @@ const usePreFile = (
       </div>
     );
     // setState({ embed, embedView: true });
-  };
-
-  const exportEmbed = () => {
-    let target = document.getElementById("embed").innerHTML;
-    console.log(target, "@");
-
-    textAreaRef.current.value = target;
-    textAreaRef.current.select();
-    textAreaRef.current.setSelectionRange(0, 99999);
-    document.execCommand("copy");
-
-    // setState({ copied: true });
-
-    // this.setCopySuccess('Copied!');
   };
 
   const moveTo = () => {
@@ -264,8 +252,6 @@ const usePreFile = (
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
-
-        alert("your file has downloaded!");
       })
       .catch(() => alert("oh no!"));
   };
@@ -274,12 +260,6 @@ const usePreFile = (
     // this.setState({
     //   visible: !this.state.visible,
     //   nextShare: false,
-    // });
-  };
-
-  const toggleGetLink = () => {
-    // this.setState({
-    //   visibleGetLink: !this.state.visibleGetLink,
     // });
   };
 
@@ -545,7 +525,6 @@ const usePreFile = (
             <Col
               style={{
                 width: "98%",
-
                 textAlign: "center",
               }}
             >
@@ -564,7 +543,7 @@ const usePreFile = (
             </Row>
             <Row
               className="justify-content-md-center"
-              style={{ marginTop: "1%" }}
+              style={{ width: "98%", margin: "auto", marginTop: "1%" }}
             >
               <Col
                 md={10}
@@ -590,12 +569,13 @@ const usePreFile = (
               </Col>
               <Col style={{ padding: "0" }}>
                 <Button
-                  variant="primary"
                   onClick={getLink}
                   style={{
                     borderRadius: "0 8px 8px 0 ",
+                    borderColor: "#F4B248",
                     float: "left",
                     margin: "0",
+                    backgroundColor: "#F4B248",
                   }}
                 >
                   <img src={LinkW} />
@@ -703,7 +683,17 @@ const usePreFile = (
             showGrid ? "pre-file on-grid-display" : "pre-file on-list-display"
           }
         >
-          <p style={{ margin: "0", color: "#75798E" }}>no Preview Available</p>
+          <p
+            style={{
+              margin: "0",
+              color: "#75798E",
+              textAlign: "center",
+              margin: "auto",
+              marginTop: "100%",
+            }}
+          >
+            no Preview Available
+          </p>
         </Container>
       );
     }

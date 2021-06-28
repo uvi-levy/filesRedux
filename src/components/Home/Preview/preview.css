@@ -1,0 +1,32 @@
+.delete-file-modal .delete-btn{
+    border-radius: 7px;
+    width: fit-content;
+    margin: 10px auto auto auto;
+    background-color: #F4B248;
+    border: none;
+}
+
+.get-link-modal .close-btn, .delete-file-modal .close-btn{
+    background-color: transparent;
+    border: none;
+    margin: 10px auto auto 90%;
+    width: fit-content;
+}
+
+.get-link-modal .display-inline{
+    display: inline-block;
+}
+
+.get-link-modal .link-img{
+    margin: 10px;
+    margin-bottom: 17px;
+}
+
+.get-link-modal .copy-link-btn{
+    border-radius: 0 8px 8px 0 !important;
+    width: 50px;
+    border-color: #F4B248;
+    margin: 0;
+    display: inline-block;
+    background-color: #F4B248;
+}

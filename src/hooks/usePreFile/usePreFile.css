@@ -1,6 +1,8 @@
 .on-list-display {
   display: inline-block;
-  width: 23vw;
+  width: calc(100vw - 70vw - 60px);
+  max-width: 400px;
+  height: 84vh;
   float: right;
   margin: 20px 20px auto auto;
 }

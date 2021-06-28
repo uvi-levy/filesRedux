@@ -22,11 +22,7 @@ const Navbar = ({
 }) => {
   useEffect(() => {
     filteredFilesByTypeFunc();
-  }, [location]);
-
-  // useEffect(() => {
-  //   console.log(filteredFilesByType);
-  // }, [filteredFilesByType])
+  }, [location, trashFiles]);
 
   const filteredFilesFunc = (type, searchVal) => {
     let tmpFiles = [];
@@ -117,6 +113,7 @@ const mapStateToProps = (state) => {
   return {
     filteredFilesByType: state.data.filteredFilesByType,
     location: state.data.location,
+    trashFiles: state.data.trashFiles,
   };
 };
 

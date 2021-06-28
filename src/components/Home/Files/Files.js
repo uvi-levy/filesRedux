@@ -465,7 +465,7 @@ const Files = ({
       </div>
     );
   }
-  if (files.length === 0 && isLoadFiles === false) {
+  if (files.length == 0 && isLoadFiles === false) {
     return <NoFiles />;
   }
 

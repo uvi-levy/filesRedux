@@ -11,6 +11,7 @@ const initialState = {
   trashFiles: [],
   filteredFiles: [],
   location: "home",
+  jwtFromCookie: ""
 };
 
 const data = {
@@ -31,6 +32,9 @@ const data = {
   },
   setLocation(state, action) {
     state.location = action.payload;
+  },
+  setJwtFromCookie(state, action){
+    state.jwtFromCookie = action.payload;
   },
   filteredFilesByType(state, action) {
     console.log("filteredFilesByType NavBar " + JSON.stringify(state.files));

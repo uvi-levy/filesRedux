@@ -54,10 +54,12 @@ const Home = ({
   loadFolders,
   setFilteredFiles,
   filteredFiles,
+  jwtFromCookie,
+  setJwtFromCookie,
 }) => {
   let history = useHistory();
 
-  const [jwtFromCookie, setJwtFromCookie] = useState("");
+  // const [jwtFromCookie, setJwtFromCookie] = useState("");
   const [next, setNext] = useState(false);
   const [showGrid, setShowGrid] = useState(true);
   const [visibleNewFolder, setVisibleNewFolder] = useState(false);
@@ -75,21 +77,34 @@ const Home = ({
   const [preview, setPreview] = useState(
     <p style={{ margin: "0", color: "#75798E" }}>no Preview Available</p>
   );
+  const [visibleDel, setVisibleDel] = useState(false);
+  const [visibleGetLink, setVisibleGetLink] = useState(false);
 
   useEffect(() => {
+    let params = new URL(document.location).searchParams;
+    let jwtGlobal = params.get("jwt");
+    if (jwtGlobal) {
+      let newUrl = window.location.href;
+      newUrl = newUrl.split("?jwt=");
+      newUrl = newUrl[0];
+      let date = new Date(Date.now() + 86400e3);
+      date = date.toUTCString();
+      var expires = "expires=" + date;
+      document.cookie = "devJwt" + "=" + jwtGlobal + ";" + expires + ";path=/";
+      window.location.replace(newUrl);
+    }
     let tmpJwtFromCookie;
-    if (window.location.href.includes(LOCAL_HOST)) {
+    if (window.location.href.includes("http://localhost:3000")) {
       tmpJwtFromCookie = JWT_FROM_COOKIES;
     } else {
       tmpJwtFromCookie = document.cookie
         ? document.cookie
-            .split(";")
-            .filter((s) => s.includes("jwt"))[0]
-            .split("=")
-            .pop()
+        .slice(7)
         : null;
     }
+    console.log("tmpJwtFromCookie",tmpJwtFromCookie);
     setJwtFromCookie(tmpJwtFromCookie);
+    loadFiles(tmpJwtFromCookie);
   }, []);
 
   useEffect(() => {
@@ -104,20 +119,20 @@ const Home = ({
     if (data) loadFolders();
   }, [data]);
 
-  useEffect(() => {
-    if (jwtFromCookie) loadFiles();
-  }, [jwtFromCookie]);
+  // useEffect(() => {
+  //   if (jwtFromCookie) loadFiles();
+  // }, [jwtFromCookie]);
 
   useEffect(() => {
     showFiles();
   }, [filteredFiles]);
 
-  const loadFiles = () => {
+  const loadFiles = (jwt) => {
     console.log("load");
     $.ajax({
       type: "GET",
       url: BASE_URL + USER_NAME,
-      headers: { authorization: jwtFromCookie },
+      headers: { authorization: jwt ? jwt : jwtFromCookie },
       error: (err) => {
         if (err.status == 401) {
           window.location = LOGIN_PATH;
@@ -508,12 +523,22 @@ const Home = ({
     setCurrentPage(1);
   };
 
+  const toggleDeleteDialog = () => {
+    setVisibleDel(!visibleDel);
+  };
+
+  const toggleGetLink = () => {
+    setVisibleGetLink(!visibleGetLink);
+  };
+
   const showPreFile = usePreFile(
     jwtFromCookie,
     loadFiles,
     setShowBreadcrumb,
     findByTag,
-    showGrid
+    showGrid,
+    toggleDeleteDialog,
+    toggleGetLink
   );
 
   return (
@@ -582,7 +607,19 @@ const Home = ({
             {/* <Route/> add err page */}
           </Switch>
         </div>
-        {displayPreview && <Preview preview={preview} />}
+        {displayPreview && (
+          <Preview
+            preview={preview}
+            setPreview={setPreview}
+            visibleDel={visibleDel}
+            setVisibleDel={setVisibleDel}
+            selectedFile={selectedFile}
+            setSelectedFile={setSelectedFile}
+            loadFiles={loadFiles}
+            visibleGetLink={visibleGetLink}
+            setVisibleGetLink={setVisibleGetLink}
+          />
+        )}
       </div>
     </div>
   );
@@ -594,6 +631,7 @@ const mapStateToProps = (state) => {
     data: state.data.data,
     filteredFiles: state.data.filteredFiles,
     trashFiles: state.data.trashFiles,
+    jwtFromCookie: state.data.jwtFromCookie,
   };
 };
 
@@ -604,6 +642,7 @@ const mapDispatchToProps = (dispatch) => {
     filteredFilesByType: () => dispatch(actions.filteredFilesByType()),
     loadFolders: () => dispatch(actions.loadFolders()),
     setFilteredFiles: (files) => dispatch(actions.setFilteredFiles(files)),
+    setJwtFromCookie: (jwt) => dispatch(actions.setJwtFromCookie(jwt))
   };
 };
 
