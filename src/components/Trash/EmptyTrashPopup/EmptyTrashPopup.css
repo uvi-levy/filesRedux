@@ -4,13 +4,13 @@
     width: 100%;
 }
 
-.delete-file-modal .modal-title{
+.empty-trash-modal .modal-title{
     padding: 5%;
     font-size: 1.1rem;
     text-align: center;
 }
 
-.delete-file-modal > .modal-content{
+.empty-trash-modal > .modal-content{
     padding-top: 0;
 }
 
@@ -19,12 +19,12 @@
     margin: auto;
 }
 
-.delete-file-modal .modal-body{
+.empty-trash-modal .modal-body{
     padding-top: 0;
     padding-bottom: 30px;
 }
 
-.delete-file-modal .modal-content{
+.empty-trash-modal .modal-content{
     width: 530px;
 }
 

@@ -33,6 +33,7 @@ import Trash from "../Trash/Trash";
 import Upload from "../Upload/Upload";
 
 import usePreFile from "../../hooks/usePreFile/usePreFile";
+import useLoadFiles from "../../hooks/useLoadFiles/useLoadFiles";
 
 import {
   LOCAL_HOST,
@@ -59,10 +60,7 @@ const Home = ({
 }) => {
   let history = useHistory();
 
-  // const [jwtFromCookie, setJwtFromCookie] = useState("");
-  const [next, setNext] = useState(false);
   const [showGrid, setShowGrid] = useState(true);
-  const [visibleNewFolder, setVisibleNewFolder] = useState(false);
   const [showBreadcrumb, setShowBreadcrumb] = useState(false);
   const [breadCrumbs, setBreadCrumbs] = useState("");
   const [inFolder, setInFolder] = useState(true);
@@ -79,6 +77,8 @@ const Home = ({
   );
   const [visibleDel, setVisibleDel] = useState(false);
   const [visibleGetLink, setVisibleGetLink] = useState(false);
+
+  const loadFiles = useLoadFiles();
 
   useEffect(() => {
     let params = new URL(document.location).searchParams;
@@ -98,11 +98,9 @@ const Home = ({
       tmpJwtFromCookie = JWT_FROM_COOKIES;
     } else {
       tmpJwtFromCookie = document.cookie
-        ? document.cookie
-        .slice(7)
+        ? document.cookie.slice(7) //according to: document.cookie === "devJwt=jwt_string"
         : null;
     }
-    console.log("tmpJwtFromCookie",tmpJwtFromCookie);
     setJwtFromCookie(tmpJwtFromCookie);
     loadFiles(tmpJwtFromCookie);
   }, []);
@@ -119,76 +117,9 @@ const Home = ({
     if (data) loadFolders();
   }, [data]);
 
-  // useEffect(() => {
-  //   if (jwtFromCookie) loadFiles();
-  // }, [jwtFromCookie]);
-
   useEffect(() => {
     showFiles();
   }, [filteredFiles]);
-
-  const loadFiles = (jwt) => {
-    console.log("load");
-    $.ajax({
-      type: "GET",
-      url: BASE_URL + USER_NAME,
-      headers: { authorization: jwt ? jwt : jwtFromCookie },
-      error: (err) => {
-        if (err.status == 401) {
-          window.location = LOGIN_PATH;
-        }
-      },
-      success: (data) => {
-        console.log("*data.length*", data, typeof data);
-        if (data.length > 0) {
-          setData(data);
-          let validFiles = data.filter(
-            (file) => file.name && file.size && file.dateCreated
-          );
-          setNext(true);
-          setFiles(validFiles);
-          setFilteredFiles(validFiles);
-        } else {
-          setNext(true);
-          setData("no-files");
-        }
-      },
-    });
-  };
-
-  const changeView = (view) => {
-    if (view == "list") {
-      setShowGrid(false);
-    }
-    if (view == "grid") {
-      setShowGrid(true);
-    }
-    if (view == "trash") {
-      history.push("/" + USER_NAME + "/trash");
-    }
-    if (view == "upload") {
-      history.push("/" + USER_NAME + "/upload");
-    }
-    if (view == USER_NAME) {
-      history.push("/" + USER_NAME);
-    }
-    if (view == "newFolder") {
-      setVisibleNewFolder(true);
-    }
-    if (view == "noFiles") {
-      // this.setState({
-      //   noFiles: (
-      //     <div style={{ height: "50%", width: "100%" }}>
-      //       <NoFiles
-      //         goToUpload={() => {
-      //           this.props.history.push("/" + userName + "/upload");
-      //         }}
-      //       />
-      //     </div>
-      //   ),
-      // });
-    }
-  };
 
   const showFiles = () => {
     console.log("in showFiles");
@@ -533,7 +464,6 @@ const Home = ({
 
   const showPreFile = usePreFile(
     jwtFromCookie,
-    loadFiles,
     setShowBreadcrumb,
     findByTag,
     showGrid,
@@ -545,10 +475,8 @@ const Home = ({
     <div>
       <div>
         <Navbar
-          changeView={changeView}
           showGrid={showGrid}
           setShowGrid={setShowGrid}
-          jwtFromCookie={jwtFromCookie}
           changeProps={changeProps}
           files={files}
           trashFiles={trashFiles}
@@ -560,12 +488,8 @@ const Home = ({
           }
         >
           <TopPattern
-            jwtFromCookie={jwtFromCookie}
-            changeView={changeView}
             showGrid={showGrid}
             setShowGrid={setShowGrid}
-            setVisibleNewFolder={setVisibleNewFolder}
-            loadFiles={loadFiles}
             breadCrumbs={breadCrumbs}
             showBreadcrumb={showBreadcrumb}
             setDisplayPreview={setDisplayPreview}
@@ -591,15 +515,10 @@ const Home = ({
             <Route exact path="/:userName/upload">
               <Upload
                 setShowBreadcrumb={setShowBreadcrumb}
-                changeView={changeView}
-                loadFiles={loadFiles}
-                jwtFromCookie={jwtFromCookie}
               />
             </Route>
             <Route exact path="/:userName/trash">
               <Trash
-                homeLoadFiles={loadFiles}
-                jwtFromCookie={jwtFromCookie}
                 showGrid={showGrid}
               />
             </Route>
@@ -615,7 +534,6 @@ const Home = ({
             setVisibleDel={setVisibleDel}
             selectedFile={selectedFile}
             setSelectedFile={setSelectedFile}
-            loadFiles={loadFiles}
             visibleGetLink={visibleGetLink}
             setVisibleGetLink={setVisibleGetLink}
           />
@@ -642,7 +560,7 @@ const mapDispatchToProps = (dispatch) => {
     filteredFilesByType: () => dispatch(actions.filteredFilesByType()),
     loadFolders: () => dispatch(actions.loadFolders()),
     setFilteredFiles: (files) => dispatch(actions.setFilteredFiles(files)),
-    setJwtFromCookie: (jwt) => dispatch(actions.setJwtFromCookie(jwt))
+    setJwtFromCookie: (jwt) => dispatch(actions.setJwtFromCookie(jwt)),
   };
 };
 

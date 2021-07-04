@@ -1,0 +1,21 @@
+.undo-delete-toast {
+  position: absolute;
+  bottom: 5vh;
+  left: 3vw;
+  width: 400px;
+  z-index: 1;
+}
+.undo-delete-toast .toast-body {
+  padding: 0;
+}
+
+.undo-delete-toast .close-btn {
+  background-color: transparent;
+  border: none;
+  width: fit-content;
+}
+
+.undo-delete-toast .inline{
+    width: fit-content;
+    display: inline-block;
+}

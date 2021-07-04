@@ -5,10 +5,11 @@ import { MdRestore } from "react-icons/md";
 import actions from "../../actions";
 
 import EmptyTrash from "./EmptyTrash/EmptyTrash";
-import GoBack from "./GoBack/GoBack";
+import GoBack from "../GoBack/GoBack"
 import ListDispalay from "./ListDispalay/ListDispalay";
 import GridDisplay from "./GridDisplay/GridDisplay";
 import RestorePopup from "./RestorePopup/RestorePopup";
+import Loader from "../Loader/Loader";
 
 import $ from "jquery";
 
@@ -20,7 +21,6 @@ import Video from "../../assets/video-solid.png";
 import User from "../../assets/user-solid.png";
 import FileCard from "../../assets/Group.png";
 import Folder from "../../assets/folder-solid.png";
-import Loader from "../../assets/loader.gif";
 
 import {
   BASE_URL,
@@ -32,13 +32,12 @@ const Trash = ({
   jwtFromCookie,
   files,
   setFiles,
-  homeLoadFiles,
   showGrid,
   setFilteredFiles,
   filteredFiles,
   setLocation,
 }) => {
-  const [loadBar, setLoadBar] = useState(false);
+
   const [load, setLoad] = useState(true);
   const [name, setName] = useState("");
   const [id, setId] = useState("");
@@ -56,6 +55,7 @@ const Trash = ({
   useEffect(() => {
     setLocation("trash");
     setLoad(true);
+    if (jwtFromCookie) loadFiles();
   }, []);
 
   useEffect(() => {
@@ -66,22 +66,8 @@ const Trash = ({
     showFiles();
   }, [files]);
 
-  const loader = (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        backgroundColor: "white",
-        textAlign: "center",
-      }}
-    >
-      <img src={Loader} />
-    </div>
-  );
-
   const loadFiles = () => {
     console.log("load");
-    console.log(jwtFromCookie);
     $.ajax({
       type: "GET",
       url: BASE_URL + USER_NAME + SHOW_DELETED_FILES,
@@ -103,9 +89,13 @@ const Trash = ({
               myFiles.push(file);
             }
           });
-          setLoadBar(true);
           setFilteredFiles(myFiles);
           setFiles(myFiles);
+          setLoad(false);
+        }
+        else {
+          setFiles([]);
+          setFilteredFiles([{}]);
           setLoad(false);
         }
       },
@@ -216,13 +206,6 @@ const Trash = ({
     } else console.log("no files");
   };
 
-  const searchInGrid = (f) => {
-    console.log("in searchInGrid", f);
-    const test = test;
-    const newTest = [...test, f];
-    console.log(newTest);
-  };
-
   const toggleDialog = (name, id) => {
     console.log("toggle");
     setIsOpen(!isOpen);
@@ -262,7 +245,6 @@ const Trash = ({
           {clean}
         </button>
       );
-
       foldersVies.push(button);
     }
   });
@@ -296,7 +278,7 @@ const Trash = ({
     buttonsViews.push(button);
   });
 
-  if (!files) {
+  if (files.length == 0 && load == false) {
     return <EmptyTrash />;
   }
 
@@ -307,9 +289,7 @@ const Trash = ({
         setIsOpen={setIsOpen}
         name={name}
         id={id}
-        jwtFromCookie={jwtFromCookie}
         loadFiles={loadFiles}
-        homeLoadFiles={homeLoadFiles}
       />
       <Container fluid style={{ backgroundColor: "#EDEEF0" }}>
         <GoBack />
@@ -347,7 +327,7 @@ const Trash = ({
           ) : (
             <>
               {load ? (
-                loader
+                <Loader />
               ) : (
                 <>
                   <ListDispalay
@@ -373,6 +353,7 @@ const mapStateToProps = (state) => {
   return {
     files: state.data.trashFiles,
     filteredFiles: state.data.filteredFiles,
+    jwtFromCookie: state.data.jwtFromCookie,
   };
 };
 

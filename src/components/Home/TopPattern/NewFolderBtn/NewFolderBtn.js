@@ -8,12 +8,7 @@ import "./newFolderBtn.css";
 
 import NewFolderPopup from "./NewFolderPopup/NewFolderPopup";
 
-const NewFolder = ({
-  changeView,
-  jwtFromCookie,
-  setVisibleNewFolder,
-  loadFiles,
-}) => {
+const NewFolder = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -31,7 +26,6 @@ const NewFolder = ({
           className="btn new-folder-btn"
           onClick={() => {
             setIsOpen(true);
-            changeView("newFolder");
           }}
         >
           <img src={AddFolder}></img>
@@ -40,9 +34,6 @@ const NewFolder = ({
       <NewFolderPopup
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        jwtFromCookie={jwtFromCookie}
-        setVisibleNewFolder={setVisibleNewFolder}
-        loadFiles={loadFiles}
       />
     </>
   );

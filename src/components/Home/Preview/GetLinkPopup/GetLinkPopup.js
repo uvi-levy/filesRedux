@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 
 import Close from "../../../../assets/close-gray.png";
 import Link from "../../../../assets/orange-link.png";
-import LinkWhite from "../../../../assets/link.png";
+import LinkWhite from "../../../../assets/white-link.png";
 
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";

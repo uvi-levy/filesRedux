@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import PageNumbers from "../../Home/Files/PageNumbers/PageNumbers";
+import Grid from "../../Grid/Grid";
 
 const GridDisplay = ({ showGrid, grid }) => {
   const [todosPerPage, setTodosPerPage] = useState(12);
@@ -20,33 +20,13 @@ const GridDisplay = ({ showGrid, grid }) => {
 
   return (
     <>
-      <div
-        style={{
-          padding: "0",
-          display: showGrid ? "block" : "none",
-          paddingBottom: "20px",
-        }}
-      >
-        <div
-          style={{
-            marginTop: "0",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "right",
-            flexWrap: "wrap",
-            width: "100%",
-          }}
-        >
-          {renderTodos}
-        </div>
-        <PageNumbers
-          grid={grid}
-          cardsPerPage={12}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          showGrid={showGrid}
-        />
-      </div>
+      <Grid
+        showGrid={showGrid}
+        renderCards={renderTodos}
+        grid={grid}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 };

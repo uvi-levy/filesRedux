@@ -6,7 +6,6 @@ import File from "../../assets/file-solid.png";
 import Img from "../../assets/image-regular.png";
 import Adiuo from "../../assets/headphones-solid.png";
 import Video from "../../assets/video-solid.png";
-import Arrow from "../../assets/fileUp.png";
 
 import imageCompression from "browser-image-compression";
 
@@ -27,7 +26,7 @@ import {
 import BootstrapTable from "react-bootstrap-table-next";
 import $ from "jquery";
 
-import GoBack from "../Trash/GoBack/GoBack";
+import GoBack from "../GoBack/GoBack";
 import actions from "../../actions";
 
 import {
@@ -36,6 +35,9 @@ import {
   UPLOAD_MULTIPLE_FILES,
   SAVE_MULTI_FILES_DB,
 } from "../../utility/constants";
+import UploadBtn from "../UploadBtn/UploadBtn";
+
+import useLoadFiles from "../../hooks/useLoadFiles/useLoadFiles";
 
 window.$ = $;
 
@@ -53,13 +55,9 @@ let iconsClasses = {
   mp4: <img src={Video} />,
 };
 
-const Upload = ({
-  loadFiles,
-  jwtFromCookie,
-  folders,
-  setShowBreadcrumb,
-  setLocation,
-}) => {
+const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
+  const loadFiles = useLoadFiles();
+
   const fileInputRef = useRef("");
 
   const [loadBar, setLoadBar] = useState(false);
@@ -193,6 +191,7 @@ const Upload = ({
     if (!myFiles[0].name) {
       alert("ooops... not files to upload");
     } else {
+      if (SelectedFolder != "None") formData.append("tags", SelectedFolder);
       myFiles.forEach((file, index) => {
         if (file.size > 2097152) {
           alert(
@@ -210,10 +209,6 @@ const Upload = ({
             );
           } else {
             formData.append("files" + index, file, file.name);
-            formData.append(
-              "tags",
-              SelectedFolder == "None" ? "" : SelectedFolder
-            );
             console.log("file", file);
           }
         }
@@ -430,6 +425,10 @@ const Upload = ({
     </Row>
   );
 
+  const uploadBtnStyle = {
+    marginTop: "10px",
+  };
+
   return (
     <>
       <SuccessPopup isOpen={isOpen} setIsOpen={setIsOpen} />
@@ -485,30 +484,7 @@ const Upload = ({
                         {" "}
                         Upload or drag your files here
                       </p>{" "}
-                      <button
-                        className="btn theme-color font-weight-bold upload-btn"
-                        style={{
-                          height: "35px",
-                          color: "white",
-                          backgroundColor: "#F4B248",
-                          display: "flex",
-                          width: "100px",
-                          margin: "auto",
-                          marginTop: "10px",
-                        }}
-                      >
-                        <p style={{ display: "inline", marginRight: "8%" }}>
-                          Upload
-                        </p>{" "}
-                        <img
-                          src={Arrow}
-                          style={{
-                            display: "inline",
-                            marginLeft: "8%",
-                            marginTop: "8%",
-                          }}
-                        />
-                      </button>
+                      <UploadBtn isLink={false} style={uploadBtnStyle} />
                     </h2>
                   </div>
                   <input
@@ -625,8 +601,8 @@ const Upload = ({
 
 const mapStateToProps = (state) => {
   return {
-    files: state.data.files,
     folders: state.data.folders,
+    jwtFromCookie: state.data.jwtFromCookie,
   };
 };
 

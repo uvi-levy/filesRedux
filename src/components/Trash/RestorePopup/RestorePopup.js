@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 
 import $ from "jquery";
@@ -9,15 +10,13 @@ import {
   RECOVER_MULTI_FILES,
 } from "../../../utility/constants";
 
-const RestorePopup = ({
-  name,
-  id,
-  isOpen,
-  setIsOpen,
-  jwtFromCookie,
-  loadFiles,
-  homeLoadFiles,
-}) => {
+import useLoadFiles from "../../../hooks/useLoadFiles/useLoadFiles";
+
+const RestorePopup = ({ name, id, isOpen, setIsOpen, loadFiles }) => {
+  const jwtFromCookie = useSelector((state) => state.data.jwtFromCookie);
+
+  const homeLoadFiles = useLoadFiles();
+
   const hideModal = () => {
     setIsOpen(false);
   };
@@ -38,7 +37,6 @@ const RestorePopup = ({
       contentType: "application/json",
 
       success: (data) => {
-        alert("file recovered!!");
         loadFiles();
         homeLoadFiles();
       },

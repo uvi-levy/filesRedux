@@ -6,12 +6,12 @@ import actions from "../../../actions";
 
 import NoFiles from "./NoFiles/NoFiles";
 
-import Loader from "../../../assets/loader.gif";
-
 import "./files.css";
+
 import GridDispaly from "./GridDisplay/GridDispaly";
 import ListDispaly from "./ListDispaly/ListDispaly";
-import PageNumbers from "./PageNumbers/PageNumbers";
+import PageNumbers from "../../PageNumbers/PageNumbers";
+import Loader from "../../Loader/Loader";
 
 const Files = ({
   files,
@@ -453,16 +453,7 @@ const Files = ({
 
   if (isLoadFiles === true) {
     return (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          backgroundColor: "white",
-          textAlign: "center",
-        }}
-      >
-        <img src={Loader} />
-      </div>
+      <Loader/>
     );
   }
   if (files.length == 0 && isLoadFiles === false) {
@@ -484,17 +475,11 @@ const Files = ({
         files={files}
         grid={grid}
         currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
         cardsPerPage={cardsPerPage}
         showGrid={showGrid}
       />
       <ListDispaly showGrid={showGrid} findFile={findFile} view={view} />
-      <PageNumbers
-        grid={grid}
-        cardsPerPage={cardsPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        showGrid={showGrid}
-      />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import DisplayButtons from "./DisplayButtons/DisplayButtons";
 import NewFolderBtn from "./NewFolderBtn/NewFolderBtn";
-import UploadBtn from "./Upload/UploadBtn";
+import UploadBtn from "../../UploadBtn/UploadBtn";
 import BreadCrumbs from "../BreadCrumbs/BreadCrumbs";
 import EmptyTrashBtn from "../../Trash/EmptyTrashBtn/EmptyTrashBtn";
 
@@ -15,10 +15,6 @@ import Trash from "../../../assets/trash-orange.png";
 const TopPattern = ({
   showGrid,
   setShowGrid,
-  changeView,
-  jwtFromCookie,
-  setVisibleNewFolder,
-  loadFiles,
   breadCrumbs,
   showBreadcrumb,
   location,
@@ -44,16 +40,11 @@ const TopPattern = ({
         <div className="vertical-line"></div>
         {location !== "trash" ? (
           <>
-            <UploadBtn changeView={changeView} />
-            <NewFolderBtn
-              jwtFromCookie={jwtFromCookie}
-              changeView={changeView}
-              setVisibleNewFolder={setVisibleNewFolder}
-              loadFiles={loadFiles}
-            />
+            <UploadBtn isLink={true} />
+            <NewFolderBtn />
           </>
         ) : (
-          <EmptyTrashBtn loadFiles={loadFiles} jwtFromCookie={jwtFromCookie} />
+          <EmptyTrashBtn />
         )}
       </div>
     </div>

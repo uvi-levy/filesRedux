@@ -4,30 +4,16 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 
 import ArrFilter from "../../../../assets/sort-solid.svg";
-import Loader from "../../../../assets/loader.gif";
+import Loader from "../../../Loader/Loader";
 
 const ListDispaly = ({ showGrid, findFile, view }) => {
   const [rowIndex, setRowIndex] = useState(0);
   const [allDisplay, setAllDisplay] = useState("none");
   const [TeamDisplay, setTeamDisplay] = useState("none");
-  const [noFiles, setNoFiles] = useState(
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        backgroundColor: "white",
-        textAlign: "center",
-      }}
-    >
-      <img src={Loader} />
-    </div>
-  );
 
   const headerSortingStyle = { backgroundColor: "#D4D4F5" };
 
   const tableStyle = { direction: "ltr" };
-
-  const loader = noFiles;
 
   const name = (
     <span>
@@ -252,7 +238,7 @@ const ListDispaly = ({ showGrid, findFile, view }) => {
               selectRow={selectRow}
               rowEvents={rowEvents}
               pagination={paginationFactory(options)}
-              noDataIndication={loader}
+              noDataIndication={Loader}
               bordered={false}
               striped
               hover

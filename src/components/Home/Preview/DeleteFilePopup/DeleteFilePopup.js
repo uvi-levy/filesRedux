@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import $ from "jquery";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import usePreFile from "../../../../hooks/usePreFile/usePreFile";
+import useLoadFiles from "../../../../hooks/useLoadFiles/useLoadFiles";
 
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 
@@ -23,8 +24,10 @@ const DeleteFilePopup = ({
   selectedFile,
   jwtFromCookie,
   setSelectedFile,
-  loadFiles,
+  setShowToast,
 }) => {
+  const loadFiles = useLoadFiles();
+
   const hideModal = () => {
     setVisibleDel(false);
   };
@@ -50,6 +53,7 @@ const DeleteFilePopup = ({
         setSelectedFile({});
         setPreview(showPreFile());
         loadFiles();
+        setShowToast(true);
       },
       error: function (err) {
         alert("err");
@@ -100,10 +104,7 @@ const DeleteFilePopup = ({
             </div>
           </Row>
           <Row>
-            <Button
-            className="delete-btn"
-              onClick={deleteFile}
-            >
+            <Button className="delete-btn" onClick={deleteFile}>
               Yes, I'm sure!
             </Button>
           </Row>

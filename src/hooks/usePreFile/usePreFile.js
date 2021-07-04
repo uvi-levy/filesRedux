@@ -33,9 +33,10 @@ import {
   DOWNLOAD,
 } from "../../utility/constants";
 
+import useLoadFiles from "../useLoadFiles/useLoadFiles";
+
 const usePreFile = (
   jwtFromCookie,
-  loadFiles,
   setShowBreadcrumb,
   findByTag,
   showGrid,
@@ -44,11 +45,12 @@ const usePreFile = (
 ) => {
   // const [visibleDel, setVisibleDel] = useState(false);
   let file = null;
+  
+  const loadFiles = useLoadFiles();
 
   const imgRef = useRef();
   const textAreaLinkRef = useRef();
   const textAreaNoteRef = useRef();
-  const textAreaRef = useRef();
 
   useEffect(() => {
     console.log(showGrid);
@@ -145,7 +147,6 @@ const usePreFile = (
 
   const printFile = () => {
     console.log("in print");
-    // const file = this.props.file; //send file
     var printWindow = window.open(
       file.url,
       "Print",
@@ -164,6 +165,7 @@ const usePreFile = (
       true
     );
   };
+  
   const copyEmbed = () => {
     console.log("in copyEmbed");
     const embed = (

@@ -2,7 +2,7 @@ import React from "react";
 
 import noFiles from "../../../../assets/no-files.png";
 
-import UploadBtn from "../../TopPattern/Upload/UploadBtn";
+import UploadBtn from "../../../UploadBtn/UploadBtn";
 
 import "./noFiles.css";
 
@@ -13,7 +13,7 @@ const NoFiles = () => {
         <img src={noFiles} />
       </div>
       <h4>You Have No Content Yet, Come Up</h4>
-      <UploadBtn />
+      <UploadBtn isLink={true} />
     </div>
   );
 };

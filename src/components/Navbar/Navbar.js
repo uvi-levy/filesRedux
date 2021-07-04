@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
 
 import Search from "./Search/Search";
 import FilterButtons from "./FilterButtons/FilterButtons";
@@ -7,19 +9,20 @@ import Chart from "./Chart/Chart";
 
 import "./navbar.css";
 
-import { Container, Row, Col } from "react-bootstrap";
 import actions from "../../actions";
+
+import { USER_NAME } from "../../utility/constants";
 
 const Navbar = ({
   files,
   filteredFilesByType,
-  changeView,
   changeProps,
-  jwtFromCookie,
   filteredFilesByTypeFunc,
   trashFiles,
   location,
 }) => {
+  const history = useHistory();
+
   useEffect(() => {
     filteredFilesByTypeFunc();
   }, [location, trashFiles]);
@@ -80,11 +83,10 @@ const Navbar = ({
     }
     if (filtaredFiles.length < 1) {
       console.log("no files");
-      changeView("noFiles");
     }
     if (type == "trash") {
       console.log("trash");
-      changeView("trash");
+      history.push("/" + USER_NAME + "/trash");
     }
   };
 
@@ -97,7 +99,7 @@ const Navbar = ({
               <Search filteredFiles={filteredFilesFunc} />
             </Col>
             <Col>
-              <Chart jwtFromCookie={jwtFromCookie} />
+              <Chart />
             </Col>
           </Row>
         </Container>

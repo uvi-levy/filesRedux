@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import $ from "jquery";
 
 import {
@@ -11,7 +12,7 @@ import {
   ResponsiveEmbed,
 } from "react-bootstrap";
 
-import "./preview.css"
+import "./preview.css";
 
 import Link from "../../../assets/link.png";
 import Share from "../../../assets/share.png";
@@ -36,6 +37,8 @@ import {
 import EmbedView from "./EmbedView/EmbedView";
 import DeleteFilePopup from "./DeleteFilePopup/DeleteFilePopup";
 import GetLinkPopup from "./GetLinkPopup/GetLinkPopup";
+import useLoadFiles from "../../../hooks/useLoadFiles/useLoadFiles";
+import UndoDelete from "./UndoDelete/UndoDelete";
 
 const Preview = ({
   preview,
@@ -44,15 +47,18 @@ const Preview = ({
   setVisibleDel,
   selectedFile,
   setSelectedFile,
-  loadFiles,
-  jwtFromCookie,
   visibleGetLink,
   setVisibleGetLink,
 }) => {
+  const jwtFromCookie = useSelector((state) => state.data.jwtFromCookie);
+
+  const loadFiles = useLoadFiles();
+
   const [file, setFile] = useState(selectedFile);
   const [embedView, setEmbedView] = useState(false);
   const [embed, setEmbed] = useState("");
   const [copied, setCopied] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   const imgRef = useRef();
   const textAreaLinkRef = useRef();
@@ -152,7 +158,7 @@ const Preview = ({
   const printFile = () => {
     console.log("in print");
     const file = this.state.selectedFile;
-    let printWindow = window.open(
+    let printWindow = window.open7Z(
       file.url,
       "Print",
       "left=200",
@@ -308,8 +314,8 @@ const Preview = ({
           setVisibleDel={setVisibleDel}
           selectedFile={selectedFile}
           setSelectedFile={setSelectedFile}
-          loadFiles={loadFiles}
           setPreview={setPreview}
+          setShowToast={setShowToast}
         />
       )}
       {/* {embedView && (
@@ -321,6 +327,9 @@ const Preview = ({
         />
       )} */}
       {preview}
+      {showToast && (
+        <UndoDelete showToast={showToast} setShowToast={setShowToast} />
+      )}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory, Link } from "react-router-dom";
 
-import { USER_NAME } from "../../../utility/constants";
+import { USER_NAME } from "../../utility/constants";
 const GoBack = () => {
   const history = useHistory();
 

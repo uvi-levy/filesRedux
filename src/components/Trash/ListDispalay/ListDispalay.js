@@ -16,13 +16,14 @@ import Copy from "../../../assets/copy.png";
 import Delete from "../../../assets/delete.png";
 import ArrFilter from "../../../assets/sort-solid.svg";
 import ArrDown from "../../../assets/angle-down-solid.svg";
-import Loader from "../../../assets/loader.gif";
 import FileIcon from "../../../assets/file-solid.png";
 import Img from "../../../assets/image-regular.png";
 import Adiuo from "../../../assets/headphones-solid.png";
 import Video from "../../../assets/video-solid.png";
 import Users from "../../../assets/user-friends-solid.png";
 import User from "../../../assets/user-solid.png";
+
+import Loader from "../../Loader/Loader";
 
 const ListDispalay = ({
   view,
@@ -319,19 +320,6 @@ const ListDispalay = ({
     pageButtonRenderer,
   };
 
-  const loader = (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        backgroundColor: "white",
-        textAlign: "center",
-      }}
-    >
-      <img src={Loader} />
-    </div>
-  );
-
   const hoverButtonsTeam = [
     {
       text: " Team ",
@@ -437,7 +425,7 @@ const ListDispalay = ({
                         rowStyle={rowStyle}
                         rowEvents={rowEvents}
                         pagination={paginationFactory(options)}
-                        noDataIndication={loader}
+                        noDataIndication={Loader}
                         bordered={false}
                         striped
                         hover

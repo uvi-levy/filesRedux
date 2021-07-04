@@ -11,7 +11,7 @@ const initialState = {
   trashFiles: [],
   filteredFiles: [],
   location: "home",
-  jwtFromCookie: ""
+  jwtFromCookie: "",
 };
 
 const data = {
@@ -23,6 +23,9 @@ const data = {
     state.isLoadFiles = false;
     state.filteredFiles = action.payload;
   },
+  setIsLoadFiles(state, action) {
+    state.isLoadFiles = false;
+  },
   setFilteredFiles(state, action) {
     state.filteredFiles = action.payload;
   },
@@ -33,7 +36,7 @@ const data = {
   setLocation(state, action) {
     state.location = action.payload;
   },
-  setJwtFromCookie(state, action){
+  setJwtFromCookie(state, action) {
     state.jwtFromCookie = action.payload;
   },
   filteredFilesByType(state, action) {

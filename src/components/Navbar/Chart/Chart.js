@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { ProgressBar } from "react-bootstrap";
 import $ from "jquery";
 
@@ -6,7 +7,9 @@ import { BASE_URL, USER_NAME, GET_COUNT } from "../../../utility/constants";
 
 import "./chart.css";
 
-const Chart = ({ jwtFromCookie }) => {
+const Chart = () => {
+  const jwtFromCookie = useSelector((state) => state.data.jwtFromCookie);
+
   const [count, setCount] = useState(0);
   const [size, setSize] = useState("M");
 

@@ -14,15 +14,13 @@ import {
   REMOVE_MULTIPLE_FILES,
 } from "../../../utility/constants";
 
+import useLoadFiles from "../../../hooks/useLoadFiles/useLoadFiles";
+
 import "./emptyTrashPopup.css";
 
-const EmptyTrashPopup = ({
-  isOpen,
-  setIsOpen,
-  trashFiles,
-  loadFiles,
-  jwtFromCookie,
-}) => {
+const EmptyTrashPopup = ({ isOpen, setIsOpen, trashFiles, jwtFromCookie }) => {
+  const loadFiles = useLoadFiles();
+
   const hideModal = () => {
     setIsOpen(false);
   };
@@ -96,6 +94,7 @@ const EmptyTrashPopup = ({
 const mapStateToProps = (state) => {
   return {
     trashFiles: state.data.trashFiles,
+    jwtFromCookie: state.data.jwtFromCookie,
   };
 };
 

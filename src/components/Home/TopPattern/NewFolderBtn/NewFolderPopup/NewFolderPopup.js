@@ -18,15 +18,17 @@ import {
 
 import "./newFolderPopup.css";
 
+import useLoadFiles from "../../../../../hooks/useLoadFiles/useLoadFiles";
+
 const UploadPopup = ({
   isOpen,
   setIsOpen,
   jwtFromCookie,
-  setVisibleNewFolder,
   folders,
-  loadFiles,
 }) => {
   const textAreaFolderRef = useRef("");
+
+  const loadFiles = useLoadFiles();
 
   const newFolder = () => {
     console.log("in newFolder");
@@ -54,7 +56,6 @@ const UploadPopup = ({
         contentType: false,
         success: (data) => {
           alert("new folder created!");
-          setVisibleNewFolder(false);
           console.log(data);
           hideModal();
           loadFiles();
@@ -148,6 +149,7 @@ const UploadPopup = ({
 const mapStateToProps = (state) => {
   return {
     folders: state.data.folders,
+    jwtFromCookie: state.data.jwtFromCookie
   };
 };
 export default connect(mapStateToProps)(UploadPopup);
