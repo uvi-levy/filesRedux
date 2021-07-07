@@ -41,10 +41,10 @@ const DisplayButtons = ({ showGrid, setShowGrid, setDisplayPreview }) => {
             <Button
               variant="outline-light"
               className="dispaly-btn"
-              // style={{ paddingRight: "0" }}
               onClick={() => {
                 setDisplayPreview(false);
-                setShowGrid(!showGrid)}}
+                setShowGrid(!showGrid);
+              }}
             >
               {!showGrid ? (
                 <img style={{ height: "80%" }} src={Grid} />
@@ -68,8 +68,9 @@ const DisplayButtons = ({ showGrid, setShowGrid, setDisplayPreview }) => {
               variant="outline-light"
               className="dispaly-btn"
               onClick={() => {
-                setDisplayPreview(false)
-                setShowGrid(!showGrid)}}
+                setDisplayPreview(false);
+                setShowGrid(!showGrid);
+              }}
             >
               {showGrid ? (
                 <img style={{ height: "80%" }} src={List} />

@@ -26,7 +26,7 @@ const GetLinkPopup = ({ visibleGetLink, setVisibleGetLink, selectedFile }) => {
   };
 
   return (
-    <div>
+    <>
       <Modal
         show={visibleGetLink}
         onHide={hideModal}
@@ -44,16 +44,6 @@ const GetLinkPopup = ({ visibleGetLink, setVisibleGetLink, selectedFile }) => {
         </Container>
         <Modal.Body>
           <Row className="justify-content-start" style={{ textAlign: "left" }}>
-            {/* <Col
-              md={1}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {" "}
-            </Col> */}
             <Col>
               <img src={Link} className="display-inline link-img" />
               <h3
@@ -65,7 +55,10 @@ const GetLinkPopup = ({ visibleGetLink, setVisibleGetLink, selectedFile }) => {
             </Col>
           </Row>
           <Row>
-          <div class="d-flex flex-row" style={{margin: "auto", width: "fit-content"}}>
+            <div
+              class="d-flex flex-row"
+              style={{ margin: "auto", width: "fit-content" }}
+            >
               <textarea
                 style={{
                   width: "400px",
@@ -73,7 +66,7 @@ const GetLinkPopup = ({ visibleGetLink, setVisibleGetLink, selectedFile }) => {
                   backgroundColor: "#F6F6FA",
                   fontSize: "90%",
                   resize: "none",
-                  display: "inline-block"
+                  display: "inline-block",
                 }}
                 ref={textAreaLinkRef}
               >
@@ -86,11 +79,11 @@ const GetLinkPopup = ({ visibleGetLink, setVisibleGetLink, selectedFile }) => {
               >
                 <img src={LinkWhite} />
               </Button>
-         </div>
+            </div>
           </Row>
         </Modal.Body>
       </Modal>
-    </div>
+    </>
   );
 };
 

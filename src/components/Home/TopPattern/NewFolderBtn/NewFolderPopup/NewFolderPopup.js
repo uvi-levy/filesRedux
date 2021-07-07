@@ -20,12 +20,7 @@ import "./newFolderPopup.css";
 
 import useLoadFiles from "../../../../../hooks/useLoadFiles/useLoadFiles";
 
-const UploadPopup = ({
-  isOpen,
-  setIsOpen,
-  jwtFromCookie,
-  folders,
-}) => {
+const UploadPopup = ({ isOpen, setIsOpen, jwtFromCookie, folders }) => {
   const textAreaFolderRef = useRef("");
 
   const loadFiles = useLoadFiles();
@@ -149,7 +144,7 @@ const UploadPopup = ({
 const mapStateToProps = (state) => {
   return {
     folders: state.data.folders,
-    jwtFromCookie: state.data.jwtFromCookie
+    jwtFromCookie: state.data.jwtFromCookie,
   };
 };
 export default connect(mapStateToProps)(UploadPopup);

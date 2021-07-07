@@ -5,7 +5,7 @@ import { MdRestore } from "react-icons/md";
 import actions from "../../actions";
 
 import EmptyTrash from "./EmptyTrash/EmptyTrash";
-import GoBack from "../GoBack/GoBack"
+import GoBack from "../GoBack/GoBack";
 import ListDispalay from "./ListDispalay/ListDispalay";
 import GridDisplay from "./GridDisplay/GridDisplay";
 import RestorePopup from "./RestorePopup/RestorePopup";
@@ -37,7 +37,6 @@ const Trash = ({
   filteredFiles,
   setLocation,
 }) => {
-
   const [load, setLoad] = useState(true);
   const [name, setName] = useState("");
   const [id, setId] = useState("");
@@ -92,8 +91,7 @@ const Trash = ({
           setFilteredFiles(myFiles);
           setFiles(myFiles);
           setLoad(false);
-        }
-        else {
+        } else {
           setFiles([]);
           setFilteredFiles([{}]);
           setLoad(false);

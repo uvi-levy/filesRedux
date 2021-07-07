@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import $ from "jquery";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import usePreFile from "../../../../hooks/usePreFile/usePreFile";
 import useLoadFiles from "../../../../hooks/useLoadFiles/useLoadFiles";
 
-import { Container, Row, Col, Button, Modal } from "react-bootstrap";
+import { Container, Row, Button, Modal } from "react-bootstrap";
 
 import Close from "../../../../assets/close-gray.png";
 
@@ -18,12 +17,11 @@ import {
 } from "../../../../utility/constants";
 
 const DeleteFilePopup = ({
-  setPreview,
   visibleDel,
   setVisibleDel,
   selectedFile,
   jwtFromCookie,
-  setSelectedFile,
+  cleanPreView,
   setShowToast,
 }) => {
   const loadFiles = useLoadFiles();
@@ -31,8 +29,6 @@ const DeleteFilePopup = ({
   const hideModal = () => {
     setVisibleDel(false);
   };
-
-  const showPreFile = usePreFile();
 
   const deleteFile = () => {
     hideModal();
@@ -50,10 +46,9 @@ const DeleteFilePopup = ({
       contentType: "application/json",
 
       success: () => {
-        setSelectedFile({});
-        setPreview(showPreFile());
-        loadFiles();
+        cleanPreView();
         setShowToast(true);
+        loadFiles();
       },
       error: function (err) {
         alert("err");

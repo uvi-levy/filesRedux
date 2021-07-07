@@ -1,5 +1,4 @@
 import React from "react";
-import { CardDeck } from "react-bootstrap";
 
 import PageNumbers from "../PageNumbers/PageNumbers";
 

@@ -1,0 +1,69 @@
+.on-list-display {
+  display: inline-block;
+  width: calc(100vw - 70vw - 60px);
+  max-width: 400px;
+  height: 84vh;
+  float: right;
+  margin: 20px 20px auto auto;
+  /* transform: translateX(0); */
+}
+
+.on-grid-display {
+  position: absolute;
+  z-index: 3;
+  top: 70px;
+  right: 0;
+  display: block;
+  width: 35vw;
+  max-width: 400px;
+  height: calc(100vh - 70px);
+  padding: 1%;
+  border: #f4f4f4 1px solid;
+  /* transform: translateX(100%);
+  transition: transform 0.3s ease-in-out; */
+}
+/* 
+.show-grid-view {
+  transform: translateX(0);
+} */
+
+.pre-file {
+  color: #8181a5;
+  overflow-y: scroll;
+  background-color: white;
+}
+
+.add_note_container {
+  float: right;
+  cursor: pointer;
+}
+
+.add_note_container .inline {
+  display: inline-block;
+}
+
+.add_note_container p {
+  color: #f4b248;
+  margin-right: 15px;
+}
+
+.save_note_btn {
+  float: right;
+  position: absolute;
+  bottom: 20%;
+  right: 5%;
+  border: none;
+  background-color: transparent;
+}
+
+.save_note_btn p {
+  display: inline-block;
+  width: fit-content;
+  color: #f4b248;
+  margin-right: 10px;
+}
+
+.file-preview-close-btn {
+  width: 35px;
+  margin-left: 87%;
+}

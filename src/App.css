@@ -8,3 +8,7 @@ body{
     height: 100%;
     overflow: hidden;
 }
+
+.display-none{
+    display: none;
+}

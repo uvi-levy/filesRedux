@@ -1,0 +1,30 @@
+.full-screen-container {
+  position: absolute;
+  z-index: 4;
+  width: 100vw;
+  height: 100vh;
+  top: 70px;
+  left: 0;
+  right: 0;
+}
+
+.full-screen-img {
+  width: 60%;
+  max-height: 80vh;
+  margin: auto 5%;
+}
+
+.close-full-screen-btn {
+  margin: 10px auto auto 95%;
+}
+
+.full-screen-container button {
+  width: fit-content;
+  background-color: transparent;
+  border: none;
+  display: inline-block;
+}
+
+.full-screen-container .prev-next-btns {
+  margin: auto 3%;
+}

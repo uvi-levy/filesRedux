@@ -10,6 +10,7 @@ import VideoG from "../../../assets/video-new.png";
 import Trash from "../../../assets/trash.png";
 
 import { USER_NAME } from "../../../utility/constants";
+
 import "./filterButtons.css";
 
 const FilterButtons = ({ filteredFilesByType, folders, filteredFiles }) => {

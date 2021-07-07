@@ -1,49 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 
-import $ from "jquery";
-
-import {
-  USER_NAME,
-  BASE_URL,
-  RECOVER_MULTI_FILES,
-} from "../../../utility/constants";
-
-import useLoadFiles from "../../../hooks/useLoadFiles/useLoadFiles";
+import useRecoverdFile from "../../../hooks/useRecoverdFile/useRecoverdFile";
 
 const RestorePopup = ({ name, id, isOpen, setIsOpen, loadFiles }) => {
-  const jwtFromCookie = useSelector((state) => state.data.jwtFromCookie);
-
-  const homeLoadFiles = useLoadFiles();
+  const recoveredFile = useRecoverdFile();
 
   const hideModal = () => {
     setIsOpen(false);
-  };
-
-  const recoveredFile = (fileId) => {
-    console.log("in recoveredFile");
-
-    hideModal();
-
-    console.log(fileId);
-
-    $.ajax({
-      type: "PUT",
-      url: BASE_URL + USER_NAME + RECOVER_MULTI_FILES,
-      headers: { Authorization: jwtFromCookie },
-      data: JSON.stringify({ files: fileId }),
-      dataType: "json",
-      contentType: "application/json",
-
-      success: (data) => {
-        loadFiles();
-        homeLoadFiles();
-      },
-      error: function (err) {
-        alert("err");
-      },
-    });
   };
 
   return (
@@ -74,7 +38,7 @@ const RestorePopup = ({ name, id, isOpen, setIsOpen, loadFiles }) => {
             </Col>
             <Col style={{ padding: "0", marginLeft: "5px" }}>
               <Button
-                onClick={() => recoveredFile(id)}
+                onClick={() => recoveredFile(id, hideModal, loadFiles)}
                 style={{
                   backgroundColor: "#F4B248",
                   borderColor: "#F4B248",

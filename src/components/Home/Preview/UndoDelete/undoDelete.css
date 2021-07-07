@@ -15,7 +15,13 @@
   width: fit-content;
 }
 
-.undo-delete-toast .inline{
-    width: fit-content;
-    display: inline-block;
+.undo-delete-toast .inline {
+  width: fit-content;
+  display: inline-block;
+}
+
+.undo-delete-toast .undo-text {
+  color: #f4b248;
+  margin-right: 10px;
+  cursor: pointer;
 }

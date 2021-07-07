@@ -36,7 +36,6 @@ const EmptyTrashPopup = ({ isOpen, setIsOpen, trashFiles, jwtFromCookie }) => {
       filesUrl.push(file.url);
     });
     console.log(filesUrl);
-    // return;
     $.ajax({
       type: "POST",
       url: BASE_URL + USER_NAME + REMOVE_MULTIPLE_FILES,

@@ -31,10 +31,7 @@ const NewFolder = () => {
           <img src={AddFolder}></img>
         </button>
       </OverlayTrigger>
-      <NewFolderPopup
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-      />
+      <NewFolderPopup isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };

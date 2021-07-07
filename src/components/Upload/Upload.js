@@ -295,7 +295,7 @@ const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
                 headers: { authorization: jwtFromCookie },
                 data: myData,
                 error: (err) => {
-                  console.log("djsfjsdjsdjsndkjs", err);
+                  console.log("err", err);
                   alert("upload canceled");
                   backToHome();
                 },

@@ -1,25 +1,25 @@
 import React, { useEffect } from "react";
-import { Toast, Container, Row, Col, Button } from "react-bootstrap";
+import { Toast, Container, Row, Col } from "react-bootstrap";
 
 import Close from "../../../../assets/close-gray.png";
 
+import useRecoverdFile from "../../../../hooks/useRecoverdFile/useRecoverdFile";
+
 import "./undoDelete.css";
 
-const UndoDelete = ({ showToast, setShowToast }) => {
-  const toggleShowToast = () => {
-    setShowToast(!showToast);
-  };
+const UndoDelete = ({ showToast, setShowToast, selectedFile }) => {
+  const recoveredFile = useRecoverdFile();
 
   useEffect(() => {
     setTimeout(() => {
-      toggleShowToast();
+      setShowToast(!showToast);
     }, 3000);
   }, []);
   return (
     <>
       <Toast
         show={showToast}
-        onClose={toggleShowToast}
+        onClose={() => setShowToast(false)}
         className="undo-delete-toast"
       >
         <Toast.Body>
@@ -35,9 +35,17 @@ const UndoDelete = ({ showToast, setShowToast }) => {
               <Col>
                 <h6>Your File Has Been Deleted</h6>
               </Col>
-              <Col sm={3}>
-                <h6 className="inline">Undo</h6>
-                <button className="close-btn inline" onClick={toggleShowToast}>
+              <Col sm={3} style={{ padding: "0" }}>
+                <h6
+                  className="inline undo-text"
+                  onClick={() => recoveredFile(selectedFile._id)}
+                >
+                  Undo
+                </h6>
+                <button
+                  className="close-btn inline"
+                  onClick={() => setShowToast(false)}
+                >
                   <img src={Close}></img>
                 </button>
               </Col>

@@ -1,14 +1,15 @@
-.navbar{
-    background-color: #FFFFFF;
-    padding: 15px;
-    box-shadow: 0px 3px 6px #00000029;
+.navbar {
+  background-color: #ffffff;
+  padding: 15px;
+  box-shadow: 0px 3px 6px #00000029;
+  height: 70px;
 }
 
-.navbar .filter-buttons{
-    width: fit-content;
-    margin-right: 2vw;
+.navbar .filter-buttons {
+  width: fit-content;
+  margin-right: 2vw;
 }
 
-.navbar .left-div{
-    width: 350px;
+.navbar .left-div {
+  width: 350px;
 }

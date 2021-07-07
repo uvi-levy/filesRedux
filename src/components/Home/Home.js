@@ -12,6 +12,13 @@ import Navbar from "../Navbar/Navbar";
 import TopPattern from "./TopPattern/TopPattern";
 import Folders from "./Folders/Folders";
 import Files from "./Files/Files";
+import UndoDelete from "../Home/Preview/UndoDelete/UndoDelete";
+import Backdrop from "../Backdrop/Backdrop";
+import Trash from "../Trash/Trash";
+import Upload from "../Upload/Upload";
+import Preview from "./Preview/Preview";
+import CleanPreview from "./Preview/CleanPreview/CleanPreview";
+import FullScreenFile from "./Preview/FullScreenFile/FullScreenFile";
 
 import imgFile from "../../assets/file-solid.png";
 import Img from "../../assets/image-regular.png";
@@ -29,10 +36,7 @@ import VideoIcon from "../../assets/video-icon.png";
 import FileIcon from "../../assets/file-icon.png";
 
 import "./home.css";
-import Trash from "../Trash/Trash";
-import Upload from "../Upload/Upload";
 
-import usePreFile from "../../hooks/usePreFile/usePreFile";
 import useLoadFiles from "../../hooks/useLoadFiles/useLoadFiles";
 
 import {
@@ -43,12 +47,9 @@ import {
   USER_NAME,
   FIND_BY_TAG,
 } from "../../utility/constants";
-import Preview from "./Preview/Preview";
 
 const Home = ({
   data,
-  setData,
-  setFiles,
   files,
   trashFiles,
   filteredFilesByType,
@@ -57,26 +58,23 @@ const Home = ({
   filteredFiles,
   jwtFromCookie,
   setJwtFromCookie,
+  location,
 }) => {
   let history = useHistory();
 
+  const [showToast, setShowToast] = useState(false);
   const [showGrid, setShowGrid] = useState(true);
   const [showBreadcrumb, setShowBreadcrumb] = useState(false);
   const [breadCrumbs, setBreadCrumbs] = useState("");
-  const [inFolder, setInFolder] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [grid, setGrid] = useState([]);
   const [view, setView] = useState([]);
   const [selectedFile, setSelectedFile] = useState();
   const [rowIndex, setRowIndex] = useState(0);
-  const [folderName, setFolderName] = useState("");
   const [filter, setFilter] = useState([{}]);
   const [displayPreview, setDisplayPreview] = useState(false);
-  const [preview, setPreview] = useState(
-    <p style={{ margin: "0", color: "#75798E" }}>no Preview Available</p>
-  );
-  const [visibleDel, setVisibleDel] = useState(false);
-  const [visibleGetLink, setVisibleGetLink] = useState(false);
+  const [preview, setPreview] = useState(<CleanPreview showGrid={showGrid} />);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const loadFiles = useLoadFiles();
 
@@ -120,6 +118,33 @@ const Home = ({
   useEffect(() => {
     showFiles();
   }, [filteredFiles]);
+
+  useEffect(() => {
+    console.log("isFullScreen", isFullScreen);
+  }, [isFullScreen]);
+
+  const showPreFile = (file) => {
+    if (file && file.name.split("__")[1] && file.dateCreated.split("T")[0]) {
+      console.log("showPreFile", file);
+
+      setPreview(
+        <Preview
+          file={file}
+          findByTag={(folder) => {
+            findByTag(folder);
+          }}
+          setShowBreadcrumb={setShowBreadcrumb}
+          showGrid={showGrid}
+          setPreview={setPreview}
+          setShowToast={setShowToast}
+          setDisplayPreview={setDisplayPreview}
+          setIsFullScreen={setIsFullScreen}
+        />
+      );
+    } else {
+      setPreview(<CleanPreview showGrid={showGrid} />);
+    }
+  };
 
   const showFiles = () => {
     console.log("in showFiles");
@@ -306,66 +331,6 @@ const Home = ({
         }
       });
     } else console.log("no files");
-    // if (folders && inFolder == true)
-    // {
-    //   folders.forEach((folder) => {
-    //     var folderImg = <img src={Folder} />;
-    //     if (folder.name && folder.date) {
-    //       const row = {
-    //         id: "folder " + folder.name,
-    //         all: folderImg,
-    //         name: folder.name,
-    //         date: folder.date.split("T")[0].substr(2),
-    //         "file size": folder.size.toPrecision(4).toString() + " KB",
-    //       };
-    //       const gridCard = (
-    //         <Card
-    //           className="gridCard"
-    //           onClick={() =>
-    //             findFile(null, null, null, "folder/" + folder.name)
-    //           }
-    //           style={{
-    //             width: "200px",
-    //             height: "185px",
-    //             overflow: "hidden",
-    //             padding: "0",
-    //             margin: "10px"
-    //           }}
-    //         >
-    //           <Card.Body style={{ padding: "1%" }}>
-    //             <Card.Text
-    //               style={{
-    //                 height: "130px",
-    //                 textAlign: "center",
-    //                 alignItems: "center",
-    //                 display: "flex",
-    //                 cursor: "pointer",
-    //                 width: "100%",
-    //                 margin: "0",
-    //                 backgroundColor: "#EFF0F2",
-    //               }}
-    //             >
-    //               <img
-    //                 style={{
-    //                   display: "block",
-    //                   maxWidth: "95%",
-    //                   maxHeight: "95%",
-    //                   margin: "auto",
-    //                 }}
-    //                 src={FileCard}
-    //               />
-    //             </Card.Text>
-    //             <Card.Title>
-    //               <p style={{ fontSize: "85%" }}>{folder.name}</p>
-    //             </Card.Title>
-    //           </Card.Body>
-    //         </Card>
-    //       );
-    //       tmpRows.push(row);
-    //       tmpGrid.push(gridCard);
-    //     }
-    //   });
-    // }
     setView(tmpRows);
     setGrid(tmpGrid);
   };
@@ -392,12 +357,12 @@ const Home = ({
     files.forEach((file) => {
       if (row) {
         if (file._id == row.id) {
-          console.log(file);
+          console.log("file list", file);
 
           if (isSelect) {
             console.log("isSelect", isSelect);
+            showPreFile(file);
             setDisplayPreview(true);
-            setPreview(showPreFile(file));
 
             setSelectedFile(file);
             setRowIndex(tmpRowIndex);
@@ -407,14 +372,19 @@ const Home = ({
 
       if (checkBoxValue) {
         if (file._id == checkBoxValue) {
-          console.log(file);
+          console.log("file grid", file);
 
           var card = $("#" + checkBoxValue);
           card.css("outline", "1px solid #8181A5 ");
           console.log("checkBoxValue", checkBoxValue);
 
           setDisplayPreview(true);
-          setPreview(showPreFile(file));
+
+          $(".pre-file").addClass("show-grid-view");
+          $(".pre-file").removeClass("on-list-display");
+          $(".pre-file").addClass("on-grid-display");
+
+          showPreFile(file);
 
           setSelectedFile(file);
           setRowIndex(tmpRowIndex);
@@ -426,7 +396,6 @@ const Home = ({
   const findByTag = (folder) => {
     console.log("in findByTag");
     console.log(folder);
-    setFolderName(folder);
     console.log(jwtFromCookie);
     $.ajax({
       type: "GET",
@@ -437,7 +406,6 @@ const Home = ({
         setShowBreadcrumb(true);
         setCurrentPage(1);
         setFilter(data);
-        setInFolder(false);
       },
       error: (err) => {
         alert("please try again later");
@@ -445,31 +413,13 @@ const Home = ({
     });
   };
 
-  const changeProps = (files, showFolder, History) => {
+  const changeProps = (files) => {
     console.log("filesChangeProps" + files);
 
     setFilteredFiles(files);
-    setInFolder(showFolder);
     setShowBreadcrumb(false);
     setCurrentPage(1);
   };
-
-  const toggleDeleteDialog = () => {
-    setVisibleDel(!visibleDel);
-  };
-
-  const toggleGetLink = () => {
-    setVisibleGetLink(!visibleGetLink);
-  };
-
-  const showPreFile = usePreFile(
-    jwtFromCookie,
-    setShowBreadcrumb,
-    findByTag,
-    showGrid,
-    toggleDeleteDialog,
-    toggleGetLink
-  );
 
   return (
     <div>
@@ -481,10 +431,26 @@ const Home = ({
           files={files}
           trashFiles={trashFiles}
         />
+
+        {showGrid && displayPreview && <Backdrop />}
+        {isFullScreen && (
+          <>
+            <Backdrop />
+            <FullScreenFile
+              file={selectedFile}
+              setDisplayPreview={setDisplayPreview}
+              setIsFullScreen={setIsFullScreen}
+            />
+          </>
+        )}
+
         <div
           className={
             "home-container " +
-            (!showGrid && displayPreview ? "home-list-display" : "")
+            (location != "home"
+              ? ""
+              : !showGrid && displayPreview && "home-list-display")
+            //  : !showGrid && "home-list-display show-grid-view")
           }
         >
           <TopPattern
@@ -513,29 +479,22 @@ const Home = ({
               />
             </Route>
             <Route exact path="/:userName/upload">
-              <Upload
-                setShowBreadcrumb={setShowBreadcrumb}
-              />
+              <Upload setShowBreadcrumb={setShowBreadcrumb} />
             </Route>
             <Route exact path="/:userName/trash">
-              <Trash
-                showGrid={showGrid}
-              />
+              <Trash showGrid={showGrid} />
             </Route>
             {/* add protected route for admin */}
             {/* <Route/> add err page */}
           </Switch>
         </div>
-        {displayPreview && (
-          <Preview
-            preview={preview}
-            setPreview={setPreview}
-            visibleDel={visibleDel}
-            setVisibleDel={setVisibleDel}
+        {displayPreview && preview}
+        {/* {preview} */}
+        {showToast && (
+          <UndoDelete
+            showToast={showToast}
+            setShowToast={setShowToast}
             selectedFile={selectedFile}
-            setSelectedFile={setSelectedFile}
-            visibleGetLink={visibleGetLink}
-            setVisibleGetLink={setVisibleGetLink}
           />
         )}
       </div>
@@ -550,13 +509,12 @@ const mapStateToProps = (state) => {
     filteredFiles: state.data.filteredFiles,
     trashFiles: state.data.trashFiles,
     jwtFromCookie: state.data.jwtFromCookie,
+    location: state.data.location,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setData: (data) => dispatch(actions.setData(data)),
-    setFiles: (files) => dispatch(actions.setFiles(files)),
     filteredFilesByType: () => dispatch(actions.filteredFilesByType()),
     loadFolders: () => dispatch(actions.loadFolders()),
     setFilteredFiles: (files) => dispatch(actions.setFilteredFiles(files)),

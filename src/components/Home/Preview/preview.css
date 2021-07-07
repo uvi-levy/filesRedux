@@ -15,7 +15,7 @@
 }
 
 .get-link-modal .close-btn,
-.delete-file-modal .close-btn {
+.delete-file-modal .close-btn, .share-modal .close-btn {
   background-color: transparent;
   border: none;
   margin: 10px auto auto 90%;

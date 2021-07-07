@@ -6,7 +6,7 @@ export const JWT_FROM_COOKIES =
 
 //api requests
 export const BASE_URL = "https://dev.files.codes/api/";
-// export const BASE_URL = "https://files.codes/api/";
+export const SHARE_BASE_URL = "https://api.dev.leader.codes/permissions/";
 export const LOCAL_HOST = "http://localhost:3000/uvi";
 export const CREATE_NEW_FOLDER = "/createNewFolder";
 export const FIND_BY_TAG = "/findByTag/";
@@ -21,4 +21,5 @@ export const EDIT_NOTES = "/editNotes";
 export const MOVE_TO = "/moveTo";
 export const DOWNLOAD = "/download/";
 export const MULTI_FILES_TO_ARCHIV = "/multiFilesToArchiv";
+export const CREATE_PERMISSION = "/createPermission";
 export const LOGIN_PATH = "https://dev.accounts.codes/files/login";

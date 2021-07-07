@@ -8,11 +8,13 @@
   box-shadow: 3px 3px 6px #00000029;
   padding: 5px 15px;
   padding-bottom: 35px;
+  transition: width 0.3s ease-in-out;
 }
 
 .home-list-display {
   width: 70vw;
   display: inline-block;
+  transition: width 0.3s ease-in-out;
 }
 
 .os-theme-thin-dark > .os-scrollbar-horizontal {
