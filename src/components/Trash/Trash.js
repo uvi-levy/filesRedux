@@ -32,7 +32,6 @@ const Trash = ({
   jwtFromCookie,
   files,
   setFiles,
-  showGrid,
   setFilteredFiles,
   filteredFiles,
   setLocation,
@@ -334,9 +333,8 @@ const Trash = ({
                     allDisplay={allDisplay}
                     TeamDisplay={TeamDisplay}
                     setTeamDisplay={setTeamDisplay}
-                    showGrid={showGrid}
                   />
-                  <GridDisplay showGrid={showGrid} grid={grid} />
+                  <GridDisplay grid={grid} />
                 </>
               )}
             </>

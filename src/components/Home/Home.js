@@ -59,11 +59,11 @@ const Home = ({
   jwtFromCookie,
   setJwtFromCookie,
   location,
+  showGrid,
 }) => {
   let history = useHistory();
 
   const [showToast, setShowToast] = useState(false);
-  const [showGrid, setShowGrid] = useState(true);
   const [showBreadcrumb, setShowBreadcrumb] = useState(false);
   const [breadCrumbs, setBreadCrumbs] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -73,10 +73,18 @@ const Home = ({
   const [rowIndex, setRowIndex] = useState(0);
   const [filter, setFilter] = useState([{}]);
   const [displayPreview, setDisplayPreview] = useState(false);
-  const [preview, setPreview] = useState(<CleanPreview showGrid={showGrid} />);
+  const [preview, setPreview] = useState(<CleanPreview />);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const loadFiles = useLoadFiles();
+
+  useEffect(() => {
+    let card = document.getElementsByClassName("on-grid-display")[0];
+    if (card) {
+      // if (displayPreview) card.classList.add("show-grid-view");
+      if(!displayPreview) card.classList.remove("show-grid-view");
+    }
+  }, [displayPreview]);
 
   useEffect(() => {
     let params = new URL(document.location).searchParams;
@@ -119,10 +127,6 @@ const Home = ({
     showFiles();
   }, [filteredFiles]);
 
-  useEffect(() => {
-    console.log("isFullScreen", isFullScreen);
-  }, [isFullScreen]);
-
   const showPreFile = (file) => {
     if (file && file.name.split("__")[1] && file.dateCreated.split("T")[0]) {
       console.log("showPreFile", file);
@@ -134,7 +138,6 @@ const Home = ({
             findByTag(folder);
           }}
           setShowBreadcrumb={setShowBreadcrumb}
-          showGrid={showGrid}
           setPreview={setPreview}
           setShowToast={setShowToast}
           setDisplayPreview={setDisplayPreview}
@@ -142,7 +145,7 @@ const Home = ({
         />
       );
     } else {
-      setPreview(<CleanPreview showGrid={showGrid} />);
+      setPreview(<CleanPreview />);
     }
   };
 
@@ -380,10 +383,6 @@ const Home = ({
 
           setDisplayPreview(true);
 
-          $(".pre-file").addClass("show-grid-view");
-          $(".pre-file").removeClass("on-list-display");
-          $(".pre-file").addClass("on-grid-display");
-
           showPreFile(file);
 
           setSelectedFile(file);
@@ -425,14 +424,13 @@ const Home = ({
     <div>
       <div>
         <Navbar
-          showGrid={showGrid}
-          setShowGrid={setShowGrid}
           changeProps={changeProps}
           files={files}
           trashFiles={trashFiles}
         />
 
         {showGrid && displayPreview && <Backdrop />}
+
         {isFullScreen && (
           <>
             <Backdrop />
@@ -450,12 +448,9 @@ const Home = ({
             (location != "home"
               ? ""
               : !showGrid && displayPreview && "home-list-display")
-            //  : !showGrid && "home-list-display show-grid-view")
           }
         >
           <TopPattern
-            showGrid={showGrid}
-            setShowGrid={setShowGrid}
             breadCrumbs={breadCrumbs}
             showBreadcrumb={showBreadcrumb}
             setDisplayPreview={setDisplayPreview}
@@ -468,7 +463,6 @@ const Home = ({
                 setShowBreadcrumb={setShowBreadcrumb}
               />
               <Files
-                showGrid={showGrid}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
                 showFiles={showFiles}
@@ -482,14 +476,13 @@ const Home = ({
               <Upload setShowBreadcrumb={setShowBreadcrumb} />
             </Route>
             <Route exact path="/:userName/trash">
-              <Trash showGrid={showGrid} />
+              <Trash />
             </Route>
             {/* add protected route for admin */}
             {/* <Route/> add err page */}
           </Switch>
         </div>
         {displayPreview && preview}
-        {/* {preview} */}
         {showToast && (
           <UndoDelete
             showToast={showToast}
@@ -510,6 +503,7 @@ const mapStateToProps = (state) => {
     trashFiles: state.data.trashFiles,
     jwtFromCookie: state.data.jwtFromCookie,
     location: state.data.location,
+    showGrid: state.data.showGrid,
   };
 };
 

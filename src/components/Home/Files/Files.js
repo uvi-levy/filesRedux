@@ -15,7 +15,6 @@ import Loader from "../../Loader/Loader";
 const Files = ({
   files,
   isLoadFiles,
-  showGrid,
   folders,
   loadFolders,
   filteredFiles,
@@ -70,9 +69,9 @@ const Files = ({
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         cardsPerPage={cardsPerPage}
-        showGrid={showGrid}
       />
-      <ListDispaly showGrid={showGrid} findFile={findFile} view={view} />
+      <ListDispaly
+        findFile={findFile} view={view} />
     </div>
   );
 };

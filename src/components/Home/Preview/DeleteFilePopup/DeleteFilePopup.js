@@ -23,6 +23,8 @@ const DeleteFilePopup = ({
   jwtFromCookie,
   cleanPreView,
   setShowToast,
+  setDisplayPreview,
+  showGrid,
 }) => {
   const loadFiles = useLoadFiles();
 
@@ -46,6 +48,13 @@ const DeleteFilePopup = ({
       contentType: "application/json",
 
       success: () => {
+        if (showGrid) {
+          // document
+          //   .getElementsByClassName("on-grid-display")[0]
+          //   .classList.remove("show-grid-view");
+
+          setDisplayPreview(false);
+        }
         cleanPreView();
         setShowToast(true);
         loadFiles();
@@ -112,6 +121,7 @@ const DeleteFilePopup = ({
 const mapStateToProps = (state) => {
   return {
     jwtFromCookie: state.data.jwtFromCookie,
+    showGrid: state.data.showGrid,
   };
 };
 

@@ -4,7 +4,6 @@ import Grid from "../../../Grid/Grid";
 
 const GridDispaly = ({
   grid,
-  showGrid,
   currentPage,
   setCurrentPage,
   cardsPerPage,
@@ -28,7 +27,6 @@ const GridDispaly = ({
   return (
     <>
       <Grid
-        showGrid={showGrid}
         renderCards={renderCards}
         grid={grid}
         currentPage={currentPage}

@@ -12,6 +12,7 @@ const initialState = {
   filteredFiles: [],
   location: "home",
   jwtFromCookie: "",
+  showGrid: true,
 };
 
 const data = {
@@ -28,6 +29,9 @@ const data = {
   },
   setFilteredFiles(state, action) {
     state.filteredFiles = action.payload;
+  },
+  setShowGrid(state, action) {
+    state.showGrid = action.payload;
   },
   setTrashFiles(state, action) {
     state.trashFiles = action.payload;

@@ -158,7 +158,6 @@ const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
   const removeFile = (fileToRemove) => {
     // console.log("uploadFile in remove file", uploadFile) ;
     // console.log("filesToUp in remove file", filesToUp) ;
-    // debugger;
     console.log(fileToRemove);
     let files = Object.values(uploadFile);
     files.forEach((file) => {

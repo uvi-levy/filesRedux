@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
+import { useSelector } from "react-redux";
 
 import ArrFilter from "../../../../assets/sort-solid.svg";
 import Loader from "../../../Loader/Loader";
 
-const ListDispaly = ({ showGrid, findFile, view }) => {
+const ListDispaly = ({ findFile, view }) => {
   const [rowIndex, setRowIndex] = useState(0);
   const [allDisplay, setAllDisplay] = useState("none");
   const [TeamDisplay, setTeamDisplay] = useState("none");
+
+  const showGrid = useSelector((state) => state.data.showGrid);
 
   const headerSortingStyle = { backgroundColor: "#D4D4F5" };
 

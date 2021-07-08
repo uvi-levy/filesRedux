@@ -1,19 +1,16 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 import "./pageNumbers.css";
 
-const PageNumbers = ({
-  grid,
-  cardsPerPage,
-  currentPage,
-  setCurrentPage,
-  showGrid,
-}) => {
+const PageNumbers = ({ grid, cardsPerPage, currentPage, setCurrentPage }) => {
   const [upperPageBound, setUpperPageBound] = useState(3);
   const [lowerPageBound, setLowerPageBound] = useState(0);
   const [pageBound, setPageBound] = useState(3);
   const [isPrevBtnActive, setIsPrevBtnActive] = useState("disabled");
   const [isNextBtnActive, setIsNextBtnActive] = useState("");
+
+  const showGrid = useSelector((state) => state.data.showGrid);
 
   const handleClick = (event) => {
     setCurrentPage(Number(event.target.id));

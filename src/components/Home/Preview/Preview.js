@@ -12,7 +12,6 @@ const Preview = ({
   file,
   findByTag,
   setShowBreadcrumb,
-  showGrid,
   setPreview,
   setShowToast,
   setDisplayPreview,
@@ -35,7 +34,7 @@ const Preview = ({
   };
 
   const cleanPreView = () => {
-    setPreview(<CleanPreview showGrid={showGrid} />);
+    setPreview(<CleanPreview />);
   };
 
   return (
@@ -54,6 +53,7 @@ const Preview = ({
           selectedFile={file}
           cleanPreView={cleanPreView}
           setShowToast={setShowToast}
+          setDisplayPreview={setDisplayPreview}
         />
       )}
       {visibleShare && (
@@ -67,7 +67,6 @@ const Preview = ({
         file={file}
         findByTag={findByTag}
         setShowBreadcrumb={setShowBreadcrumb}
-        showGrid={showGrid}
         toggleGetLink={toggleGetLink}
         toggleDeleteDialog={toggleDeleteDialog}
         toggleVisibleShare={toggleVisibleShare}

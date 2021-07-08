@@ -24,6 +24,7 @@ import Users from "../../../assets/user-friends-solid.png";
 import User from "../../../assets/user-solid.png";
 
 import Loader from "../../Loader/Loader";
+import { useSelector } from "react-redux";
 
 const ListDispalay = ({
   view,
@@ -31,9 +32,9 @@ const ListDispalay = ({
   setAllDisplay,
   setTeamDisplay,
   TeamDisplay,
-  showGrid,
 }) => {
   const [row, setRow] = useState({});
+  const showGrid = useSelector((state) => state.data.showGrid);
 
   const hoverCard = () => {
     return (

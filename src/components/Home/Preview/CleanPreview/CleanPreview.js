@@ -1,7 +1,10 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 
-const CleanPreview = ({ showGrid }) => {
+import { useSelector } from "react-redux";
+
+const CleanPreview = () => {
+  const showGrid = useSelector((state) => state.data.showGrid);
   return (
     <>
       <Container

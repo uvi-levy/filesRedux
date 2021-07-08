@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Grid from "../../Grid/Grid";
 
-const GridDisplay = ({ showGrid, grid }) => {
+const GridDisplay = ({ grid }) => {
   const [todosPerPage, setTodosPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -21,7 +21,6 @@ const GridDisplay = ({ showGrid, grid }) => {
   return (
     <>
       <Grid
-        showGrid={showGrid}
         renderCards={renderTodos}
         grid={grid}
         currentPage={currentPage}

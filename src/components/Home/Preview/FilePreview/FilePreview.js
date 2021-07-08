@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 import {
@@ -43,7 +43,6 @@ const FilePreview = ({
   file,
   findByTag,
   setShowBreadcrumb,
-  showGrid,
   toggleDeleteDialog,
   toggleGetLink,
   toggleVisibleShare,
@@ -53,6 +52,7 @@ const FilePreview = ({
   const imgRef = useRef();
 
   const jwtFromCookie = useSelector((state) => state.data.jwtFromCookie);
+  const showGrid = useSelector((state) => state.data.showGrid);
   const loadFiles = useLoadFiles();
 
   const textAreaLinkRef = useRef();
@@ -62,6 +62,15 @@ const FilePreview = ({
   let preFile;
   let folderButton;
   let notes = [];
+
+  useEffect(() => {
+    let card = document.getElementsByClassName("on-grid-display")[0];
+    if (card) {
+      setTimeout(() => {
+        card.classList.add("show-grid-view");
+      }, 100);
+    }
+  }, []);
 
   const full = () => {
     console.log("in full");
@@ -527,7 +536,14 @@ const FilePreview = ({
           <Row>
             <div
               className="file-preview-close-btn"
-              onClick={() => setDisplayPreview(false)}
+              onClick={() => {
+                document
+                  .getElementsByClassName("on-grid-display")[0]
+                  .classList.remove("show-grid-view");
+                setTimeout(() => {
+                  setDisplayPreview(false);
+                }, 300);
+              }}
             >
               <img src={Close} />
             </div>

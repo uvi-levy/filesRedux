@@ -1,8 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import PageNumbers from "../PageNumbers/PageNumbers";
 
-const Grid = ({ showGrid, renderCards, grid, currentPage, setCurrentPage }) => {
+const Grid = ({ renderCards, grid, currentPage, setCurrentPage }) => {
+  const showGrid = useSelector((state) => state.data.showGrid);
+
   return (
     <>
       <div
@@ -29,7 +32,6 @@ const Grid = ({ showGrid, renderCards, grid, currentPage, setCurrentPage }) => {
           cardsPerPage={12}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          showGrid={showGrid}
         />
       </div>
     </>

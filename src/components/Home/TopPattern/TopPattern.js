@@ -13,8 +13,6 @@ import File from "../../../assets/orange-file.png";
 import Trash from "../../../assets/trash-orange.png";
 
 const TopPattern = ({
-  showGrid,
-  setShowGrid,
   breadCrumbs,
   showBreadcrumb,
   location,
@@ -33,8 +31,6 @@ const TopPattern = ({
 
       <div className="right-div">
         <DisplayButtons
-          showGrid={showGrid}
-          setShowGrid={setShowGrid}
           setDisplayPreview={setDisplayPreview}
         />
         <div className="vertical-line"></div>

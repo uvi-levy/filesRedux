@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Row,
@@ -15,14 +16,17 @@ import List from "../../../../assets/list-solid.png";
 import ListBlack from "../../../../assets/list-black.png";
 
 import "./displayButtons.css";
+import actions from "../../../../actions";
 
-const DisplayButtons = ({ showGrid, setShowGrid, setDisplayPreview }) => {
+const DisplayButtons = ({ setDisplayPreview }) => {
+  const showGrid = useSelector((state) => state.data.showGrid);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     let url = window.location;
     console.log("is trash", url.pathname.includes("trash"));
-    console.log("showGrid", showGrid);
-    if (url.pathname.includes("trash")) setShowGrid(false);
-    else setShowGrid(true);
+    if (url.pathname.includes("trash")) dispatch(actions.setShowGrid(false));
+    else dispatch(actions.setShowGrid(true));
   }, []);
 
   return (
@@ -43,7 +47,7 @@ const DisplayButtons = ({ showGrid, setShowGrid, setDisplayPreview }) => {
               className="dispaly-btn"
               onClick={() => {
                 setDisplayPreview(false);
-                setShowGrid(!showGrid);
+                dispatch(actions.setShowGrid(!showGrid));
               }}
             >
               {!showGrid ? (
@@ -69,7 +73,7 @@ const DisplayButtons = ({ showGrid, setShowGrid, setDisplayPreview }) => {
               className="dispaly-btn"
               onClick={() => {
                 setDisplayPreview(false);
-                setShowGrid(!showGrid);
+                dispatch(actions.setShowGrid(!showGrid));
               }}
             >
               {showGrid ? (
