@@ -49,10 +49,6 @@ const DeleteFilePopup = ({
 
       success: () => {
         if (showGrid) {
-          // document
-          //   .getElementsByClassName("on-grid-display")[0]
-          //   .classList.remove("show-grid-view");
-
           setDisplayPreview(false);
         }
         cleanPreView();

@@ -40,13 +40,13 @@ import "./home.css";
 import useLoadFiles from "../../hooks/useLoadFiles/useLoadFiles";
 
 import {
-  LOCAL_HOST,
   JWT_FROM_COOKIES,
   BASE_URL,
-  LOGIN_PATH,
   USER_NAME,
   FIND_BY_TAG,
 } from "../../utility/constants";
+
+import keys from "../../config/env/keys";
 
 const Home = ({
   data,
@@ -79,14 +79,6 @@ const Home = ({
   const loadFiles = useLoadFiles();
 
   useEffect(() => {
-    let card = document.getElementsByClassName("on-grid-display")[0];
-    if (card) {
-      // if (displayPreview) card.classList.add("show-grid-view");
-      if(!displayPreview) card.classList.remove("show-grid-view");
-    }
-  }, [displayPreview]);
-
-  useEffect(() => {
     let params = new URL(document.location).searchParams;
     let jwtGlobal = params.get("jwt");
     if (jwtGlobal) {
@@ -96,16 +88,21 @@ const Home = ({
       let date = new Date(Date.now() + 86400e3);
       date = date.toUTCString();
       var expires = "expires=" + date;
-      document.cookie = "devJwt" + "=" + jwtGlobal + ";" + expires + ";path=/";
+      document.cookie = keys.JWT + "=" + jwtGlobal + ";" + expires + ";path=/";
       window.location.replace(newUrl);
     }
     let tmpJwtFromCookie;
-    if (window.location.href.includes("http://localhost:3000")) {
+    if (window.location.href.includes(keys.BASE_CLIENT_URL)) {
       tmpJwtFromCookie = JWT_FROM_COOKIES;
     } else {
-      tmpJwtFromCookie = document.cookie
-        ? document.cookie.slice(7) //according to: document.cookie === "devJwt=jwt_string"
-        : null;
+      if (keys.JWT === "devJwt")
+        tmpJwtFromCookie = document.cookie
+          ? document.cookie.slice(7) //according to: document.cookie === "devJwt=jwt_string"
+          : null;
+      else
+        tmpJwtFromCookie = document.cookie
+          ? document.cookie.slice(4) //according to: document.cookie === "jwt=jwt_string"
+          : null;
     }
     setJwtFromCookie(tmpJwtFromCookie);
     loadFiles(tmpJwtFromCookie);
@@ -292,7 +289,7 @@ const Home = ({
                 height: "185px",
                 overflow: "hidden",
                 padding: "0",
-                margin: "10px",
+                margin: "10px 20px 10px 0",
               }}
             >
               <Card.Body
@@ -443,53 +440,61 @@ const Home = ({
         )}
 
         <div
-          className={
-            "home-container " +
-            (location != "home"
-              ? ""
-              : !showGrid && displayPreview && "home-list-display")
-          }
+          style={{
+            width: "100vw",
+            height: "calc( 100vh - 70px )",
+            padding: "1%",
+          }}
         >
-          <TopPattern
-            breadCrumbs={breadCrumbs}
-            showBreadcrumb={showBreadcrumb}
-            setDisplayPreview={setDisplayPreview}
-          />
-          <Switch>
-            <Route exact path="/:userName">
-              <Folders
-                changeProps={changeProps}
-                setBreadCrumbs={setBreadCrumbs}
-                setShowBreadcrumb={setShowBreadcrumb}
-              />
-              <Files
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                showFiles={showFiles}
-                grid={grid}
-                view={view}
-                filter={filter}
-                findFile={findFile}
-              />
-            </Route>
-            <Route exact path="/:userName/upload">
-              <Upload setShowBreadcrumb={setShowBreadcrumb} />
-            </Route>
-            <Route exact path="/:userName/trash">
-              <Trash />
-            </Route>
-            {/* add protected route for admin */}
-            {/* <Route/> add err page */}
-          </Switch>
+          <div
+            className={
+              "home-container " +
+              (location != "home"
+                ? ""
+                : !showGrid && displayPreview && "home-list-display")
+            }
+          >
+            <TopPattern
+              breadCrumbs={breadCrumbs}
+              showBreadcrumb={showBreadcrumb}
+              setDisplayPreview={setDisplayPreview}
+            />
+            <Switch>
+              <Route exact path="/:userName">
+                <Folders
+                  changeProps={changeProps}
+                  setBreadCrumbs={setBreadCrumbs}
+                  setShowBreadcrumb={setShowBreadcrumb}
+                />
+                <Files
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  showFiles={showFiles}
+                  grid={grid}
+                  view={view}
+                  filter={filter}
+                  findFile={findFile}
+                />
+              </Route>
+              <Route exact path="/:userName/upload">
+                <Upload setShowBreadcrumb={setShowBreadcrumb} />
+              </Route>
+              <Route exact path="/:userName/trash">
+                <Trash />
+              </Route>
+              {/* add protected route for admin */}
+              {/* <Route/> add err page */}
+            </Switch>
+          </div>
+          {displayPreview && preview}
+          {showToast && (
+            <UndoDelete
+              showToast={showToast}
+              setShowToast={setShowToast}
+              selectedFile={selectedFile}
+            />
+          )}
         </div>
-        {displayPreview && preview}
-        {showToast && (
-          <UndoDelete
-            showToast={showToast}
-            setShowToast={setShowToast}
-            selectedFile={selectedFile}
-          />
-        )}
       </div>
     </div>
   );

@@ -85,7 +85,7 @@ const PageNumbers = ({ grid, cardsPerPage, currentPage, setCurrentPage }) => {
         <button
           className="btn btn-outline-secondary btn-active"
           onClick={handleClick}
-          style={{ margin: "1%" }}
+          style={{ margin: "8px 16px 8px 0" }}
           key={number}
           id={number}
         >
@@ -100,7 +100,7 @@ const PageNumbers = ({ grid, cardsPerPage, currentPage, setCurrentPage }) => {
               ? "btn btn-outline-secondary btn-active"
               : "btn btn-outline-secondary"
           }
-          style={{ margin: "1%" }}
+          style={{ margin: "8px 16px 8px 0" }}
           key={number}
           id={number}
           onClick={handleClick}
@@ -117,7 +117,7 @@ const PageNumbers = ({ grid, cardsPerPage, currentPage, setCurrentPage }) => {
       <button
         className="btn btn-outline-secondary"
         onClick={btnIncrementClick}
-        style={{ margin: "1%" }}
+        style={{ margin: "8px 16px 8px 0" }}
       >
         &#8811;
       </button>
@@ -129,7 +129,7 @@ const PageNumbers = ({ grid, cardsPerPage, currentPage, setCurrentPage }) => {
       <button
         className="btn btn-outline-secondary"
         onClick={btnDecrementClick}
-        style={{ margin: "1%" }}
+        style={{ margin: "8px 16px 8px 0" }}
       >
         &#8810;{" "}
       </button>
@@ -141,7 +141,7 @@ const PageNumbers = ({ grid, cardsPerPage, currentPage, setCurrentPage }) => {
       <button
         disabled
         className={"btn btn-outline-secondary " + isPrevBtnActive}
-        style={{ margin: "1%", color: "#F4B248" }}
+        style={{ margin: "8px 16px 8px 0", color: "#F4B248" }}
       >
         {" "}
         &#60;{" "}
@@ -152,7 +152,7 @@ const PageNumbers = ({ grid, cardsPerPage, currentPage, setCurrentPage }) => {
       <button
         className={"btn btn-outline-secondary " + isPrevBtnActive}
         onClick={btnPrevClick}
-        style={{ margin: "1%" }}
+        style={{ margin: "8px 16px 8px 0" }}
       >
         &#60;
       </button>
@@ -164,7 +164,7 @@ const PageNumbers = ({ grid, cardsPerPage, currentPage, setCurrentPage }) => {
       <button
         disabled
         className={"btn btn-outline-secondary " + isNextBtnActive}
-        style={{ margin: "1%" }}
+        style={{ margin: "8px 16px 8px 0" }}
       >
         <span id="btnNext">&#62; </span>
       </button>
@@ -174,7 +174,7 @@ const PageNumbers = ({ grid, cardsPerPage, currentPage, setCurrentPage }) => {
       <button
         className={"btn btn-outline-secondary  " + isNextBtnActive}
         onClick={btnNextClick}
-        style={{ margin: "1%" }}
+        style={{ margin: "8px 16px 8px 0" }}
       >
         {" "}
         &#62;

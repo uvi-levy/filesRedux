@@ -1,10 +1,9 @@
 .on-list-display {
   display: inline-block;
-  width: calc(100vw - 70vw - 60px);
+  width: 29%;
   max-width: 400px;
-  height: 84vh;
+  height: 100%;
   float: right;
-  margin: 20px 20px auto auto;
 }
 
 .on-grid-display {
@@ -14,7 +13,7 @@
   right: 0;
   display: block;
   width: 35vw;
-  max-width: 400px;
+  max-width: 450px;
   height: calc(100vh - 70px);
   padding: 1%;
   border: #f4f4f4 1px solid;
@@ -65,4 +64,15 @@
 .file-preview-close-btn {
   width: 35px;
   margin-left: 87%;
+  cursor: pointer;
+}
+
+.file-url {
+  height: 38px;
+  border: none;
+  background-color: #f6f6fa;
+  font-size: 60%;
+  resize: none;
+  float: right;
+  width: calc(100% - 50px);
 }

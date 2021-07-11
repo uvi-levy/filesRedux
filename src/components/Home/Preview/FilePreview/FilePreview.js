@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 import {
@@ -25,7 +25,12 @@ import LinkW from "../../../../assets/linkWhite.png";
 import Plus from "../../../../assets/orange-plus.png";
 import Close from "../../../../assets/close-gray.png";
 
+import Icon from "../../../../assets/new-icon.png";
+
 import useLoadFiles from "../../../../hooks/useLoadFiles/useLoadFiles";
+import usePostUpdatedFile from "../../../../hooks/usePostUpdatedFile/usePostUpdatedFile";
+
+import PrevNextFile from "../PrevNextFile/PrevNextFile";
 
 import "./filePreview.css";
 
@@ -40,7 +45,7 @@ import {
 } from "../../../../utility/constants";
 
 const FilePreview = ({
-  file,
+  selectedFile,
   findByTag,
   setShowBreadcrumb,
   toggleDeleteDialog,
@@ -51,9 +56,18 @@ const FilePreview = ({
 }) => {
   const imgRef = useRef();
 
-  const jwtFromCookie = useSelector((state) => state.data.jwtFromCookie);
-  const showGrid = useSelector((state) => state.data.showGrid);
+  const { jwtFromCookie, showGrid, files } = useSelector((state) => {
+    return {
+      jwtFromCookie: state.data.jwtFromCookie,
+      showGrid: state.data.showGrid,
+      files: state.data.files,
+    };
+  });
+
   const loadFiles = useLoadFiles();
+  const getUpdatedFile = usePostUpdatedFile();
+
+  const [file, setFile] = useState(selectedFile);
 
   const textAreaLinkRef = useRef();
   const textAreaNoteRef = useRef();
@@ -71,6 +85,10 @@ const FilePreview = ({
       }, 100);
     }
   }, []);
+
+  useEffect(() => {
+    setFile(getUpdatedFile(file));
+  }, [files]);
 
   const full = () => {
     console.log("in full");
@@ -105,7 +123,6 @@ const FilePreview = ({
         success: () => {
           setShowBreadcrumb(false);
 
-          alert("files update!!");
           loadFiles();
         },
         error: (err) => {
@@ -137,8 +154,6 @@ const FilePreview = ({
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
-
-        alert("your file has downloaded!");
       })
       .catch(() => alert("oh no!"));
   };
@@ -164,7 +179,7 @@ const FilePreview = ({
     );
   };
 
-  const saveNotes = (e) => {
+  const saveNotes = async (e) => {
     console.log("in saveNote");
     if (e.key == "Enter" || e == "save") {
       let note = textAreaNoteRef.current.value;
@@ -564,7 +579,6 @@ const FilePreview = ({
             {preFile}
           </Col>
         </Row>
-
         <div>
           <Row className="justify-content-md-center">
             <Col md={7}>
@@ -576,57 +590,46 @@ const FilePreview = ({
           </Row>
           <Row
             className="justify-content-md-center"
-            style={{ width: "98%", margin: "auto", marginTop: "1%" }}
+            style={{ width: "100%", margin: "auto", marginTop: "1%" }}
           >
-            <Col
-              md={10}
+            <textarea
+              className="file-url"
+              ref={textAreaLinkRef}
+              value={file.url}
+            ></textarea>
+            <Button
+              onClick={getLink}
               style={{
-                marginRight: "0px",
-                padding: "0",
-                borderRadius: "8px 0 0 8px",
+                borderRadius: "0 8px 8px 0 ",
+                borderColor: "#F4B248",
+                float: "left",
+                margin: "0",
+                backgroundColor: "#F4B248",
+                width: "50px",
+                height: "38px",
               }}
             >
-              <textarea
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  border: "none",
-                  backgroundColor: "#F6F6FA",
-                  fontSize: "60%",
-                  resize: "none",
-                  float: "right",
-                }}
-                ref={textAreaLinkRef}
-                value={file.url}
-              ></textarea>
-            </Col>
-            <Col style={{ padding: "0" }}>
-              <Button
-                onClick={getLink}
-                style={{
-                  borderRadius: "0 8px 8px 0 ",
-                  borderColor: "#F4B248",
-                  float: "left",
-                  margin: "0",
-                  backgroundColor: "#F4B248",
-                }}
-              >
-                <img src={LinkW} />
-              </Button>
-            </Col>
+              <img src={LinkW} />
+            </Button>
           </Row>
           <hr />
           <Row>
-            <Col md={5}>
+            <Col md={6}>
               {" "}
               <p style={{ marginBottom: "0" }}>
                 Date Created{" "}
-                <p style={{ color: "#363839", display: "inline" }}>
+                <p
+                  style={{
+                    color: "#363839",
+                    display: "inline",
+                    whiteSpace: "nowrap",
+                  }}
+                >
                   {file.dateCreated.split("T")[0].substr(2)}
                 </p>
               </p>{" "}
             </Col>
-            <Col md={5}>
+            <Col md={6}>
               {" "}
               <p style={{ float: "right", marginBottom: "1%" }}>
                 Size{" "}
@@ -681,20 +684,6 @@ const FilePreview = ({
                       saveNotes(e);
                     }}
                   />
-                  {/* <Button
-                    onClick={() => saveNotes("save")}
-                    style={{
-                      color: "#8181A5",
-                      padding: "0.5%",
-                      float: "right",
-                      position: "absolute",
-                      bottom: "30%",
-                      right: "5%",
-                    }}
-                    letiant="outline-dark"
-                  >
-                    save +
-                  </Button> */}
                   <button
                     className="save_note_btn"
                     onClick={() => saveNotes("save")}
@@ -705,10 +694,10 @@ const FilePreview = ({
                   <hr />
                 </Col>
               </Row>
-              <Row>
-                <Col></Col>
-              </Row>
             </Col>
+          </Row>
+          <Row>
+            <PrevNextFile selectedFile={file} setFile={setFile} />
           </Row>
         </div>
       </Container>

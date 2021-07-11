@@ -64,7 +64,7 @@ const Preview = ({
         />
       )}
       <FilePreview
-        file={file}
+        selectedFile={file}
         findByTag={findByTag}
         setShowBreadcrumb={setShowBreadcrumb}
         toggleGetLink={toggleGetLink}
