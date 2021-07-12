@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Grid from "../../Grid/Grid";
+import Grid from "../../../utility/Grid/Grid";
 
 const GridDisplay = ({ grid }) => {
   const [todosPerPage, setTodosPerPage] = useState(12);

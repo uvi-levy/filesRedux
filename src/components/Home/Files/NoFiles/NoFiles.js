@@ -2,7 +2,7 @@ import React from "react";
 
 import noFiles from "../../../../assets/no-files.png";
 
-import UploadBtn from "../../../UploadBtn/UploadBtn";
+import UploadBtn from "../../../../utility/UploadBtn/UploadBtn";
 
 import "./noFiles.css";
 

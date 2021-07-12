@@ -1,6 +1,6 @@
 import React from "react";
 
-import Grid from "../../../Grid/Grid";
+import Grid from "../../../../utility/Grid/Grid";
 
 const GridDispaly = ({
   grid,

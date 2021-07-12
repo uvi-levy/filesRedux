@@ -3,7 +3,7 @@ import React from "react";
 import "./emptyTrash.css";
 
 import emptyTrash from "../../../assets/empty-trash.png";
-import GoBack from "../../GoBack/GoBack";
+import GoBack from "../../../utility/GoBack/GoBack";
 
 const EmptyTrash = () => {
   return (

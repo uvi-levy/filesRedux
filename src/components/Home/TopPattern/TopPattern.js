@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import DisplayButtons from "./DisplayButtons/DisplayButtons";
 import NewFolderBtn from "./NewFolderBtn/NewFolderBtn";
-import UploadBtn from "../../UploadBtn/UploadBtn";
+import UploadBtn from "../../../utility/UploadBtn/UploadBtn";
 import BreadCrumbs from "../BreadCrumbs/BreadCrumbs";
 import EmptyTrashBtn from "../../Trash/EmptyTrashBtn/EmptyTrashBtn";
 

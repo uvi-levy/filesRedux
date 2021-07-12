@@ -5,7 +5,7 @@ import { MdRestore } from "react-icons/md";
 import actions from "../../redux/actions";
 
 import EmptyTrash from "./EmptyTrash/EmptyTrash";
-import GoBack from "../GoBack/GoBack";
+import GoBack from "../../utility/GoBack/GoBack";
 import ListDispalay from "./ListDispalay/ListDispalay";
 import GridDisplay from "./GridDisplay/GridDisplay";
 import RestorePopup from "./RestorePopup/RestorePopup";

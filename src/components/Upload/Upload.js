@@ -9,7 +9,9 @@ import Video from "../../assets/video-solid.png";
 
 import imageCompression from "browser-image-compression";
 
+import GoBack from "../../utility/GoBack/GoBack";
 import SuccessPopup from "./SuccessPopup/SuccessPopup";
+import UploadBtn from "../../utility/UploadBtn/UploadBtn";
 
 import "./upload.css";
 
@@ -26,7 +28,6 @@ import {
 import BootstrapTable from "react-bootstrap-table-next";
 import $ from "jquery";
 
-import GoBack from "../GoBack/GoBack";
 import actions from "../../redux/actions";
 
 import {
@@ -35,7 +36,6 @@ import {
   UPLOAD_MULTIPLE_FILES,
   SAVE_MULTI_FILES_DB,
 } from "../../utility/constants";
-import UploadBtn from "../UploadBtn/UploadBtn";
 
 import useLoadFiles from "../../utility/cutomHooks/useLoadFiles/useLoadFiles";
 
