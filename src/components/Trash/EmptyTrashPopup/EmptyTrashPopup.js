@@ -14,7 +14,7 @@ import {
   REMOVE_MULTIPLE_FILES,
 } from "../../../utility/constants";
 
-import useLoadFiles from "../../../hooks/useLoadFiles/useLoadFiles";
+import useLoadFiles from "../../../utility/cutomHooks/useLoadFiles/useLoadFiles";
 
 import "./emptyTrashPopup.css";
 

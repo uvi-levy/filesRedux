@@ -4,7 +4,7 @@ import $ from "jquery";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import useLoadFiles from "../../../../hooks/useLoadFiles/useLoadFiles";
+import useLoadFiles from "../../../../utility/cutomHooks/useLoadFiles/useLoadFiles";
 
 import { Container, Row, Button, Modal } from "react-bootstrap";
 

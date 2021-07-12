@@ -16,7 +16,7 @@ import List from "../../../../assets/list-solid.png";
 import ListBlack from "../../../../assets/list-black.png";
 
 import "./displayButtons.css";
-import actions from "../../../../actions";
+import actions from "../../../../redux/actions";
 
 const DisplayButtons = ({ setDisplayPreview }) => {
   const showGrid = useSelector((state) => state.data.showGrid);

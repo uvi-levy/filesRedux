@@ -5,7 +5,7 @@ import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import { useSelector } from "react-redux";
 
 import ArrFilter from "../../../../assets/sort-solid.svg";
-import Loader from "../../../Loader/Loader";
+import Loader from "../../../../utility/Loader/Loader";
 
 const ListDispaly = ({ findFile, view }) => {
   const [rowIndex, setRowIndex] = useState(0);

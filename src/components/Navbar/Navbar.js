@@ -9,7 +9,7 @@ import Chart from "./Chart/Chart";
 
 import "./navbar.css";
 
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 import { USER_NAME } from "../../utility/constants";
 

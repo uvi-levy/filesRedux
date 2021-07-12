@@ -23,7 +23,7 @@ import Video from "../../../assets/video-solid.png";
 import Users from "../../../assets/user-friends-solid.png";
 import User from "../../../assets/user-solid.png";
 
-import Loader from "../../Loader/Loader";
+import Loader from "../../../utility/Loader/Loader";
 import { useSelector } from "react-redux";
 
 const ListDispalay = ({

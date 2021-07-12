@@ -25,10 +25,8 @@ import LinkW from "../../../../assets/linkWhite.png";
 import Plus from "../../../../assets/orange-plus.png";
 import Close from "../../../../assets/close-gray.png";
 
-import Icon from "../../../../assets/new-icon.png";
-
-import useLoadFiles from "../../../../hooks/useLoadFiles/useLoadFiles";
-import usePostUpdatedFile from "../../../../hooks/usePostUpdatedFile/usePostUpdatedFile";
+import useLoadFiles from "../../../../utility/cutomHooks/useLoadFiles/useLoadFiles";
+import usePostUpdatedFile from "../../../../utility/cutomHooks/usePostUpdatedFile/usePostUpdatedFile";
 
 import PrevNextFile from "../PrevNextFile/PrevNextFile";
 

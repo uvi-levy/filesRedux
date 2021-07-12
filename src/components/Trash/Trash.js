@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { MdRestore } from "react-icons/md";
 
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 import EmptyTrash from "./EmptyTrash/EmptyTrash";
 import GoBack from "../GoBack/GoBack";
 import ListDispalay from "./ListDispalay/ListDispalay";
 import GridDisplay from "./GridDisplay/GridDisplay";
 import RestorePopup from "./RestorePopup/RestorePopup";
-import Loader from "../Loader/Loader";
+import Loader from "../../utility/Loader/Loader";
 
 import $ from "jquery";
 

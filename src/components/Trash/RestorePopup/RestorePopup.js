@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 
-import useRecoverdFile from "../../../hooks/useRecoverdFile/useRecoverdFile";
+import useRecoverdFile from "../../../utility/cutomHooks/useRecoverdFile/useRecoverdFile";
 
 const RestorePopup = ({ name, id, isOpen, setIsOpen, loadFiles }) => {
   const recoveredFile = useRecoverdFile();

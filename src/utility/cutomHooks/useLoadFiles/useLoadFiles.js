@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import actions from "../../actions";
+import actions from "../../../redux/actions";
 
 import $ from "jquery";
 
-import { BASE_URL, USER_NAME, LOGIN_PATH } from "../../utility/constants";
+import { BASE_URL, USER_NAME, LOGIN_PATH } from "../../constants";
 
 const useLoadFiles = () => {
   const jwtFromCookie = useSelector((state) => state.data.jwtFromCookie);

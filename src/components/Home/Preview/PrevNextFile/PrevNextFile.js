@@ -5,7 +5,7 @@ import "./prevNextFile.css";
 import PrevBtn from "../../../../assets/prev-btn.svg";
 import NextBtn from "../../../../assets/next-btn.svg";
 
-import useNextPrevFile from "../../../../hooks/useNextPrevFile/useNextPrevFile";
+import useNextPrevFile from "../../../../utility/cutomHooks/useNextPrevFile/useNextPrevFile";
 
 const PrevNextFile = ({ selectedFile, setFile }) => {
   const getNextPrevFile = useNextPrevFile();

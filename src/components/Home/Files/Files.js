@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { connect } from "react-redux";
 
-import actions from "../../../actions";
+import actions from "../../../redux/actions";
 
 import NoFiles from "./NoFiles/NoFiles";
 
@@ -10,7 +10,7 @@ import "./files.css";
 
 import GridDispaly from "./GridDisplay/GridDispaly";
 import ListDispaly from "./ListDispaly/ListDispaly";
-import Loader from "../../Loader/Loader";
+import Loader from "../../../utility/Loader/Loader";
 
 const Files = ({
   files,

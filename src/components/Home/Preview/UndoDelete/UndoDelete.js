@@ -3,7 +3,7 @@ import { Toast, Container, Row, Col } from "react-bootstrap";
 
 import Close from "../../../../assets/close-gray.png";
 
-import useRecoverdFile from "../../../../hooks/useRecoverdFile/useRecoverdFile";
+import useRecoverdFile from "../../../../utility/cutomHooks/useRecoverdFile/useRecoverdFile";
 
 import "./undoDelete.css";
 

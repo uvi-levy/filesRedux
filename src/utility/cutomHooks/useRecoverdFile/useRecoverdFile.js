@@ -7,9 +7,9 @@ import {
   USER_NAME,
   BASE_URL,
   RECOVER_MULTI_FILES,
-} from "../../utility/constants";
+} from "../../constants";
 
-import useLoadFiles from "../../hooks/useLoadFiles/useLoadFiles";
+import useLoadFiles from "../useLoadFiles/useLoadFiles";
 
 const useRecoverdFile = () => {
   const jwtFromCookie = useSelector((state) => state.data.jwtFromCookie);

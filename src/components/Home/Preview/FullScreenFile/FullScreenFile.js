@@ -4,7 +4,7 @@ import Close from "../../../../assets/close-gray.png";
 import PrevBtn from "../../../../assets/prev-btn.svg";
 import NextBtn from "../../../../assets/next-btn.svg";
 
-import useNextPrevFile from "../../../../hooks/useNextPrevFile/useNextPrevFile";
+import useNextPrevFile from "../../../../utility/cutomHooks/useNextPrevFile/useNextPrevFile";
 
 import "./fullScreenFile.css";
 

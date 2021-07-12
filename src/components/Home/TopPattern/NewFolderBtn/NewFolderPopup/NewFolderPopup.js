@@ -18,7 +18,7 @@ import {
 
 import "./newFolderPopup.css";
 
-import useLoadFiles from "../../../../../hooks/useLoadFiles/useLoadFiles";
+import useLoadFiles from "../../../../../utility/cutomHooks/useLoadFiles/useLoadFiles";
 
 const UploadPopup = ({ isOpen, setIsOpen, jwtFromCookie, folders }) => {
   const textAreaFolderRef = useRef("");

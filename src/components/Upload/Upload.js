@@ -27,7 +27,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import $ from "jquery";
 
 import GoBack from "../GoBack/GoBack";
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 import {
   BASE_URL,
@@ -37,7 +37,7 @@ import {
 } from "../../utility/constants";
 import UploadBtn from "../UploadBtn/UploadBtn";
 
-import useLoadFiles from "../../hooks/useLoadFiles/useLoadFiles";
+import useLoadFiles from "../../utility/cutomHooks/useLoadFiles/useLoadFiles";
 
 window.$ = $;
 

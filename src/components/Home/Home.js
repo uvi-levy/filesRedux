@@ -6,38 +6,38 @@ import $ from "jquery";
 
 import { Card } from "react-bootstrap";
 
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 import Navbar from "../Navbar/Navbar";
 import TopPattern from "./TopPattern/TopPattern";
 import Folders from "./Folders/Folders";
 import Files from "./Files/Files";
 import UndoDelete from "../Home/Preview/UndoDelete/UndoDelete";
-import Backdrop from "../Backdrop/Backdrop";
+import Backdrop from "../../utility/Backdrop/Backdrop";
 import Trash from "../Trash/Trash";
 import Upload from "../Upload/Upload";
 import Preview from "./Preview/Preview";
 import CleanPreview from "./Preview/CleanPreview/CleanPreview";
 import FullScreenFile from "./Preview/FullScreenFile/FullScreenFile";
 
-import imgFile from "../../assets/file-solid.png";
-import Img from "../../assets/image-regular.png";
-import Adiuo from "../../assets/headphones-solid.png";
-import Video from "../../assets/video-solid.png";
+import imgFile from "../../assets/file-solid.svg";
+import Img from "../../assets/image-regular.svg";
+import Adiuo from "../../assets/headphones-solid.svg";
+import Video from "../../assets/video-solid.svg";
 import SingleUser from "../../assets/user-solid.png";
-import BigAudio from "../../assets/big-audio.png";
-import BigVideo from "../../assets/big-video.png";
-import BigFile from "../../assets/big-file.png";
+import BigAudio from "../../assets/big-audio.svg";
+import BigVideo from "../../assets/big-video.svg";
+import BigFile from "../../assets/big-file.svg";
 
-import ImageIcon from "../../assets/image-icon.png";
-import PdfIcon from "../../assets/pdf-icon.png";
-import AudioIcon from "../../assets/audio-icon.png";
-import VideoIcon from "../../assets/video-icon.png";
-import FileIcon from "../../assets/file-icon.png";
+import ImageIcon from "../../assets/image-icon.svg";
+import PdfIcon from "../../assets/pdf-icon.svg";
+import AudioIcon from "../../assets/audio-icon.svg";
+import VideoIcon from "../../assets/video-icon.svg";
+import FileIcon from "../../assets/file-icon.svg";
 
 import "./home.css";
 
-import useLoadFiles from "../../hooks/useLoadFiles/useLoadFiles";
+import useLoadFiles from "../../utility/cutomHooks/useLoadFiles/useLoadFiles";
 
 import {
   JWT_FROM_COOKIES,
