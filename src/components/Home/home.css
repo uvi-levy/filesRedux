@@ -8,6 +8,8 @@
   padding: 5px 15px;
   padding-bottom: 35px;
   transition: width 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
 }
 
 .home-list-display {

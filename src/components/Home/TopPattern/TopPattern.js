@@ -9,8 +9,8 @@ import EmptyTrashBtn from "../../Trash/EmptyTrashBtn/EmptyTrashBtn";
 
 import "./topPattern.css";
 
-import File from "../../../assets/orange-file.png";
-import Trash from "../../../assets/trash-orange.png";
+import File from "../../../assets/orange-file.svg";
+import Trash from "../../../assets/trash-orange.svg";
 
 const TopPattern = ({
   breadCrumbs,
@@ -30,9 +30,7 @@ const TopPattern = ({
       </div>
 
       <div className="right-div">
-        <DisplayButtons
-          setDisplayPreview={setDisplayPreview}
-        />
+        <DisplayButtons setDisplayPreview={setDisplayPreview} />
         <div className="vertical-line"></div>
         {location !== "trash" ? (
           <>

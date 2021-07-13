@@ -3,11 +3,11 @@ import { Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import FileG from "../../../assets/files-new.png";
-import ImgG from "../../../assets/image-new.png";
-import AdiuoG from "../../../assets/audio-new.png";
-import VideoG from "../../../assets/video-new.png";
-import Trash from "../../../assets/trash.png";
+import FileG from "../../../assets/file-new.svg";
+import ImgG from "../../../assets/image-new.svg";
+import AdiuoG from "../../../assets/audio-new.svg";
+import VideoG from "../../../assets/video-new.svg";
+import Trash from "../../../assets/trash.svg";
 
 import { USER_NAME } from "../../../utility/constants";
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import AddFolder from "../../../../assets/add-folder-orange.png";
+import AddFolder from "../../../../assets/add-folder-orange.svg";
 
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 

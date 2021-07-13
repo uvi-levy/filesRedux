@@ -12,18 +12,18 @@ import {
 
 import $ from "jquery";
 
-import Link from "../../../../assets/link.png";
-import Share from "../../../../assets/share.png";
-import Print from "../../../../assets/print.png";
-import Download from "../../../../assets/download.png";
-import Copy from "../../../../assets/copy.png";
-import Delete from "../../../../assets/delete.png";
-import Move from "../../../../assets/moveTo.png";
-import Folder from "../../../../assets/orange-folder.png";
+import Link from "../../../../assets/link.svg";
+import Share from "../../../../assets/share.svg";
+import Print from "../../../../assets/print.svg";
+import Download from "../../../../assets/download.svg";
+import Copy from "../../../../assets/copy.svg";
+import Delete from "../../../../assets/delete.svg";
+import Move from "../../../../assets/moveTo.svg";
+import Folder from "../../../../assets/orange-folder.svg";
 import Note from "../../../../assets/edit.svg";
-import LinkW from "../../../../assets/linkWhite.png";
-import Plus from "../../../../assets/orange-plus.png";
-import Close from "../../../../assets/close-gray.png";
+import LinkW from "../../../../assets/linkWhite.svg";
+import Plus from "../../../../assets/orange-plus.svg";
+import Close from "../../../../assets/close-gray.svg";
 
 import useLoadFiles from "../../../../utility/cutomHooks/useLoadFiles/useLoadFiles";
 import usePostUpdatedFile from "../../../../utility/cutomHooks/usePostUpdatedFile/usePostUpdatedFile";
@@ -309,10 +309,7 @@ const FilePreview = ({
 
   console.log(file);
   folderButton = (
-    <button
-      className="btn btn-outline-secondary folderBtn"
-      style={{ color: "gray", border: "none" }}
-    >
+    <button className="btn folderBtn">
       <img src={Folder} /> /
     </button>
   );
@@ -321,20 +318,32 @@ const FilePreview = ({
   p.attr("contenteditable", "false");
   p.css("border", "none ");
 
-  if (file.tags != null && file.tags != "" && file.tags != []) {
+  if (
+    file.tags != null &&
+    file.tags != "" &&
+    file.tags != [] &&
+    file.tags != "/"
+  ) {
     const folders = file.tags.split("/");
     console.log(folders);
-    const folder = folders[folders.length - 1];
+    const folder = folders[folders.length - 2];
     console.log(folder);
 
     folderButton = (
       <button
-        className="btn btn-outline-secondary folderBtn"
-        style={{ color: "gray", border: "none" }}
-        onClick={() => findByTag(folder)}
+        className="btn folderBtn"
+        onClick={() => {
+          document
+            .getElementsByClassName("on-grid-display")[0]
+            .classList.remove("show-grid-view");
+          setTimeout(() => {
+            setDisplayPreview(false);
+          }, 300);
+          findByTag(folder);
+        }}
       >
         <img src={Folder} />
-        {folder}
+        {" " + folder}
       </button>
     );
   }
@@ -570,7 +579,6 @@ const FilePreview = ({
           <Col
             style={{
               width: "98%",
-
               textAlign: "center",
             }}
           >
@@ -578,13 +586,13 @@ const FilePreview = ({
           </Col>
         </Row>
         <div>
-          <Row className="justify-content-md-center">
+          <Row className="justify-content-md-center" style={{ padding: "0" }}>
             <Col md={7}>
-              <p style={{ fontWeight: "bold", margin: "4%" }}>
+              <p style={{ fontWeight: "bold", margin: "4% 0" }}>
                 {file.name.split("__")[1].substr(0, 15)}
               </p>
             </Col>
-            <Col md={4}>{folderButton} </Col>
+            <Col md={5}>{folderButton}</Col>
           </Row>
           <Row
             className="justify-content-md-center"

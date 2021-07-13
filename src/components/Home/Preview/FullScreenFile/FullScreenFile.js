@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Close from "../../../../assets/close-gray.png";
+import Close from "../../../../assets/close-gray.svg";
 import PrevBtn from "../../../../assets/prev-btn.svg";
 import NextBtn from "../../../../assets/next-btn.svg";
 
@@ -35,11 +35,16 @@ const FullScreenFile = ({ file, setDisplayPreview, setIsFullScreen }) => {
           />
         </button>
       </div>
-      <div style={{ margin: "auto" }}>
+      <div style={{ margin: "auto", display: "flex", height: "82%" }}>
         <button className="prev-next-btns" onClick={handlePrevClick}>
           <img src={PrevBtn} />
         </button>
-        <img src={selectedFile.url} className="full-screen-img" />
+        <div className="full-screen-img-container">
+          <img
+            src={selectedFile.url}
+            className="full-screen-img"
+          />
+        </div>
         <button className="prev-next-btns" onClick={handleNextClick}>
           <img src={NextBtn} />
         </button>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Arrow from "../../assets/fileUp.png";
+import Arrow from "../../assets/fileUp.svg";
 
 import "./uploadBtn.css";
 

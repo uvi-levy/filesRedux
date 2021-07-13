@@ -19,10 +19,12 @@ import Upload from "../Upload/Upload";
 import Preview from "./Preview/Preview";
 import CleanPreview from "./Preview/CleanPreview/CleanPreview";
 import FullScreenFile from "./Preview/FullScreenFile/FullScreenFile";
+import Error from "../Error/Error";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import imgFile from "../../assets/file-solid.svg";
 import Img from "../../assets/image-regular.svg";
-import Adiuo from "../../assets/headphones-solid.svg";
+import Audio from "../../assets/headphones-solid.svg";
 import Video from "../../assets/video-solid.svg";
 import SingleUser from "../../assets/user-solid.png";
 import BigAudio from "../../assets/big-audio.svg";
@@ -31,8 +33,6 @@ import BigFile from "../../assets/big-file.svg";
 
 import ImageIcon from "../../assets/image-icon.svg";
 import PdfIcon from "../../assets/pdf-icon.svg";
-import AudioIcon from "../../assets/audio-icon.svg";
-import VideoIcon from "../../assets/video-icon.svg";
 import FileIcon from "../../assets/file-icon.svg";
 
 import "./home.css";
@@ -152,14 +152,14 @@ const Home = ({
     var iconsClasses = {
       ai: <img src={imgFile} />,
       docx: <img src={imgFile} />,
-      pdf: <img src={imgFile} />,
+      pdf: <img src={PdfIcon} />,
       xls: <img src={imgFile} />,
       psd: <img src={imgFile} />,
       pptx: <img src={imgFile} />,
       png: <img src={Img} />,
       jpg: <img src={Img} />,
       jpeg: <img src={Img} />,
-      mp3: <img src={Adiuo} />,
+      mp3: <img src={Audio} />,
       mp4: <img src={Video} />,
       gif: <img src={Img} />,
     };
@@ -245,7 +245,8 @@ const Home = ({
             );
           }
 
-          let fileType = file.name.toLowerCase().split(".")[1];
+          let fileType = file.name.toLowerCase().split(".");
+          fileType = fileType[fileType.length - 1];
           let fileIcon = ImageIcon;
           if (
             fileType === "png" ||
@@ -265,14 +266,18 @@ const Home = ({
           } else if (fileType === "pdf") {
             fileIcon = PdfIcon;
           } else if (fileType === "mp3") {
-            fileIcon = AudioIcon;
+            fileIcon = Audio;
           } else if (fileType === "mp4") {
-            fileIcon = VideoIcon;
+            fileIcon = Video;
           }
+
+          let icon = file.name.toLowerCase().split(".");
+          icon = icon[icon.length - 1];
+          icon = iconsClasses[icon];
 
           const row = {
             id: file._id,
-            all: iconsClasses[file.name.toLowerCase().split(".")[1]],
+            all: icon,
             name: file.name.split("__")[1].substr(0, 19),
             team: user,
             date: file.dateCreated.split("T")[0].substr(2),
@@ -399,9 +404,10 @@ const Home = ({
       headers: { Authorization: jwtFromCookie },
       success: (data) => {
         console.log(data);
+        setBreadCrumbs("/ " + folder);
         setShowBreadcrumb(true);
         setCurrentPage(1);
-        setFilter(data);
+        setFilteredFiles(data);
       },
       error: (err) => {
         alert("please try again later");
@@ -417,85 +423,106 @@ const Home = ({
     setCurrentPage(1);
   };
 
+  let TokenToString =
+    document.cookie && document.cookie.includes("devJwt")
+      ? document.cookie
+          .split(";")
+          .filter((s) => s.includes("devJwt"))[0]
+          .split("=")
+          .pop()
+      : null;
+
   return (
     <div>
-      <div>
-        <Navbar
-          changeProps={changeProps}
-          files={files}
-          trashFiles={trashFiles}
+      <Switch>
+        <div>
+          <Navbar
+            changeProps={changeProps}
+            files={files}
+            trashFiles={trashFiles}
+          />
+
+          {showGrid && displayPreview && <Backdrop />}
+
+          {isFullScreen && (
+            <>
+              <Backdrop />
+              <FullScreenFile
+                file={selectedFile}
+                setDisplayPreview={setDisplayPreview}
+                setIsFullScreen={setIsFullScreen}
+              />
+            </>
+          )}
+
+          <div
+            style={{
+              width: "100vw",
+              height: "calc( 100vh - 70px )",
+              padding: "1%",
+            }}
+          >
+            <div
+              className={
+                "home-container " +
+                (location != "home"
+                  ? ""
+                  : !showGrid && displayPreview && "home-list-display")
+              }
+            >
+              <TopPattern
+                breadCrumbs={breadCrumbs}
+                showBreadcrumb={showBreadcrumb}
+                setDisplayPreview={setDisplayPreview}
+              />
+              <Switch>
+                <Route exact path="/:userName">
+                  <Folders
+                    changeProps={changeProps}
+                    setBreadCrumbs={setBreadCrumbs}
+                    setShowBreadcrumb={setShowBreadcrumb}
+                  />
+                  <Files
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    showFiles={showFiles}
+                    grid={grid}
+                    view={view}
+                    filter={filter}
+                    findFile={findFile}
+                  />
+                </Route>
+
+                <Route exact path="/:userName/upload">
+                  <Upload
+                    setShowBreadcrumb={setShowBreadcrumb}
+                    setDisplayPreview={setDisplayPreview}
+                  />
+                </Route>
+                <Route exact path="/:userName/trash">
+                  <Trash setDisplayPreview={setDisplayPreview} />
+                </Route>
+              </Switch>
+            </div>
+            {displayPreview && preview}
+            {showToast && (
+              <UndoDelete
+                showToast={showToast}
+                setShowToast={setShowToast}
+                selectedFile={selectedFile}
+              />
+            )}
+          </div>
+        </div>
+
+        <ProtectedRoute
+          // path={"/admin/:userName"}
+          user={TokenToString}
+          component={Home}
         />
 
-        {showGrid && displayPreview && <Backdrop />}
-
-        {isFullScreen && (
-          <>
-            <Backdrop />
-            <FullScreenFile
-              file={selectedFile}
-              setDisplayPreview={setDisplayPreview}
-              setIsFullScreen={setIsFullScreen}
-            />
-          </>
-        )}
-
-        <div
-          style={{
-            width: "100vw",
-            height: "calc( 100vh - 70px )",
-            padding: "1%",
-          }}
-        >
-          <div
-            className={
-              "home-container " +
-              (location != "home"
-                ? ""
-                : !showGrid && displayPreview && "home-list-display")
-            }
-          >
-            <TopPattern
-              breadCrumbs={breadCrumbs}
-              showBreadcrumb={showBreadcrumb}
-              setDisplayPreview={setDisplayPreview}
-            />
-            <Switch>
-              <Route exact path="/:userName">
-                <Folders
-                  changeProps={changeProps}
-                  setBreadCrumbs={setBreadCrumbs}
-                  setShowBreadcrumb={setShowBreadcrumb}
-                />
-                <Files
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                  showFiles={showFiles}
-                  grid={grid}
-                  view={view}
-                  filter={filter}
-                  findFile={findFile}
-                />
-              </Route>
-              <Route exact path="/:userName/upload">
-                <Upload setShowBreadcrumb={setShowBreadcrumb} />
-              </Route>
-              <Route exact path="/:userName/trash">
-                <Trash />
-              </Route>
-              {/* add protected route for admin */}
-              {/* <Route/> add err page */}
-            </Switch>
-          </div>
-          {displayPreview && preview}
-          {showToast && (
-            <UndoDelete
-              showToast={showToast}
-              setShowToast={setShowToast}
-              selectedFile={selectedFile}
-            />
-          )}
-        </div>
-      </div>
+        <Route component={Error} />
+      </Switch>
     </div>
   );
 };

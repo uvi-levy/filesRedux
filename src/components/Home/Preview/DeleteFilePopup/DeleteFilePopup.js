@@ -8,7 +8,7 @@ import useLoadFiles from "../../../../utility/cutomHooks/useLoadFiles/useLoadFil
 
 import { Container, Row, Button, Modal } from "react-bootstrap";
 
-import Close from "../../../../assets/close-gray.png";
+import Close from "../../../../assets/close-gray.svg";
 
 import {
   BASE_URL,

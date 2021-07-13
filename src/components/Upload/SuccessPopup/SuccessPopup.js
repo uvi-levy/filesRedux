@@ -2,7 +2,7 @@ import React from "react";
 
 import Modal from "react-bootstrap/Modal";
 
-import Success from "../../../assets/success-upload.png";
+import Success from "../../../assets/success-upload.svg";
 
 import "./successPopup.css";
 

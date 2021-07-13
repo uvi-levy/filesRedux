@@ -64,14 +64,12 @@ const Files = ({
     <div className="files">
       <p>My files</p>
       <GridDispaly
-        files={files}
         grid={grid}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         cardsPerPage={cardsPerPage}
       />
-      <ListDispaly
-        findFile={findFile} view={view} />
+      <ListDispaly findFile={findFile} view={view} />
     </div>
   );
 };

@@ -4,8 +4,8 @@ import $ from "jquery";
 
 import { Container, Row, Col, Modal, Button, Form } from "react-bootstrap";
 
-import Share from "../../../../assets/share.png";
-import Close from "../../../../assets/close-gray.png";
+import Share from "../../../../assets/share.svg";
+import Close from "../../../../assets/close-gray.svg";
 
 import {
   USER_NAME,

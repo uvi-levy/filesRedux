@@ -8,10 +8,18 @@
   right: 0;
 }
 
-.full-screen-img {
+.full-screen-img-container {
   width: 60%;
-  max-height: 80vh;
-  margin: auto 5%;
+  margin: auto;
+  display: flex;
+  flex-grow: 3;
+  padding: 3%;
+}
+
+.full-screen-img {
+  max-width: 100%;
+  margin: auto;
+  max-height: 55vh;
 }
 
 .close-full-screen-btn {
@@ -27,4 +35,5 @@
 
 .full-screen-container .prev-next-btns {
   margin: auto 3%;
+  flex-grow: 1;
 }

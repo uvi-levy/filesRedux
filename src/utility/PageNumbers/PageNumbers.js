@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import "./pageNumbers.css";
@@ -12,14 +12,17 @@ const PageNumbers = ({ grid, cardsPerPage, currentPage, setCurrentPage }) => {
 
   const showGrid = useSelector((state) => state.data.showGrid);
 
+  useEffect(() => {
+    let totalPage = Math.ceil(grid.length / cardsPerPage);
+    if (currentPage === totalPage) setIsNextBtnActive("disabled");
+  }, [grid]);
+
   const handleClick = (event) => {
     setCurrentPage(Number(event.target.id));
+    setPrevAndNextBtnClass(Number(event.target.id));
   };
 
   const setPrevAndNextBtnClass = (listid) => {
-    // if(currentPage == 1){
-    //     setIsPrevBtnActive("d")
-    // }
     let totalPage = Math.ceil(grid.length / cardsPerPage);
     setIsNextBtnActive("disabled");
     setIsPrevBtnActive("disabled");
@@ -31,10 +34,6 @@ const PageNumbers = ({ grid, cardsPerPage, currentPage, setCurrentPage }) => {
       setIsNextBtnActive("");
       setIsPrevBtnActive("");
     }
-    //my addition
-    // else if(currentPage === 1){
-    //     setIsPrevBtnActive("disable")
-    // }
   };
 
   const btnIncrementClick = () => {
@@ -72,7 +71,7 @@ const PageNumbers = ({ grid, cardsPerPage, currentPage, setCurrentPage }) => {
     }
     let listid = currentPage + 1;
     setCurrentPage(listid);
-    setPrevAndNextBtnClass(listid + 1);
+    setPrevAndNextBtnClass(listid);
   };
 
   const pageNumbers = [];

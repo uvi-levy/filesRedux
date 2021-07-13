@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Toast, Container, Row, Col } from "react-bootstrap";
 
-import Close from "../../../../assets/close-gray.png";
+import Close from "../../../../assets/close-gray.svg";
 
 import useRecoverdFile from "../../../../utility/cutomHooks/useRecoverdFile/useRecoverdFile";
 

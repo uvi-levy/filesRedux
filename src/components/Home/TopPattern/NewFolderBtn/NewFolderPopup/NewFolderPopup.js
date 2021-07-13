@@ -7,8 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-import Close from "../../../../../assets/close-gray.png";
-import Folder from "../../../../../assets/orange-folder.png";
+import Close from "../../../../../assets/close-gray.svg";
+import Folder from "../../../../../assets/orange-folder.svg";
 
 import {
   BASE_URL,

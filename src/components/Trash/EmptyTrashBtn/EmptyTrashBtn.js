@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
+
 import EmptyTrashPopup from "../EmptyTrashPopup/EmptyTrashPopup";
 
 import "./emptyTrashBtn.css";

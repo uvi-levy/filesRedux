@@ -10,10 +10,10 @@ import {
   Container,
 } from "react-bootstrap";
 
-import Grid from "../../../../assets/th-large-solid.png";
-import GridBlack from "../../../../assets/grid-black.png";
-import List from "../../../../assets/list-solid.png";
-import ListBlack from "../../../../assets/list-black.png";
+import Grid from "../../../../assets/grid-white.svg";
+import GridBlack from "../../../../assets/grid-black.svg";
+import List from "../../../../assets/list-solid.svg";
+import ListBlack from "../../../../assets/list-black.svg";
 
 import "./displayButtons.css";
 import actions from "../../../../redux/actions";

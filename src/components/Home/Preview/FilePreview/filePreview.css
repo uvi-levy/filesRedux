@@ -1,7 +1,7 @@
 .on-list-display {
   display: inline-block;
   width: 29%;
-  max-width: 400px;
+  max-width: 500px;
   height: 100%;
   float: right;
 }
@@ -13,7 +13,7 @@
   right: 0;
   display: block;
   width: 35vw;
-  max-width: 450px;
+  max-width: 550px;
   height: calc(100vh - 70px);
   padding: 1%;
   border: #f4f4f4 1px solid;
@@ -75,4 +75,15 @@
   resize: none;
   float: right;
   width: calc(100% - 50px);
+}
+
+.folderBtn {
+  color: gray;
+  float: right;
+  /* border: none; */
+}
+
+.folderBtn:hover {
+  color: gray;
+  border: 1px solid #f4b248;
 }

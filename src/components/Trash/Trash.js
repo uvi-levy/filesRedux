@@ -15,9 +15,9 @@ import $ from "jquery";
 
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
 
-import Img from "../../assets/image-regular.png";
-import Adiuo from "../../assets/headphones-solid.png";
-import Video from "../../assets/video-solid.png";
+import Img from "../../assets/image-regular.svg";
+import Adiuo from "../../assets/headphones-solid.svg";
+import Video from "../../assets/video-solid.svg";
 import User from "../../assets/user-solid.png";
 import FileCard from "../../assets/Group.png";
 import Folder from "../../assets/folder-solid.png";
@@ -35,6 +35,7 @@ const Trash = ({
   setFilteredFiles,
   filteredFiles,
   setLocation,
+  setDisplayPreview,
 }) => {
   const [load, setLoad] = useState(true);
   const [name, setName] = useState("");
@@ -52,6 +53,7 @@ const Trash = ({
 
   useEffect(() => {
     setLocation("trash");
+    setDisplayPreview(false);
     setLoad(true);
     if (jwtFromCookie) loadFiles();
   }, []);
@@ -280,7 +282,7 @@ const Trash = ({
   }
 
   return (
-    <div>
+    <div style={{}}>
       <RestorePopup
         isOpen={isOpen}
         setIsOpen={setIsOpen}
@@ -288,7 +290,7 @@ const Trash = ({
         id={id}
         loadFiles={loadFiles}
       />
-      <Container fluid style={{ backgroundColor: "#EDEEF0" }}>
+      <Container fluid style={{ backgroundColor: "#EDEEF0", height: "100%" }}>
         <GoBack />
         <Container>
           <Col style={{ backgroundColor: "white", borderRadius: "8px" }}>

@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 
-import uploadImg from "../../assets/upload.png";
-import File from "../../assets/file-solid.png";
-import Img from "../../assets/image-regular.png";
-import Adiuo from "../../assets/headphones-solid.png";
-import Video from "../../assets/video-solid.png";
+import uploadImg from "../../assets/upload.svg";
+import File from "../../assets/file-new.svg";
+import Img from "../../assets/image-new.svg";
+import Adiuo from "../../assets/audio-new.svg";
+import Video from "../../assets/video-new.svg";
 
 import imageCompression from "browser-image-compression";
 
@@ -55,7 +55,13 @@ let iconsClasses = {
   mp4: <img src={Video} />,
 };
 
-const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
+const Upload = ({
+  jwtFromCookie,
+  folders,
+  setShowBreadcrumb,
+  setLocation,
+  setDisplayPreview,
+}) => {
   const loadFiles = useLoadFiles();
 
   const fileInputRef = useRef("");
@@ -73,15 +79,24 @@ const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
   const [loadedAjax1, setLoadedAjax1] = useState(0);
   const [loadedAjax2, setLoadedAjax2] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [fileToRemove, setFileToRemove] = useState(null);
 
   useEffect(() => {
     setLoadBar(true);
     setShowBreadcrumb(false);
     setLocation("upload");
+    setDisplayPreview(false);
     document
       .getElementById("dropdown-menu-align-right")
       .classList.remove("btn-primary");
   }, []);
+
+  useEffect(() => {
+    console.log("fileToRemoveeee", fileToRemove);
+    if (fileToRemove != null && filesToUp.length > 0 && uploadFile.length > 0) {
+      removeFile();
+    }
+  }, [fileToRemove, filesToUp, uploadFile]);
 
   const saveFiles = async (files) => {
     const rows = [];
@@ -125,6 +140,7 @@ const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
           } else {
             compressedFile = file;
           }
+          debugger;
           const row = {
             all: iconsClasses[compressedFile.name.split(".")[1].toLowerCase()],
             name: compressedFile.name,
@@ -138,7 +154,13 @@ const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
                   backgroundColor: "#F4B248",
                   border: "none",
                 }}
-                onClick={() => removeFile(compressedFile.name)}
+                onClick={
+                  () => {
+                    console.log("compressedFile", compressedFile);
+                    setFileToRemove(compressedFile.name);
+                  }
+                  // removeFile(compressedFile.name)
+                }
               >
                 X
               </Button>
@@ -155,11 +177,9 @@ const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
     setInputFile(false);
   };
 
-  const removeFile = (fileToRemove) => {
-    // console.log("uploadFile in remove file", uploadFile) ;
-    // console.log("filesToUp in remove file", filesToUp) ;
-    console.log(fileToRemove);
+  const removeFile = () => {
     let files = Object.values(uploadFile);
+
     files.forEach((file) => {
       if (file.name == fileToRemove) {
         files.pop(file);
@@ -173,6 +193,7 @@ const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
     });
     setFilesToUp(FilesToUp);
     setUploadFile(files);
+    setFileToRemove(null);
   };
 
   const backToHome = () => {
@@ -183,6 +204,7 @@ const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
   };
 
   const uploadMulti = (SelectedFolder) => {
+    let flag = 0;
     let formData = new FormData();
     let myFiles = Object.values(uploadFile);
     console.log("files" + uploadFile.length);
@@ -192,26 +214,28 @@ const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
     } else {
       if (SelectedFolder != "None") formData.append("tags", SelectedFolder);
       myFiles.forEach((file, index) => {
-        if (file.size > 2097152) {
+        // if (file.size > 2097152) {
+        //   alert(
+        //     `sorry, the file ${file.name} is too big file, Please remove it from the list`
+        //   );
+        // } else {
+        if (
+          !file.type.includes("image") &&
+          !file.type.includes("video") &&
+          !file.type.includes("audio") &&
+          !file.type.includes("pdf")
+        ) {
           alert(
-            `sorry, the file ${file.name} is too big file, Please remove it from the list`
+            `sorry, the file ${file.name} is not support, Please remove it from the list`
           );
+          flag = 1;
         } else {
-          if (
-            !file.type.includes("image") &&
-            !file.type.includes("video") &&
-            !file.type.includes("audio") &&
-            !file.type.includes("pdf")
-          ) {
-            alert(
-              `sorry, the file ${file.name} is not support, Please remove it from the list`
-            );
-          } else {
-            formData.append("files" + index, file, file.name);
-            console.log("file", file);
-          }
+          formData.append("files" + index, file, file.name);
+          console.log("file", file);
         }
+        // }
       });
+      if (flag === 1) return;
       console.log(formData.entries().next().value);
       if (!!formData.entries().next().value == true) {
         console.log("ok");
@@ -499,14 +523,15 @@ const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
 
               <Col
                 style={{
-                  minHeight: "80vh",
                   textAlign: "center",
                   padding: "0.5%",
                   display: showFiles ? "block" : "none",
                 }}
               >
                 {" "}
-                <div style={{ width: "80%", margin: "10%", marginTop: "10%" }}>
+                <div
+                  style={{ width: "80%", margin: "4% 10%", marginTop: "10%" }}
+                >
                   <BootstrapTable
                     keyField="id"
                     data={filesToUp}
@@ -519,7 +544,7 @@ const Upload = ({ jwtFromCookie, folders, setShowBreadcrumb, setLocation }) => {
                     search
                   />
                 </div>
-                <Container style={{ marginTop: "10%" }}>
+                <Container style={{ marginTop: "7%" }}>
                   <Row
                     className="align-items-center justify-content-center"
                     style={{
