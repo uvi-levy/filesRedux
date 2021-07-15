@@ -5,21 +5,24 @@ import actions from "../../../redux/actions";
 
 import $ from "jquery";
 
-import { BASE_URL, USER_NAME, LOGIN_PATH } from "../../constants";
+import { USER_NAME } from "../../constants";
+
+import keys from "../../../config/env/keys";
 
 const useLoadFiles = () => {
   const jwtFromCookie = useSelector((state) => state.data.jwtFromCookie);
   const dispatch = useDispatch();
 
   const loadFiles = (jwt) => {
+    console.log(keys);
     console.log("load");
     $.ajax({
       type: "GET",
-      url: BASE_URL + USER_NAME,
+      url: keys.BASE_URL + USER_NAME,
       headers: { authorization: jwt ? jwt : jwtFromCookie },
       error: (err) => {
         if (err.status == 401) {
-          window.location = LOGIN_PATH;
+          window.location = keys.LOGIN_PATH;
         }
       },
       success: (data) => {

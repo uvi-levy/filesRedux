@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 import { ProgressBar } from "react-bootstrap";
 import $ from "jquery";
 
-import { BASE_URL, USER_NAME, GET_COUNT } from "../../../utility/constants";
+import { USER_NAME, GET_COUNT } from "../../../utility/constants";
+
+import keys from "../../../config/env/keys";
 
 import "./chart.css";
 
@@ -17,7 +19,7 @@ const Chart = () => {
     if (jwtFromCookie) {
       $.ajax({
         type: "GET",
-        url: BASE_URL + USER_NAME + GET_COUNT,
+        url: keys.BASE_URL + USER_NAME + GET_COUNT,
         headers: { authorization: jwtFromCookie },
         error: (err) => {
           console.log(err);

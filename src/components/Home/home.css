@@ -19,6 +19,18 @@
   transition: width 0.3s ease-in-out;
 }
 
+@media (min-width: 1920px) {
+  .home-list-display {
+    width: 80%;
+  }
+}
+
+@media (min-width: 3000px) {
+  .home-list-display {
+    width: 82%;
+  }
+}
+
 .os-theme-thin-dark > .os-scrollbar-horizontal {
   right: 14px;
   height: 14px;

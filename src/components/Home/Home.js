@@ -41,7 +41,6 @@ import useLoadFiles from "../../utility/cutomHooks/useLoadFiles/useLoadFiles";
 
 import {
   JWT_FROM_COOKIES,
-  BASE_URL,
   USER_NAME,
   FIND_BY_TAG,
 } from "../../utility/constants";
@@ -290,8 +289,8 @@ const Home = ({
               className="gridCard"
               onClick={() => findFile(null, null, null, file._id)}
               style={{
-                width: "200px",
-                height: "185px",
+                width: "100%",
+                height: "100%",
                 overflow: "hidden",
                 padding: "0",
                 margin: "10px 20px 10px 0",
@@ -400,7 +399,7 @@ const Home = ({
     console.log(jwtFromCookie);
     $.ajax({
       type: "GET",
-      url: BASE_URL + USER_NAME + FIND_BY_TAG + folder,
+      url: keys.BASE_URL + USER_NAME + FIND_BY_TAG + folder,
       headers: { Authorization: jwtFromCookie },
       success: (data) => {
         console.log(data);

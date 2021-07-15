@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import ArrFilter from "../../../../assets/sort-solid.svg";
 import Loader from "../../../../utility/Loader/Loader";
 
+import "./listDisplay.css";
+
 const ListDispaly = ({ findFile, view }) => {
   const [rowIndex, setRowIndex] = useState(0);
   const [allDisplay, setAllDisplay] = useState("none");
@@ -220,7 +222,7 @@ const ListDispaly = ({ findFile, view }) => {
   ];
 
   return (
-    <div>
+    <div className="list-display">
       {!showGrid ? (
         <ToolkitProvider
           keyField="id"

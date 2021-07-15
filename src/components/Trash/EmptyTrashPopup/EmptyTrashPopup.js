@@ -8,11 +8,9 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 
 import $ from "jquery";
 
-import {
-  BASE_URL,
-  USER_NAME,
-  REMOVE_MULTIPLE_FILES,
-} from "../../../utility/constants";
+import keys from "../../../config/env/keys";
+
+import { USER_NAME, REMOVE_MULTIPLE_FILES } from "../../../utility/constants";
 
 import useLoadFiles from "../../../utility/cutomHooks/useLoadFiles/useLoadFiles";
 
@@ -38,7 +36,7 @@ const EmptyTrashPopup = ({ isOpen, setIsOpen, trashFiles, jwtFromCookie }) => {
     console.log(filesUrl);
     $.ajax({
       type: "POST",
-      url: BASE_URL + USER_NAME + REMOVE_MULTIPLE_FILES,
+      url: keys.BASE_URL + USER_NAME + REMOVE_MULTIPLE_FILES,
       headers: { Authorization: jwtFromCookie },
       data: { urls: filesUrl },
       success: (data) => {

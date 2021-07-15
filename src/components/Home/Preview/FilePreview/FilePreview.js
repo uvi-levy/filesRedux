@@ -32,9 +32,10 @@ import PrevNextFile from "../PrevNextFile/PrevNextFile";
 
 import "./filePreview.css";
 
+import keys from "../../../../config/env/keys"
+
 import {
   USER_NAME,
-  BASE_URL,
   MOVE_TO,
   DOWNLOAD,
   SAVE_NOTES,
@@ -112,7 +113,7 @@ const FilePreview = ({
     } else if (folder) {
       $.ajax({
         type: "PUT",
-        url: BASE_URL + USER_NAME + MOVE_TO,
+        url: keys.BASE_URL + USER_NAME + MOVE_TO,
         headers: { Authorization: jwtFromCookie },
         data: JSON.stringify({ files: file, tag: folder }),
         dataType: "json",
@@ -136,7 +137,7 @@ const FilePreview = ({
     const url = file.url;
     console.log(file.url);
 
-    fetch(BASE_URL + USER_NAME + DOWNLOAD + url, {
+    fetch(keys.BASE_URL + USER_NAME + DOWNLOAD + url, {
       method: "GET",
       headers: {
         Authorization: jwtFromCookie,
@@ -198,7 +199,7 @@ const FilePreview = ({
       console.log(fileId);
       $.ajax({
         type: "POST",
-        url: BASE_URL + USER_NAME + SAVE_NOTES,
+        url: keys.BASE_URL + USER_NAME + SAVE_NOTES,
         headers: { Authorization: jwtFromCookie },
         data: JSON.stringify({
           notes: { note: note, date: date, editor: editor },
@@ -258,7 +259,7 @@ const FilePreview = ({
 
       $.ajax({
         type: "POST",
-        url: BASE_URL + USER_NAME + EDIT_NOTES,
+        url: keys.BASE_URL + USER_NAME + EDIT_NOTES,
         headers: { Authorization: jwtFromCookie },
         data: JSON.stringify({ notes: notes, fileId: fileId }),
         dataType: "json",
@@ -295,7 +296,7 @@ const FilePreview = ({
     };
 
     $.ajax({
-      url: BASE_URL + USER_NAME + SAVE_MULTI_FILES_DB,
+      url: keys.BASE_URL + USER_NAME + SAVE_MULTI_FILES_DB,
       method: "POST",
       headers: { authorization: jwtFromCookie },
       data: copyFile,
@@ -554,158 +555,160 @@ const FilePreview = ({
         }
         fluid
       >
-        {showGrid && (
-          <Row>
-            <div
-              className="file-preview-close-btn"
-              onClick={() => {
-                document
-                  .getElementsByClassName("on-grid-display")[0]
-                  .classList.remove("show-grid-view");
-                setTimeout(() => {
-                  setDisplayPreview(false);
-                }, 300);
-              }}
-            >
-              <img src={Close} />
-            </div>
-          </Row>
-        )}
-        <Row style={{ textAlign: "center", marginTop: "0.5%" }}>
-          <Col>{hoverButtonsActionViews}</Col>
-        </Row>
-        <hr />
-        <Row className="justify-content-md-center">
-          <Col
-            style={{
-              width: "98%",
-              textAlign: "center",
-            }}
-          >
-            {preFile}
-          </Col>
-        </Row>
         <div>
-          <Row className="justify-content-md-center" style={{ padding: "0" }}>
-            <Col md={7}>
-              <p style={{ fontWeight: "bold", margin: "4% 0" }}>
-                {file.name.split("__")[1].substr(0, 15)}
-              </p>
-            </Col>
-            <Col md={5}>{folderButton}</Col>
-          </Row>
-          <Row
-            className="justify-content-md-center"
-            style={{ width: "100%", margin: "auto", marginTop: "1%" }}
-          >
-            <textarea
-              className="file-url"
-              ref={textAreaLinkRef}
-              value={file.url}
-            ></textarea>
-            <Button
-              onClick={getLink}
-              style={{
-                borderRadius: "0 8px 8px 0 ",
-                borderColor: "#F4B248",
-                float: "left",
-                margin: "0",
-                backgroundColor: "#F4B248",
-                width: "50px",
-                height: "38px",
-              }}
-            >
-              <img src={LinkW} />
-            </Button>
+          {showGrid && (
+            <Row>
+              <div
+                className="file-preview-close-btn"
+                onClick={() => {
+                  document
+                    .getElementsByClassName("on-grid-display")[0]
+                    .classList.remove("show-grid-view");
+                  setTimeout(() => {
+                    setDisplayPreview(false);
+                  }, 300);
+                }}
+              >
+                <img src={Close} />
+              </div>
+            </Row>
+          )}
+          <Row style={{ textAlign: "center", marginTop: "0.5%" }}>
+            <Col>{hoverButtonsActionViews}</Col>
           </Row>
           <hr />
-          <Row>
-            <Col md={6}>
-              {" "}
-              <p style={{ marginBottom: "0" }}>
-                Date Created{" "}
-                <p
-                  style={{
-                    color: "#363839",
-                    display: "inline",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {file.dateCreated.split("T")[0].substr(2)}
-                </p>
-              </p>{" "}
-            </Col>
-            <Col md={6}>
-              {" "}
-              <p style={{ float: "right", marginBottom: "1%" }}>
-                Size{" "}
-                <p style={{ color: "#363839", display: "inline" }}>
-                  {" "}
-                  {(file.size * 1024).toPrecision(4) + " KB"}
-                </p>
-              </p>
+          <Row className="justify-content-md-center">
+            <Col
+              style={{
+                width: "98%",
+                textAlign: "center",
+              }}
+            >
+              {preFile}
             </Col>
           </Row>
-          <Row>
-            <Col md={6}>
-              {" "}
-              <p>
-                Shared With{" "}
-                <p style={{ color: "#363839", display: "inline" }}>
-                  {sharedUsers}
+          <div>
+            <Row className="justify-content-md-center" style={{ padding: "0" }}>
+              <Col md={7}>
+                <p style={{ fontWeight: "bold", margin: "4% 0" }}>
+                  {file.name.split("__")[1].substr(0, 15)}
                 </p>
-              </p>
-            </Col>
-            <Col md={6}>
-              {" "}
-              <p style={{ float: "right" }}>
-                Format{" "}
-                <p style={{ color: "#363839", display: "inline" }}>
-                  {file.name.toLowerCase().split(".")[1]}
-                </p>
-              </p>
-            </Col>
-          </Row>
-          <Row className="justify-content-between">
-            <Col>Notes</Col>
-          </Row>
-          <Row>
-            <Col style={{ textAlign: "center" }}>
-              <hr />
-              {notes}
-              <Row>
-                <Col style={{ position: "relative" }}>
-                  <textarea
-                    placeholder="Add your note here..."
-                    ref={textAreaNoteRef}
+              </Col>
+              <Col md={5}>{folderButton}</Col>
+            </Row>
+            <Row
+              className="justify-content-md-center"
+              style={{ width: "100%", margin: "auto", marginTop: "1%" }}
+            >
+              <textarea
+                className="file-url"
+                ref={textAreaLinkRef}
+                value={file.url}
+              ></textarea>
+              <Button
+                onClick={getLink}
+                style={{
+                  borderRadius: "0 8px 8px 0 ",
+                  borderColor: "#F4B248",
+                  float: "left",
+                  margin: "0",
+                  backgroundColor: "#F4B248",
+                  width: "50px",
+                  height: "38px",
+                }}
+              >
+                <img src={LinkW} />
+              </Button>
+            </Row>
+            <hr />
+            <Row>
+              <Col md={6}>
+                {" "}
+                <p style={{ marginBottom: "0" }}>
+                  Date Created{" "}
+                  <p
                     style={{
-                      width: "100%",
-                      height: "100px",
-                      resize: "none",
-                      border: "none",
-                      outline: "0.2px solid #8181A5",
-                      display: "block",
+                      color: "#363839",
+                      display: "inline",
+                      whiteSpace: "nowrap",
                     }}
-                    onKeyPress={(e) => {
-                      saveNotes(e);
-                    }}
-                  />
-                  <button
-                    className="save_note_btn"
-                    onClick={() => saveNotes("save")}
                   >
-                    <p>Add note</p>
-                    <img src={Plus} />
-                  </button>
-                  <hr />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          <Row>
-            <PrevNextFile selectedFile={file} setFile={setFile} />
-          </Row>
+                    {file.dateCreated.split("T")[0].substr(2)}
+                  </p>
+                </p>{" "}
+              </Col>
+              <Col md={6}>
+                {" "}
+                <p style={{ float: "right", marginBottom: "1%" }}>
+                  Size{" "}
+                  <p style={{ color: "#363839", display: "inline" }}>
+                    {" "}
+                    {(file.size * 1024).toPrecision(4) + " KB"}
+                  </p>
+                </p>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                {" "}
+                <p>
+                  Shared With{" "}
+                  <p style={{ color: "#363839", display: "inline" }}>
+                    {sharedUsers}
+                  </p>
+                </p>
+              </Col>
+              <Col md={6}>
+                {" "}
+                <p style={{ float: "right" }}>
+                  Format{" "}
+                  <p style={{ color: "#363839", display: "inline" }}>
+                    {file.name.toLowerCase().split(".")[1]}
+                  </p>
+                </p>
+              </Col>
+            </Row>
+            <Row className="justify-content-between">
+              <Col>Notes</Col>
+            </Row>
+            <Row>
+              <Col style={{ textAlign: "center" }}>
+                <hr />
+                {notes}
+                <Row>
+                  <Col style={{ position: "relative" }}>
+                    <textarea
+                      placeholder="Add your note here..."
+                      ref={textAreaNoteRef}
+                      style={{
+                        width: "100%",
+                        height: "100px",
+                        resize: "none",
+                        border: "none",
+                        outline: "0.2px solid #8181A5",
+                        display: "block",
+                      }}
+                      onKeyPress={(e) => {
+                        saveNotes(e);
+                      }}
+                    />
+                    <button
+                      className="save_note_btn"
+                      onClick={() => saveNotes("save")}
+                    >
+                      <p>Add note</p>
+                      <img src={Plus} />
+                    </button>
+                    <hr />
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </div>
         </div>
+        <>
+          <PrevNextFile selectedFile={file} setFile={setFile} />
+        </>
       </Container>
     </>
   );

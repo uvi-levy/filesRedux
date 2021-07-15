@@ -1,8 +1,17 @@
+.folders-dropdown {
+  display: flex;
+}
+
+.folders-dropdown > button {
+  margin: auto;
+}
+
 .folders-dropdown button {
   background-color: #f4b248;
   border: none;
   color: white;
   min-width: 137px;
+  margin: auto;
 }
 
 .folders-dropdown button:hover {
@@ -20,4 +29,20 @@
 .react-bootstrap-table {
   max-width: 1500px !important;
   margin: auto !important;
+}
+
+.upload-text {
+  display: inline;
+}
+
+@media (min-width: 1920px) {
+  .upload-text {
+    font-size: 150%;
+  }
+}
+
+@media (min-width: 3000px) {
+  .upload-text {
+    font-size: 250%;
+  }
 }

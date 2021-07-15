@@ -11,7 +11,7 @@ const RestorePopup = ({ name, id, isOpen, setIsOpen, loadFiles }) => {
   };
 
   return (
-    <div>
+    <>
       <Modal
         show={isOpen}
         onHide={hideModal}
@@ -52,7 +52,7 @@ const RestorePopup = ({ name, id, isOpen, setIsOpen, loadFiles }) => {
           </Row>
         </Modal.Body>
       </Modal>
-    </div>
+    </>
   );
 };
 

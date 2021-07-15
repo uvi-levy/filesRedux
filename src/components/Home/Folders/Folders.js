@@ -14,7 +14,8 @@ const Folders = ({
     console.log(folderName);
     let myFiles = [];
     files.forEach((file) => {
-      if (file.tags == folderName + "/") myFiles.push(file);
+      if (file.tags == folderName + "/" || file.tags == folderName + "/dev")
+        myFiles.push(file);
     });
     changeProps(myFiles, null, null);
     setBreadCrumbs("/ " + folderName);

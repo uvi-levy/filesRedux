@@ -1,7 +1,7 @@
 .on-list-display {
   display: inline-block;
   width: 29%;
-  max-width: 500px;
+  /* max-width: 500px; */
   height: 100%;
   float: right;
 }
@@ -29,6 +29,8 @@
   color: #8181a5;
   overflow-y: scroll;
   background-color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .add_note_container {
@@ -86,4 +88,16 @@
 .folderBtn:hover {
   color: gray;
   border: 1px solid #f4b248;
+}
+
+@media (min-width: 1920px) {
+  .on-list-display {
+    width: 19%;
+  }
+}
+
+@media (min-width: 3000px) {
+  .on-list-display {
+    width: 17%;
+  }
 }

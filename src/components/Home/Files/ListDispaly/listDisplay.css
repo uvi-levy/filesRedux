@@ -1,0 +1,20 @@
+.react-bootstrap-table{
+    width: 90% !important;
+}
+
+@media (min-width: 1820px) {
+  .list-display {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 2000px) {
+  .list-display {
+    width: 40%;
+    margin: 0 auto;
+  }
+  table tr, td{
+    font-size: 150%;
+}
+}

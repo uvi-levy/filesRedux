@@ -3,6 +3,8 @@ import { useHistory, Link } from "react-router-dom";
 
 import { USER_NAME } from "../../utility/constants";
 
+import "./goBack.css"
+
 const GoBack = () => {
   const history = useHistory();
 
@@ -21,10 +23,10 @@ const GoBack = () => {
             cursor: "pointer",
             textTransform: "capitalize",
             fontWeight: "bold",
-            fontSize: "18px",
             margin: "1%",
           }}
           onClick={goBack}
+          className="go-back"
         >
           {" "}
           👈back

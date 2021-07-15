@@ -16,19 +16,13 @@ const UploadBtn = ({ isLink, style }) => {
             <button
               className="btn theme-color font-weight-bold upload-btn"
               style={{
-                height: "35px",
-                color: "white",
-                backgroundColor: "#F4B248",
-                display: "flex",
-                width: "100px",
-                margin: "auto",
                 ...style,
               }}
             >
-              <p style={{ display: "inline", marginRight: "8%" }}>Upload</p>{" "}
+              <p style={{ display: "inline" }}>Upload</p>{" "}
               <img
                 src={Arrow}
-                style={{ display: "inline", marginLeft: "8%", marginTop: "8%" }}
+                style={{ display: "inline" }}
               />{" "}
             </button>
           </Link>
@@ -37,19 +31,13 @@ const UploadBtn = ({ isLink, style }) => {
         <button
           className="btn theme-color font-weight-bold upload-btn"
           style={{
-            height: "35px",
-            color: "white",
-            backgroundColor: "#F4B248",
-            display: "flex",
-            width: "100px",
-            margin: "auto",
             ...style,
           }}
         >
-          <p style={{ display: "inline", marginRight: "8%" }}>Upload</p>{" "}
+          <p style={{ display: "inline" }}>Upload</p>{" "}
           <img
             src={Arrow}
-            style={{ display: "inline", marginLeft: "8%", marginTop: "8%" }}
+            style={{ display: "inline" }}
           />{" "}
         </button>
       )}

@@ -1,4 +1,64 @@
-.upload-btn a{
-    text-decoration: none;
+.upload-btn a {
+  text-decoration: none;
 }
 
+.upload-btn button {
+  height: 35px;
+  color: white;
+  background-color: #f4b248;
+  display: flex;
+  width: 100px;
+  margin: auto;
+}
+
+.upload-btn button:hover {
+  color: white;
+}
+
+.upload-btn p {
+  margin: auto;
+}
+
+.upload-btn img {
+  margin: 9% auto auto auto;
+}
+
+@media (min-width: 1920px) {
+  .upload-text {
+    font-size: 250%;
+  }
+
+  .upload-btn button {
+    height: auto;
+    width: 180px;
+    margin: auto;
+  }
+
+  .upload-btn p {
+    font-size: 200%;
+  }
+
+  .upload-btn img {
+    width: 20px;
+  }
+}
+
+@media (min-width: 3000px) {
+  .upload-text {
+    font-size: 250%;
+  }
+
+  .upload-btn button {
+    height: auto;
+    width: 300px;
+    margin: auto;
+  }
+
+  .upload-btn p {
+    font-size: 300%;
+  }
+
+  .upload-btn img {
+    width: 30px;
+  }
+}

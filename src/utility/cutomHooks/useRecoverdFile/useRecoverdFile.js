@@ -3,11 +3,9 @@ import { useSelector } from "react-redux";
 
 import $ from "jquery";
 
-import {
-  USER_NAME,
-  BASE_URL,
-  RECOVER_MULTI_FILES,
-} from "../../constants";
+import keys from "../../../config/env/keys";
+
+import { USER_NAME, RECOVER_MULTI_FILES } from "../../constants";
 
 import useLoadFiles from "../useLoadFiles/useLoadFiles";
 
@@ -24,7 +22,7 @@ const useRecoverdFile = () => {
 
     $.ajax({
       type: "PUT",
-      url: BASE_URL + USER_NAME + RECOVER_MULTI_FILES,
+      url: keys.BASE_URL + USER_NAME + RECOVER_MULTI_FILES,
       headers: { Authorization: jwtFromCookie },
       data: JSON.stringify({ files: fileId }),
       dataType: "json",

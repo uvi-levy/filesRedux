@@ -13,6 +13,7 @@ const Grid = ({ renderCards, grid, currentPage, setCurrentPage }) => {
           padding: "0",
           display: showGrid ? "block" : "none",
           paddingBottom: "20px",
+          height: "inherit",
         }}
       >
         <div

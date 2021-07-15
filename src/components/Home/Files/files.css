@@ -1,4 +1,10 @@
-.files p{
-    color: #929292;
-    margin-top: 10px;
+.files p {
+  color: #929292;
+  margin-top: 10px;
+}
+
+.files {
+  display: flex;
+  flex-direction: column;
+  height: inherit;
 }

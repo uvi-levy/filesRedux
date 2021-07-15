@@ -4,6 +4,7 @@ import handler from "./reducerUtils";
 const initialState = {
   data: [],
   files: [],
+  tmpFiles: [],
   filteredFilesByType: [],
   folders: [],
   isLoadFiles: true,
@@ -21,6 +22,7 @@ const data = {
   },
   setFiles(state, action) {
     state.files = action.payload;
+    state.tmpFiles = action.payload;
     state.isLoadFiles = false;
     state.filteredFiles = action.payload;
   },

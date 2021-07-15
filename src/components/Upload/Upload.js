@@ -30,8 +30,8 @@ import $ from "jquery";
 
 import actions from "../../redux/actions";
 
+import keys from "../../config/env/keys"
 import {
-  BASE_URL,
   USER_NAME,
   UPLOAD_MULTIPLE_FILES,
   SAVE_MULTI_FILES_DB,
@@ -270,7 +270,7 @@ const Upload = ({
             };
             return xhr;
           },
-          url: BASE_URL + USER_NAME + UPLOAD_MULTIPLE_FILES,
+          url: keys.BASE_URL + USER_NAME + UPLOAD_MULTIPLE_FILES,
           method: "post",
           contentType: false,
           processData: false,
@@ -312,7 +312,7 @@ const Upload = ({
                   };
                   return xhr;
                 },
-                url: BASE_URL + USER_NAME + SAVE_MULTI_FILES_DB,
+                url: keys.BASE_URL + USER_NAME + SAVE_MULTI_FILES_DB,
                 method: "POST",
 
                 headers: { authorization: jwtFromCookie },
@@ -449,14 +449,29 @@ const Upload = ({
   );
 
   const uploadBtnStyle = {
-    marginTop: "10px",
+    marginTop: "20px",
+    marginBottom: "5%",
   };
 
   return (
     <>
       <SuccessPopup isOpen={isOpen} setIsOpen={setIsOpen} />
-      <Container fluid style={{ marginTop: "1%" }}>
-        <Row>
+      <Container
+        fluid
+        style={{
+          marginTop: "1%",
+          display: "flex",
+          flexDirection: "column",
+          height: "inherit",
+        }}
+      >
+        <Row
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: "inherit",
+          }}
+        >
           <Col
             style={{
               backgroundColor: "white",
@@ -488,27 +503,46 @@ const Upload = ({
                     onDrop={fileDrop}
                     style={{
                       width: "70%",
-                      height: "100%",
+                      height: "90%",
                       border: "4px dashed #E8E7F2",
                       textAlign: "center",
                       overflow: "hidden",
                       padding: "2%",
+                      display: "flex",
                     }}
                   >
-                    <img src={uploadImg} style={{ marginBottom: "3%" }} />
-                    <h2
+                    <div
                       style={{
-                        color: "#3A405E",
-                        font: "normal normal medium 32px/43px Roboto",
-                        letterSpacing: "0.58px",
+                        margin: "auto",
+                        width: "100%",
+                        height: "fit-content",
                       }}
                     >
-                      <p style={{ display: "inline" }}>
-                        {" "}
-                        Upload or drag your files here
-                      </p>{" "}
-                      <UploadBtn isLink={false} style={uploadBtnStyle} />
-                    </h2>
+                      <img
+                        src={uploadImg}
+                        style={{
+                          marginBottom: "3%",
+                          width: "30%",
+                          maxWidth: "700px",
+                        }}
+                      />
+                      <h2
+                        style={{
+                          color: "#3A405E",
+                          font: "normal normal medium 32px/43px Roboto",
+                          letterSpacing: "0.58px",
+                        }}
+                      >
+                        <p
+                          style={{ display: "inline" }}
+                          className="upload-text"
+                        >
+                          {" "}
+                          Upload or drag your files here
+                        </p>{" "}
+                        <UploadBtn isLink={false} style={uploadBtnStyle} />
+                      </h2>
+                    </div>
                   </div>
                   <input
                     style={{ display: "none" }}
@@ -548,7 +582,7 @@ const Upload = ({
                   <Row
                     className="align-items-center justify-content-center"
                     style={{
-                      backgroundColor: "#F8F8F8",
+                      // backgroundColor: "#F8F8F8",
                       width: "100%",
                       height: "100px",
                       marginBottom: "10px",

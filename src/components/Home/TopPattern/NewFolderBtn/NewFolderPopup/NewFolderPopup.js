@@ -10,8 +10,9 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import Close from "../../../../../assets/close-gray.svg";
 import Folder from "../../../../../assets/orange-folder.svg";
 
+import keys from "../../../../../config/env/keys";
+
 import {
-  BASE_URL,
   CREATE_NEW_FOLDER,
   USER_NAME,
 } from "../../../../../utility/constants";
@@ -44,7 +45,7 @@ const UploadPopup = ({ isOpen, setIsOpen, jwtFromCookie, folders }) => {
       myFile.append("tags", folder);
       $.ajax({
         type: "POST",
-        url: BASE_URL + USER_NAME + CREATE_NEW_FOLDER,
+        url: keys.BASE_URL + USER_NAME + CREATE_NEW_FOLDER,
         headers: { Authorization: jwtFromCookie },
         data: myFile,
         processData: false,

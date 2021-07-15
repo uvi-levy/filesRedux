@@ -10,8 +10,9 @@ import { Container, Row, Button, Modal } from "react-bootstrap";
 
 import Close from "../../../../assets/close-gray.svg";
 
+import keys from "../../../../config/env/keys"
+
 import {
-  BASE_URL,
   USER_NAME,
   MULTI_FILES_TO_ARCHIV,
 } from "../../../../utility/constants";
@@ -41,7 +42,7 @@ const DeleteFilePopup = ({
 
     $.ajax({
       type: "PUT",
-      url: BASE_URL + USER_NAME + MULTI_FILES_TO_ARCHIV,
+      url: keys.BASE_URL + USER_NAME + MULTI_FILES_TO_ARCHIV,
       headers: { Authorization: jwtFromCookie },
       data: JSON.stringify({ files: fileId }),
       dataType: "json",

@@ -22,8 +22,8 @@ import User from "../../assets/user-solid.png";
 import FileCard from "../../assets/Group.png";
 import Folder from "../../assets/folder-solid.png";
 
+import keys from "../../config/env/keys";
 import {
-  BASE_URL,
   USER_NAME,
   SHOW_DELETED_FILES,
 } from "../../utility/constants";
@@ -70,7 +70,7 @@ const Trash = ({
     console.log("load");
     $.ajax({
       type: "GET",
-      url: BASE_URL + USER_NAME + SHOW_DELETED_FILES,
+      url: keys.BASE_URL + USER_NAME + SHOW_DELETED_FILES,
       headers: { Authorization: jwtFromCookie },
 
       success: (data) => {
@@ -282,7 +282,7 @@ const Trash = ({
   }
 
   return (
-    <div style={{}}>
+    <div>
       <RestorePopup
         isOpen={isOpen}
         setIsOpen={setIsOpen}
@@ -290,7 +290,7 @@ const Trash = ({
         id={id}
         loadFiles={loadFiles}
       />
-      <Container fluid style={{ backgroundColor: "#EDEEF0", height: "100%" }}>
+      <Container fluid>
         <GoBack />
         <Container>
           <Col style={{ backgroundColor: "white", borderRadius: "8px" }}>
