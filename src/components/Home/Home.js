@@ -130,6 +130,7 @@ const Home = ({
       setPreview(
         <Preview
           file={file}
+          setFile={setSelectedFile}
           findByTag={(folder) => {
             findByTag(folder);
           }}

@@ -10,6 +10,7 @@ import CleanPreview from "./CleanPreview/CleanPreview";
 
 const Preview = ({
   file,
+  setFile,
   findByTag,
   setShowBreadcrumb,
   setPreview,
@@ -65,6 +66,7 @@ const Preview = ({
       )}
       <FilePreview
         selectedFile={file}
+        setSelectedFile={setFile}
         findByTag={findByTag}
         setShowBreadcrumb={setShowBreadcrumb}
         toggleGetLink={toggleGetLink}

@@ -30,7 +30,7 @@ import $ from "jquery";
 
 import actions from "../../redux/actions";
 
-import keys from "../../config/env/keys"
+import keys from "../../config/env/keys";
 import {
   USER_NAME,
   UPLOAD_MULTIPLE_FILES,
@@ -81,6 +81,9 @@ const Upload = ({
   const [isOpen, setIsOpen] = useState(false);
   const [fileToRemove, setFileToRemove] = useState(null);
 
+  let timer = null;
+  let timer2 = null;
+
   useEffect(() => {
     setLoadBar(true);
     setShowBreadcrumb(false);
@@ -89,6 +92,11 @@ const Upload = ({
     document
       .getElementById("dropdown-menu-align-right")
       .classList.remove("btn-primary");
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(timer2);
+    };
   }, []);
 
   useEffect(() => {
@@ -287,7 +295,7 @@ const Upload = ({
                 "...." +
                 data.filesData
             );
-            setTimeout(() => {
+            timer = setTimeout(() => {
               $.ajax({
                 xhr: () => {
                   let xhr = new XMLHttpRequest();
@@ -327,7 +335,7 @@ const Upload = ({
 
                   console.log("upload success", data);
                   setIsOpen(true);
-                  setTimeout(() => {
+                  timer2 = setTimeout(() => {
                     setIsOpen(false);
                     backToHome();
                   }, 1000);

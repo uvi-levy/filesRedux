@@ -11,9 +11,10 @@ const UndoDelete = ({ showToast, setShowToast, selectedFile }) => {
   const recoveredFile = useRecoverdFile();
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setShowToast(!showToast);
     }, 3000);
+    return () => clearTimeout(timer);
   }, []);
   return (
     <>

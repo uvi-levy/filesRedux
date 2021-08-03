@@ -27,6 +27,7 @@ const FullScreenFile = ({ file, setDisplayPreview, setIsFullScreen }) => {
       <div style={{ width: "100%" }}>
         <button className="close-full-screen-btn">
           <img
+            style={{width: "16px"}}
             src={Close}
             onClick={() => {
               setIsFullScreen(false);
@@ -40,10 +41,20 @@ const FullScreenFile = ({ file, setDisplayPreview, setIsFullScreen }) => {
           <img src={PrevBtn} />
         </button>
         <div className="full-screen-img-container">
-          <img
-            src={selectedFile.url}
-            className="full-screen-img"
-          />
+          {file.name.toLowerCase().split(".")[1] == "png" ||
+          file.name.toLowerCase().split(".")[1] == "jpg" ||
+          file.name.toLowerCase().split(".")[1] == "jpeg" ? (
+            <img src={selectedFile.url} className="full-screen-img" />
+          ) : (
+            <iframe
+              src={file.url}
+              className="full-screen-img"
+              autoplay="0"
+              autostart="0"
+              allow="fullscreen"
+              muted
+            ></iframe>
+          )}
         </div>
         <button className="prev-next-btns" onClick={handleNextClick}>
           <img src={NextBtn} />

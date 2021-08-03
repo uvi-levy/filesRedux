@@ -32,9 +32,10 @@ import PrevNextFile from "../PrevNextFile/PrevNextFile";
 
 import "./filePreview.css";
 
-import keys from "../../../../config/env/keys"
+import keys from "../../../../config/env/keys";
 
 import {
+  BASE_URL,
   USER_NAME,
   MOVE_TO,
   DOWNLOAD,
@@ -45,6 +46,7 @@ import {
 
 const FilePreview = ({
   selectedFile,
+  setSelectedFile,
   findByTag,
   setShowBreadcrumb,
   toggleDeleteDialog,
@@ -76,13 +78,22 @@ const FilePreview = ({
   let folderButton;
   let notes = [];
 
+  let timer = null;
+  let timer2 = null;
+  let timer3 = null;
+
   useEffect(() => {
     let card = document.getElementsByClassName("on-grid-display")[0];
     if (card) {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         card.classList.add("show-grid-view");
       }, 100);
     }
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
   }, []);
 
   useEffect(() => {
@@ -138,6 +149,7 @@ const FilePreview = ({
     console.log(file.url);
 
     fetch(keys.BASE_URL + USER_NAME + DOWNLOAD + url, {
+      // fetch(BASE_URL + USER_NAME + DOWNLOAD + url, {
       method: "GET",
       headers: {
         Authorization: jwtFromCookie,
@@ -190,7 +202,7 @@ const FilePreview = ({
       let dd = String(date.getDate()).padStart(2, "0");
       let mm = String(date.getMonth() + 1).padStart(2, "0");
       let yyyy = date.getFullYear();
-      date = yyyy + "-" + mm + "-" + dd;
+      date = yyyy + "/" + mm + "/" + dd;
       console.log(date);
       let editor = file.userName;
       const fileId = file._id;
@@ -337,7 +349,7 @@ const FilePreview = ({
           document
             .getElementsByClassName("on-grid-display")[0]
             .classList.remove("show-grid-view");
-          setTimeout(() => {
+          timer2 = setTimeout(() => {
             setDisplayPreview(false);
           }, 300);
           findByTag(folder);
@@ -539,7 +551,7 @@ const FilePreview = ({
           style={{ width: "50%", height: "50%" }}
           autoplay="0"
           autostart="0"
-          allowfullscreen
+          allow="fullscreen"
           ref={imgRef}
           muted
         ></iframe>
@@ -564,7 +576,7 @@ const FilePreview = ({
                   document
                     .getElementsByClassName("on-grid-display")[0]
                     .classList.remove("show-grid-view");
-                  setTimeout(() => {
+                  timer3 = setTimeout(() => {
                     setDisplayPreview(false);
                   }, 300);
                 }}
@@ -707,7 +719,11 @@ const FilePreview = ({
           </div>
         </div>
         <>
-          <PrevNextFile selectedFile={file} setFile={setFile} />
+          <PrevNextFile
+            selectedFile={file}
+            setSelectedFile={setSelectedFile}
+            setFile={setFile}
+          />
         </>
       </Container>
     </>

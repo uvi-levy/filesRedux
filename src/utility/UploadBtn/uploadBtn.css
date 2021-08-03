@@ -20,6 +20,7 @@
 }
 
 .upload-btn img {
+  height: 12px;
   margin: 9% auto auto auto;
 }
 
@@ -39,6 +40,7 @@
   }
 
   .upload-btn img {
+    height: 22px;
     width: 20px;
   }
 }
@@ -59,6 +61,7 @@
   }
 
   .upload-btn img {
+    height: 32px;
     width: 30px;
   }
 }
